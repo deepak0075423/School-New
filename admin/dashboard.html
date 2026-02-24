@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <style>
+    .dash-page.admin-dash .sidebar { background: #0F172A; }
+    .dash-page.admin-dash .logo-icon { background: linear-gradient(135deg,#DC2626,#991B1B); color:#fff; }
+    .dash-page.admin-dash .sidebar-user { background: rgba(255,255,255,.05); }
+    .dash-page.admin-dash .nav-section-label { color: rgba(255,255,255,.25); }
+  </style>
+</head>
+<body>
+<div class="dash-page admin-dash">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🛡️</div>
+        <span>Admin Panel</span>
+      </div>
+      <button class="sidebar-close" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar ua-admin">SA</div>
+      <div class="user-info">
+        <span class="user-name">Super Admin</span>
+        <span class="user-role">Full Access · Vidyalaya</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a class="nav-item active admin-active" href="#" onclick="showSection('dashboard',this)">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('enrollments',this)">
+        <i class="fas fa-user-plus"></i> Enrollments
+        <span class="nav-badge">12</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('students',this)">
+        <i class="fas fa-user-graduate"></i> Students
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('teachers',this)">
+        <i class="fas fa-chalkboard-teacher"></i> Teachers
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('classes',this)">
+        <i class="fas fa-school"></i> Classes
+      </a>
+
+      <div class="nav-section-label">Academics</div>
+      <a class="nav-item" href="#" onclick="showSection('attendance',this)">
+        <i class="fas fa-clipboard-check"></i> Attendance Reports
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('lms-admin',this)">
+        <i class="fas fa-play-circle"></i> LMS Overview
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('results',this)">
+        <i class="fas fa-chart-bar"></i> Results & Reports
+      </a>
+
+      <div class="nav-section-label">HR & Finance</div>
+      <a class="nav-item" href="#" onclick="showSection('payroll-admin',this)">
+        <i class="fas fa-rupee-sign"></i> Payroll Management
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('leave-admin',this)">
+        <i class="fas fa-calendar-check"></i> Leave Approvals
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('fees',this)">
+        <i class="fas fa-money-bill-wave"></i> Fee Management
+      </a>
+
+      <div class="nav-section-label">System</div>
+      <a class="nav-item" href="#" onclick="showSection('feed-admin',this)">
+        <i class="fas fa-bullhorn"></i> Announcements
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('holidays',this)">
+        <i class="fas fa-umbrella-beach"></i> Holidays
+      </a>
+      <a class="nav-item" href="#"><i class="fas fa-shield-alt"></i> Audit Logs</a>
+      <a class="nav-item" href="#"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="../login.html">
+        <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ====== MAIN ====== -->
+  <div class="dash-main">
+
+    <div class="dash-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="topbar-title">
+          <h2 id="topbarTitle">Admin Dashboard</h2>
+          <p>Vidyalaya ERP — Full Control</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date"><i class="fas fa-calendar-day"></i> Mon, Feb 23, 2026</div>
+        <button class="notif-btn"><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+        <div class="topbar-avatar ua-admin">SA</div>
+      </div>
+    </div>
+
+    <!-- ====== DASHBOARD ====== -->
+    <div class="dash-content" id="sec-dashboard">
+
+      <div class="dash-greeting">
+        <div class="greeting-text">
+          <h2>Good Morning, Admin! 🛡️</h2>
+          <p>12 new enrollment requests · 3 leave approvals pending · System healthy ✓</p>
+        </div>
+        <div class="greeting-emoji animate-float">🏫</div>
+      </div>
+
+      <!-- Stats Row 1 -->
+      <div class="stats-row">
+        <div class="dash-stat ds-blue">
+          <div class="stat-icon si-blue"><i class="fas fa-user-graduate"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">2,547</div>
+            <div class="stat-key">Total Students</div>
+            <div class="stat-change change-up"><i class="fas fa-arrow-up"></i> +47 this month</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-green">
+          <div class="stat-icon si-green"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">148</div>
+            <div class="stat-key">Active Teachers</div>
+            <div class="stat-change change-up"><i class="fas fa-check"></i> 3 on leave today</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-amber">
+          <div class="stat-icon si-amber"><i class="fas fa-user-plus"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">12</div>
+            <div class="stat-key">New Enrollments</div>
+            <div class="stat-change change-down"><i class="fas fa-clock"></i> Awaiting review</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-purple">
+          <div class="stat-icon si-purple"><i class="fas fa-money-bill-wave"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">₹1.2L</div>
+            <div class="stat-key">Fees Collected</div>
+            <div class="stat-change change-up"><i class="fas fa-arrow-up"></i> This month</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Row 2 -->
+      <div class="stats-row" style="margin-top:0;">
+        <div class="dash-stat ds-teal">
+          <div class="stat-icon si-teal"><i class="fas fa-clipboard-check"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">87%</div>
+            <div class="stat-key">Today's Attendance</div>
+            <div class="stat-change change-up"><i class="fas fa-check"></i> 2,216 present</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-red">
+          <div class="stat-icon si-red"><i class="fas fa-calendar-minus"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">3</div>
+            <div class="stat-key">Leave Requests</div>
+            <div class="stat-change change-down"><i class="fas fa-clock"></i> Pending approval</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-blue">
+          <div class="stat-icon si-blue"><i class="fas fa-school"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">42</div>
+            <div class="stat-key">Active Classes</div>
+            <div class="stat-change change-up"><i class="fas fa-check"></i> All running</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-green">
+          <div class="stat-icon si-green"><i class="fas fa-video"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">1,248</div>
+            <div class="stat-key">Total Lectures</div>
+            <div class="stat-change change-up"><i class="fas fa-arrow-up"></i> +12 this week</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid" style="grid-template-columns:1.5fr 1fr;">
+
+        <!-- Enrollment Requests -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-user-plus" style="color:#DC2626"></i> Enrollment Requests</h3>
+            <button class="card-action" onclick="showSection('enrollments',null)">View All →</button>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Class</th>
+                  <th>Applied</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="td-name"><div class="td-avatar" style="background:#7C3AED">RS</div>Rahul Singh</div></td>
+                  <td>Class 9</td>
+                  <td style="font-size:.78rem;color:#94A3B8">Feb 22</td>
+                  <td><span class="badge badge-warning">Pending</span></td>
+                  <td><div style="display:flex;gap:.4rem;"><button onclick="approveEnroll(this)" style="background:#D1FAE5;color:#059669;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✓ Approve</button><button style="background:#FEE2E2;color:#DC2626;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✗</button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-name"><div class="td-avatar" style="background:#059669">AP</div>Arya Patel</div></td>
+                  <td>Class 5</td>
+                  <td style="font-size:.78rem;color:#94A3B8">Feb 22</td>
+                  <td><span class="badge badge-warning">Pending</span></td>
+                  <td><div style="display:flex;gap:.4rem;"><button onclick="approveEnroll(this)" style="background:#D1FAE5;color:#059669;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✓ Approve</button><button style="background:#FEE2E2;color:#DC2626;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✗</button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-name"><div class="td-avatar" style="background:#2563EB">NK</div>Nisha Kumar</div></td>
+                  <td>Class 11 Sci</td>
+                  <td style="font-size:.78rem;color:#94A3B8">Feb 21</td>
+                  <td><span class="badge badge-warning">Pending</span></td>
+                  <td><div style="display:flex;gap:.4rem;"><button onclick="approveEnroll(this)" style="background:#D1FAE5;color:#059669;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✓ Approve</button><button style="background:#FEE2E2;color:#DC2626;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✗</button></div></td>
+                </tr>
+                <tr>
+                  <td><div class="td-name"><div class="td-avatar" style="background:#D97706">VM</div>Vivek Mishra</div></td>
+                  <td>Class 3</td>
+                  <td style="font-size:.78rem;color:#94A3B8">Feb 20</td>
+                  <td><span class="badge badge-success">Approved</span></td>
+                  <td><span style="font-size:.78rem;color:#94A3B8;">Done</span></td>
+                </tr>
+                <tr>
+                  <td><div class="td-name"><div class="td-avatar" style="background:#DC2626">SJ</div>Sneha Jain</div></td>
+                  <td>Class 7</td>
+                  <td style="font-size:.78rem;color:#94A3B8">Feb 20</td>
+                  <td><span class="badge badge-error">Rejected</span></td>
+                  <td><span style="font-size:.78rem;color:#94A3B8;">Docs missing</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <!-- Today's Overview Donut -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3><i class="fas fa-chart-pie" style="color:#DC2626"></i> Today's Attendance</h3>
+            </div>
+            <div class="card-body">
+              <div class="donut-wrap">
+                <svg viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#F1F5F9" stroke-width="12"/>
+                  <!-- Present: 87% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#059669" stroke-width="12"
+                    stroke-dasharray="251.4" stroke-dashoffset="0"
+                    stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                  <!-- Absent: 13% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#FEE2E2" stroke-width="12"
+                    stroke-dasharray="37.6" stroke-dashoffset="-251.4"
+                    stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                  <text x="60" y="56" text-anchor="middle" font-size="18" font-weight="800" fill="#0F172A" font-family="Poppins,sans-serif">87%</text>
+                  <text x="60" y="70" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">Students</text>
+                </svg>
+                <div class="donut-label"><strong>2,216 Present</strong><span>331 Absent Today</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leave Approvals -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3><i class="fas fa-calendar-check" style="color:#DC2626"></i> Leave Approvals</h3>
+              <button class="card-action" onclick="showSection('leave-admin',null)">All →</button>
+            </div>
+            <div class="card-body" style="padding-top:.75rem;">
+              <div style="display:flex;flex-direction:column;gap:.6rem;">
+                <div style="padding:.85rem;background:#FEF3C7;border-radius:10px;border-left:3px solid #F59E0B;">
+                  <div style="font-size:.82rem;font-weight:700;color:#334155;">Rajesh Kumar — Casual Leave</div>
+                  <div style="font-size:.75rem;color:#92400E;margin:.2rem 0 .6rem;">Mar 3–4, 2026 · 2 days</div>
+                  <div style="display:flex;gap:.5rem;">
+                    <button onclick="this.parentElement.parentElement.style.opacity='.4'" style="background:#D1FAE5;color:#059669;border:none;padding:.3rem .75rem;border-radius:6px;font-size:.75rem;font-weight:700;cursor:pointer;">✓ Approve</button>
+                    <button onclick="this.parentElement.parentElement.style.opacity='.4'" style="background:#FEE2E2;color:#DC2626;border:none;padding:.3rem .75rem;border-radius:6px;font-size:.75rem;font-weight:700;cursor:pointer;">✗ Reject</button>
+                  </div>
+                </div>
+                <div style="padding:.85rem;background:#FEF3C7;border-radius:10px;border-left:3px solid #F59E0B;">
+                  <div style="font-size:.82rem;font-weight:700;color:#334155;">Anita Verma — Sick Leave</div>
+                  <div style="font-size:.75rem;color:#92400E;margin:.2rem 0 .6rem;">Feb 26, 2026 · 1 day</div>
+                  <div style="display:flex;gap:.5rem;">
+                    <button onclick="this.parentElement.parentElement.style.opacity='.4'" style="background:#D1FAE5;color:#059669;border:none;padding:.3rem .75rem;border-radius:6px;font-size:.75rem;font-weight:700;cursor:pointer;">✓ Approve</button>
+                    <button onclick="this.parentElement.parentElement.style.opacity='.4'" style="background:#FEE2E2;color:#DC2626;border:none;padding:.3rem .75rem;border-radius:6px;font-size:.75rem;font-weight:700;cursor:pointer;">✗ Reject</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Grid -->
+      <div class="dash-grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:0;" id="admBotGrid">
+
+        <!-- Quick Actions -->
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-bolt" style="color:#DC2626"></i> Quick Actions</h3></div>
+          <div class="card-body">
+            <div class="quick-actions">
+              <button class="quick-btn" onclick="showSection('enrollments',null)">
+                <div class="qb-icon" style="background:#FEE2E2;color:#DC2626"><i class="fas fa-user-plus"></i></div>Review Enrollments
+              </button>
+              <button class="quick-btn" onclick="showSection('feed-admin',null)">
+                <div class="qb-icon" style="background:#DBEAFE;color:#2563EB"><i class="fas fa-bullhorn"></i></div>Post Announcement
+              </button>
+              <button class="quick-btn" onclick="showSection('payroll-admin',null)">
+                <div class="qb-icon" style="background:#D1FAE5;color:#059669"><i class="fas fa-rupee-sign"></i></div>Run Payroll
+              </button>
+              <button class="quick-btn" onclick="showSection('holidays',null)">
+                <div class="qb-icon" style="background:#FEF3C7;color:#D97706"><i class="fas fa-umbrella-beach"></i></div>Add Holiday
+              </button>
+              <button class="quick-btn" onclick="showSection('results',null)">
+                <div class="qb-icon" style="background:#EDE9FE;color:#7C3AED"><i class="fas fa-chart-bar"></i></div>View Reports
+              </button>
+              <button class="quick-btn">
+                <div class="qb-icon" style="background:#CCFBF1;color:#0f766e"><i class="fas fa-download"></i></div>Export Data
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-history" style="color:#DC2626"></i> Recent Activity</h3></div>
+          <div class="card-body" style="padding-top:.5rem;">
+            <div class="notif-list">
+              <div class="notif-item"><div class="notif-icon ni-green"><i class="fas fa-user-check"></i></div><div class="notif-info"><div class="notif-text">Enrollment approved for Vivek Mishra (Class 3)</div><div class="notif-time">1h ago</div></div></div>
+              <div class="notif-item"><div class="notif-icon ni-blue"><i class="fas fa-rupee-sign"></i></div><div class="notif-info"><div class="notif-text">Fee payment received: Priya Mehta — ₹16,000</div><div class="notif-time">3h ago</div></div></div>
+              <div class="notif-item"><div class="notif-icon ni-purple"><i class="fas fa-video"></i></div><div class="notif-info"><div class="notif-text">12 new lectures uploaded across 5 classes</div><div class="notif-time">Today, 9AM</div></div></div>
+              <div class="notif-item"><div class="notif-icon ni-amber"><i class="fas fa-bullhorn"></i></div><div class="notif-info"><div class="notif-text">Annual Day announcement posted to school feed</div><div class="notif-time">Yesterday</div></div></div>
+              <div class="notif-item"><div class="notif-icon ni-red"><i class="fas fa-user-times"></i></div><div class="notif-info"><div class="notif-text">Enrollment rejected: Sneha Jain — missing docs</div><div class="notif-time">Feb 21</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- School Feed -->
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-newspaper" style="color:#DC2626"></i> School Feed</h3><button class="card-action" onclick="showSection('feed-admin',null)">Manage →</button></div>
+          <div class="card-body" style="padding-top:.75rem;">
+            <div class="feed-list">
+              <div class="feed-item fi-amber">
+                <div class="feed-header"><span class="feed-tag" style="color:#D97706;">Announcement</span><span class="feed-date">Feb 23</span></div>
+                <h4>Annual Day Celebration — Mar 22</h4>
+                <p>Parents are cordially invited to the Annual Day function.</p>
+              </div>
+              <div class="feed-item fi-blue">
+                <div class="feed-header"><span class="feed-tag" style="color:#2563EB;">Academic</span><span class="feed-date">Feb 20</span></div>
+                <h4>Term 2 Exam Schedule Published</h4>
+                <p>Final exam timetable is now available on the portal.</p>
+              </div>
+              <div class="feed-item fi-green">
+                <div class="feed-header"><span class="feed-tag" style="color:#059669;">Holiday</span><span class="feed-date">Feb 15</span></div>
+                <h4>School Holiday — Feb 28</h4>
+                <p>School will remain closed on Feb 28 (National Holiday).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /dashboard -->
+
+    <!-- ====== ENROLLMENTS ====== -->
+    <div class="dash-content" id="sec-enrollments" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Enrollment Management 📋</h2><p>12 pending · 47 approved this month · 3 rejected</p></div><div class="greeting-emoji">📝</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-header">
+          <h3><i class="fas fa-filter" style="color:#DC2626"></i> All Enrollment Requests</h3>
+          <div style="display:flex;gap:.75rem;align-items:center;">
+            <select style="padding:.4rem .85rem;border:1.5px solid #E2E8F0;border-radius:8px;font-size:.82rem;outline:none;font-family:'Inter',sans-serif;">
+              <option>All Status</option><option>Pending</option><option>Approved</option><option>Rejected</option>
+            </select>
+            <button style="background:linear-gradient(135deg,#DC2626,#991B1B);color:#fff;border:none;padding:.4rem 1rem;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;"><i class="fas fa-download"></i> Export</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <table class="dash-table">
+            <thead><tr><th>App ID</th><th>Student Name</th><th>Class</th><th>Parent Contact</th><th>Applied</th><th>Docs</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td style="font-size:.78rem;color:#94A3B8;">#ADM2026-848</td><td><div class="td-name"><div class="td-avatar" style="background:#7C3AED">RS</div>Rahul Singh</div></td><td>9</td><td style="font-size:.8rem;">9876543210</td><td style="font-size:.78rem;color:#94A3B8;">Feb 22</td><td><span class="badge badge-success" style="font-size:.68rem;">Complete</span></td><td><span class="badge badge-warning">Pending</span></td><td><div style="display:flex;gap:.4rem;"><button onclick="this.closest('tr').cells[6].innerHTML='<span class=\'badge badge-success\'>Approved</span>'" style="background:#D1FAE5;color:#059669;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✓</button><button onclick="this.closest('tr').cells[6].innerHTML='<span class=\'badge badge-error\'>Rejected</span>'" style="background:#FEE2E2;color:#DC2626;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✗</button></div></td></tr>
+              <tr><td style="font-size:.78rem;color:#94A3B8;">#ADM2026-847</td><td><div class="td-name"><div class="td-avatar" style="background:#059669">AP</div>Arya Patel</div></td><td>5</td><td style="font-size:.8rem;">8765432109</td><td style="font-size:.78rem;color:#94A3B8;">Feb 22</td><td><span class="badge badge-success" style="font-size:.68rem;">Complete</span></td><td><span class="badge badge-warning">Pending</span></td><td><div style="display:flex;gap:.4rem;"><button onclick="this.closest('tr').cells[6].innerHTML='<span class=\'badge badge-success\'>Approved</span>'" style="background:#D1FAE5;color:#059669;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✓</button><button onclick="this.closest('tr').cells[6].innerHTML='<span class=\'badge badge-error\'>Rejected</span>'" style="background:#FEE2E2;color:#DC2626;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✗</button></div></td></tr>
+              <tr><td style="font-size:.78rem;color:#94A3B8;">#ADM2026-846</td><td><div class="td-name"><div class="td-avatar" style="background:#2563EB">NK</div>Nisha Kumar</div></td><td>11 Sci</td><td style="font-size:.8rem;">7654321098</td><td style="font-size:.78rem;color:#94A3B8;">Feb 21</td><td><span class="badge badge-warning" style="font-size:.68rem;">Partial</span></td><td><span class="badge badge-warning">Pending</span></td><td><div style="display:flex;gap:.4rem;"><button style="background:#DBEAFE;color:#2563EB;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">📧</button><button onclick="this.closest('tr').cells[6].innerHTML='<span class=\'badge badge-error\'>Rejected</span>'" style="background:#FEE2E2;color:#DC2626;border:none;padding:.25rem .6rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;">✗</button></div></td></tr>
+              <tr><td style="font-size:.78rem;color:#94A3B8;">#ADM2026-845</td><td><div class="td-name"><div class="td-avatar" style="background:#D97706">VM</div>Vivek Mishra</div></td><td>3</td><td style="font-size:.8rem;">6543210987</td><td style="font-size:.78rem;color:#94A3B8;">Feb 20</td><td><span class="badge badge-success" style="font-size:.68rem;">Complete</span></td><td><span class="badge badge-success">Approved</span></td><td><span style="font-size:.78rem;color:#94A3B8;">—</span></td></tr>
+              <tr><td style="font-size:.78rem;color:#94A3B8;">#ADM2026-844</td><td><div class="td-name"><div class="td-avatar" style="background:#DC2626">SJ</div>Sneha Jain</div></td><td>7</td><td style="font-size:.8rem;">5432109876</td><td style="font-size:.78rem;color:#94A3B8;">Feb 20</td><td><span class="badge badge-error" style="font-size:.68rem;">Missing</span></td><td><span class="badge badge-error">Rejected</span></td><td><span style="font-size:.78rem;color:#94A3B8;">Docs missing</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== STUDENTS ====== -->
+    <div class="dash-content" id="sec-students" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Student Management 🎓</h2><p>2,547 enrolled students across 42 classes</p></div><div class="greeting-emoji">👥</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-header"><h3><i class="fas fa-search" style="color:#DC2626"></i> Student Directory</h3>
+          <div style="display:flex;gap:.75rem;"><input type="text" placeholder="Search student..." style="padding:.4rem .85rem;border:1.5px solid #E2E8F0;border-radius:8px;font-size:.82rem;outline:none;font-family:'Inter',sans-serif;width:200px;" />
+          <select style="padding:.4rem .85rem;border:1.5px solid #E2E8F0;border-radius:8px;font-size:.82rem;outline:none;font-family:'Inter',sans-serif;"><option>All Classes</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option></select></div>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <table class="dash-table">
+            <thead><tr><th>Name</th><th>Class</th><th>Roll No.</th><th>Parent</th><th>Attendance</th><th>Fees</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#7C3AED">AA</div>Aarav Sharma</div></td><td>10 — A</td><td>12</td><td>Priya Mehta</td><td><span style="color:#059669;font-weight:600;">92%</span></td><td><span class="badge badge-warning" style="font-size:.68rem;">₹16K Pending</span></td><td><span class="badge badge-success">Active</span></td></tr>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#059669">RM</div>Rohan Mehta</div></td><td>10 — A</td><td>20</td><td>Arjun Singh</td><td><span style="color:#059669;font-weight:600;">88%</span></td><td><span class="badge badge-success" style="font-size:.68rem;">Paid</span></td><td><span class="badge badge-success">Active</span></td></tr>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#2563EB">PP</div>Priya Patel</div></td><td>9 — B</td><td>5</td><td>Meera Patel</td><td><span style="color:#D97706;font-weight:600;">75%</span></td><td><span class="badge badge-success" style="font-size:.68rem;">Paid</span></td><td><span class="badge badge-success">Active</span></td></tr>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#D97706">KG</div>Karan Gupta</div></td><td>8 — A</td><td>15</td><td>Suresh Gupta</td><td><span style="color:#DC2626;font-weight:600;">65%</span></td><td><span class="badge badge-error" style="font-size:.68rem;">Overdue</span></td><td><span class="badge badge-warning">Alert</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== TEACHERS ====== -->
+    <div class="dash-content" id="sec-teachers" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Teacher Management 👩‍🏫</h2><p>148 active teachers · 3 on leave today</p></div><div class="greeting-emoji">📚</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-body" style="padding:0;">
+          <table class="dash-table">
+            <thead><tr><th>Name</th><th>Dept.</th><th>Classes</th><th>Emp ID</th><th>Attendance</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#2563EB">RK</div>Rajesh Kumar</div></td><td>Mathematics</td><td>5 classes</td><td>EMP001</td><td><span style="color:#059669;font-weight:600;">96%</span></td><td><span class="badge badge-success">Present</span></td><td><button style="font-size:.75rem;color:#2563EB;background:none;border:none;cursor:pointer;font-weight:600;">View →</button></td></tr>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#059669">PS</div>Priya Singh</div></td><td>Science</td><td>4 classes</td><td>EMP002</td><td><span style="color:#059669;font-weight:600;">94%</span></td><td><span class="badge badge-success">Present</span></td><td><button style="font-size:.75rem;color:#2563EB;background:none;border:none;cursor:pointer;font-weight:600;">View →</button></td></tr>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#7C3AED">AV</div>Anita Verma</div></td><td>English</td><td>6 classes</td><td>EMP003</td><td><span style="color:#059669;font-weight:600;">91%</span></td><td><span class="badge badge-success">Present</span></td><td><button style="font-size:.75rem;color:#2563EB;background:none;border:none;cursor:pointer;font-weight:600;">View →</button></td></tr>
+              <tr><td><div class="td-name"><div class="td-avatar" style="background:#D97706">SN</div>Suresh Nair</div></td><td>Social Studies</td><td>4 classes</td><td>EMP004</td><td><span style="color:#D97706;font-weight:600;">82%</span></td><td><span class="badge badge-warning">On Leave</span></td><td><button style="font-size:.75rem;color:#2563EB;background:none;border:none;cursor:pointer;font-weight:600;">View →</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder sections -->
+    <div class="dash-content" id="sec-classes" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>Class Management 🏫</h2><p>42 classes · Assign teachers & students</p></div><div class="greeting-emoji">📋</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Class creation, teacher assignment, and student mapping module.</div></div></div>
+    <div class="dash-content" id="sec-attendance" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>Attendance Reports 📊</h2><p>School-wide attendance analytics</p></div><div class="greeting-emoji">✅</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Comprehensive attendance reports with filters, exports, and analytics.</div></div></div>
+    <div class="dash-content" id="sec-lms-admin" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>LMS Overview 🎥</h2><p>1,248 lectures · All classes</p></div><div class="greeting-emoji">📹</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Complete LMS content overview, approval, and management panel.</div></div></div>
+    <div class="dash-content" id="sec-results" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>Results & Reports 📈</h2><p>Academic performance analytics</p></div><div class="greeting-emoji">🏆</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">School-wide result reports, topper lists, subject analytics, and grade distributions.</div></div></div>
+    <div class="dash-content" id="sec-payroll-admin" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>Payroll Management 💰</h2><p>Process salaries for 148 teachers</p></div><div class="greeting-emoji">💳</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Payroll processing, salary slip generation, and tax calculation module.</div></div></div>
+    <div class="dash-content" id="sec-leave-admin" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>Leave Approvals 📅</h2><p>3 pending approval</p></div><div class="greeting-emoji">✅</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">All teacher leave requests and approval workflow.</div></div></div>
+    <div class="dash-content" id="sec-fees" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>Fee Management 💸</h2><p>Collections, dues, and receipts</p></div><div class="greeting-emoji">💰</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Fee collection dashboard, pending dues, and online payment gateway integration.</div></div></div>
+    <div class="dash-content" id="sec-feed-admin" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Announcements 📣</h2><p>Post updates to students, parents & teachers</p></div><div class="greeting-emoji">📢</div></div>
+      <div class="dash-grid" style="margin-top:1.75rem;">
+        <div class="dash-card"><div class="card-header"><h3><i class="fas fa-plus" style="color:#DC2626"></i> New Announcement</h3></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Title</label><input type="text" placeholder="Announcement title..." style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;" /></div>
+            <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Message</label><textarea style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;resize:vertical;min-height:100px;" placeholder="Write the announcement here..."></textarea></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Category</label><select style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;"><option>General Announcement</option><option>Academic Update</option><option>Holiday</option><option>Event</option><option>Exam</option></select></div>
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Audience</label><select style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;"><option>Everyone</option><option>Students Only</option><option>Parents Only</option><option>Teachers Only</option></select></div>
+            </div>
+            <button style="background:linear-gradient(135deg,#DC2626,#991B1B);color:#fff;padding:.85rem;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 12px rgba(220,38,38,.3);">
+              <i class="fas fa-paper-plane"></i> Post Announcement
+            </button>
+          </div>
+        </div></div>
+        <div class="dash-card"><div class="card-header"><h3><i class="fas fa-list" style="color:#DC2626"></i> Recent Announcements</h3></div>
+        <div class="card-body" style="padding-top:.5rem;">
+          <div class="feed-list">
+            <div class="feed-item fi-amber"><div class="feed-header"><span class="feed-tag" style="color:#D97706;">Event</span><span class="feed-date">Feb 23</span></div><h4>Annual Day — Mar 22, 2026</h4><p>Parents invited. Venue: Main Auditorium.</p></div>
+            <div class="feed-item fi-blue"><div class="feed-header"><span class="feed-tag" style="color:#2563EB;">Exam</span><span class="feed-date">Feb 20</span></div><h4>Term 2 Exam Schedule</h4><p>Timetable published. Apr 1–10, 2026.</p></div>
+            <div class="feed-item fi-green"><div class="feed-header"><span class="feed-tag" style="color:#059669;">Holiday</span><span class="feed-date">Feb 15</span></div><h4>School Holiday — Feb 28</h4><p>National holiday. No classes.</p></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="dash-content" id="sec-holidays" style="display:none;"><div class="dash-greeting"><div class="greeting-text"><h2>Holiday Management 🏖️</h2><p>Academic year 2025-26 holidays</p></div><div class="greeting-emoji">🗓️</div></div><div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Holiday calendar management — add, edit, and publish holidays.</div></div></div>
+
+  </div>
+</div>
+
+<script>
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+  function showSection(sec, el) {
+    document.querySelectorAll('.dash-content').forEach(s => s.style.display = 'none');
+    document.getElementById('sec-'+sec).style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active','admin-active'));
+    if (el) el.classList.add('active','admin-active');
+    document.getElementById('topbarTitle').textContent = el ? el.textContent.trim() : 'Admin Dashboard';
+    if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
+  }
+  function approveEnroll(btn) {
+    const row = btn.closest('tr');
+    row.cells[4].innerHTML = '<span class="badge badge-success">Approved</span>';
+    btn.parentElement.innerHTML = '<span style="font-size:.78rem;color:#94A3B8;">Done</span>';
+  }
+</script>
+</body>
+</html>

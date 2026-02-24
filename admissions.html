@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admissions — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .adm-steps { display: flex; justify-content: center; gap: 0; margin: 2.5rem 0 0; flex-wrap: wrap; }
+    .step-item { display: flex; align-items: center; gap: .5rem; }
+    .step-circle {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      border: 2px solid rgba(255,255,255,.4);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+    .step-circle.active { background: #F59E0B; border-color: #F59E0B; color: #0D1B4B; }
+    .step-label { font-size: .8rem; color: rgba(255,255,255,.8); font-weight: 500; }
+    .step-line { width: 40px; height: 2px; background: rgba(255,255,255,.25); margin: 0 .5rem; }
+
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+    .step-nav { display: flex; gap: 1rem; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #E2E8F0; }
+    .btn-prev { background: #F1F5F9; color: #64748B; padding: .75rem 1.5rem; border-radius: 50px; font-weight: 600; font-size: .9rem; border: none; cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: .5rem; }
+    .btn-prev:hover { background: #E2E8F0; }
+    .btn-next { background: linear-gradient(135deg, #059669, #047857); color: #fff; padding: .75rem 1.75rem; border-radius: 50px; font-weight: 700; font-size: .9rem; border: none; cursor: pointer; transition: all .22s; display: flex; align-items: center; gap: .5rem; box-shadow: 0 4px 12px rgba(5,150,105,.3); }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(5,150,105,.4); }
+
+    .success-card { text-align: center; padding: 3rem 2rem; }
+    .success-icon { width: 80px; height: 80px; background: #D1FAE5; border-radius: 50%; display: grid; place-items: center; font-size: 2rem; margin: 0 auto 1.5rem; }
+    .success-card h3 { font-size: 1.5rem; color: #059669; margin-bottom: .5rem; }
+    .success-card p { font-size: .9rem; max-width: 420px; margin: 0 auto 1.5rem; }
+
+    .sidebar-info { background: var(--primary); border-radius: var(--radius-xl); padding: 2rem; color: #fff; }
+    .sidebar-info h4 { font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.25rem; color: #fff; }
+    .info-item { display: flex; gap: .75rem; margin-bottom: 1rem; }
+    .info-dot { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,.1); display: grid; place-items: center; color: #F59E0B; font-size: .85rem; flex-shrink: 0; }
+    .info-item span { font-size: .85rem; color: rgba(255,255,255,.75); line-height: 1.5; }
+    .doc-list { margin-top: 1.5rem; }
+    .doc-list h5 { font-size: .85rem; font-weight: 700; color: rgba(255,255,255,.9); margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+    .doc-item { display: flex; align-items: center; gap: .5rem; font-size: .82rem; color: rgba(255,255,255,.65); margin-bottom: .4rem; }
+    .doc-item i { color: #F59E0B; font-size: .75rem; }
+
+    .adm-layout { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start; }
+    @media(max-width:900px){ .adm-layout { grid-template-columns: 1fr; } .step-line { width: 20px; } }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar scrolled" style="position:relative;padding:1rem 0;">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="admissions.html" class="active">Admissions</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div style="background:linear-gradient(135deg, #047857 0%, #059669 50%, #10B981 100%); padding: 4rem 0 3rem; text-align:center; position:relative; overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:24px 24px;"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="section-label" style="color:#fff;background:rgba(255,255,255,.15);margin-bottom:1rem;">2026-27 Admissions Open</div>
+    <h1 style="color:#fff;margin-bottom:.75rem;">Begin Your Journey Here</h1>
+    <p style="color:rgba(255,255,255,.8);max-width:520px;margin:0 auto;">
+      Join Vidyalaya — where academic excellence meets holistic development.
+      Fill in the form below and our team will guide you through.
+    </p>
+    <!-- Steps -->
+    <div class="adm-steps">
+      <div class="step-item">
+        <div class="step-circle active" id="sc1">1</div>
+        <div class="step-label">Personal Info</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-circle" id="sc2">2</div>
+        <div class="step-label">Academic Details</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-circle" id="sc3">3</div>
+        <div class="step-label">Documents</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-circle" id="sc4">4</div>
+        <div class="step-label">Submit</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Form Section -->
+<div style="padding:3rem 0; background:#F8FAFC;">
+  <div class="container">
+    <div class="adm-layout">
+
+      <!-- Main Form -->
+      <div style="background:#fff; border-radius:24px; padding:2.5rem; box-shadow:0 4px 24px rgba(0,0,0,.08);">
+
+        <!-- Step 1 -->
+        <div class="form-step active" id="step1">
+          <div class="form-section-title"><i class="fas fa-user"></i> Student & Parent Information</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-group label" style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Student First Name *</label>
+              <input class="form-control" type="text" placeholder="Enter first name" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Student Last Name *</label>
+              <input class="form-control" type="text" placeholder="Enter last name" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Date of Birth *</label>
+              <input class="form-control" type="date" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Gender *</label>
+              <select class="form-control">
+                <option value="">Select gender</option>
+                <option>Male</option><option>Female</option><option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Father's Name *</label>
+              <input class="form-control" type="text" placeholder="Father's full name" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Mother's Name *</label>
+              <input class="form-control" type="text" placeholder="Mother's full name" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Parent Email *</label>
+              <input class="form-control" type="email" placeholder="parent@email.com" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Contact Number *</label>
+              <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" />
+            </div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Residential Address *</label>
+              <textarea class="form-control" rows="2" placeholder="Full address with pincode..."></textarea>
+            </div>
+          </div>
+          <div class="step-nav">
+            <div></div>
+            <button class="btn-next" onclick="goStep(2)">Next: Academic Details <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step" id="step2">
+          <div class="form-section-title"><i class="fas fa-graduation-cap"></i> Academic Information</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Class Applying For *</label>
+              <select class="form-control">
+                <option value="">Select class</option>
+                <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+                <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+                <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+                <option>Class 10</option><option>Class 11 (Science)</option>
+                <option>Class 11 (Commerce)</option><option>Class 12 (Science)</option>
+                <option>Class 12 (Commerce)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Academic Year *</label>
+              <select class="form-control">
+                <option>2026-2027</option><option>2025-2026</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Previous School Name</label>
+              <input class="form-control" type="text" placeholder="Enter previous school name" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Last Class Passed</label>
+              <input class="form-control" type="text" placeholder="e.g. Class 5" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Percentage / Grade Obtained</label>
+              <input class="form-control" type="text" placeholder="e.g. 85% or A+" />
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Board (if applicable)</label>
+              <select class="form-control">
+                <option value="">Select board</option>
+                <option>CBSE</option><option>ICSE</option><option>State Board</option><option>IB</option><option>Other</option>
+              </select>
+            </div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Extra-Curricular Interests</label>
+              <input class="form-control" type="text" placeholder="e.g. Football, Music, Robotics, Dance..." />
+            </div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Any Medical Condition / Special Requirements</label>
+              <textarea class="form-control" rows="2" placeholder="Please mention if any..."></textarea>
+            </div>
+          </div>
+          <div class="step-nav">
+            <button class="btn-prev" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn-next" onclick="goStep(3)">Next: Upload Documents <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step" id="step3">
+          <div class="form-section-title"><i class="fas fa-folder-open"></i> Document Uploads</div>
+          <p style="font-size:.88rem;color:#64748B;margin-bottom:1.5rem;">Please upload clear scans or photos. Accepted formats: PDF, JPG, PNG. Max 5MB each.</p>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Birth Certificate *</label>
+              <div class="file-upload-area" onclick="document.getElementById('f1').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload or drag & drop</p>
+                <input type="file" id="f1" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f1lbl')" />
+                <span id="f1lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Previous School Report Card</label>
+              <div class="file-upload-area" onclick="document.getElementById('f2').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload or drag & drop</p>
+                <input type="file" id="f2" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f2lbl')" />
+                <span id="f2lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Aadhar Card (Student) *</label>
+              <div class="file-upload-area" onclick="document.getElementById('f3').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload or drag & drop</p>
+                <input type="file" id="f3" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f3lbl')" />
+                <span id="f3lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Passport Size Photograph *</label>
+              <div class="file-upload-area" onclick="document.getElementById('f4').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload or drag & drop</p>
+                <input type="file" id="f4" hidden accept=".jpg,.jpeg,.png" onchange="showFile(this,'f4lbl')" />
+                <span id="f4lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:1rem;">
+            <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Additional Remarks</label>
+            <textarea class="form-control" rows="2" placeholder="Any additional information you'd like us to know..."></textarea>
+          </div>
+          <div class="step-nav">
+            <button class="btn-prev" onclick="goStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn-next" onclick="goStep(4)">Review & Submit <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Step 4: Success -->
+        <div class="form-step" id="step4">
+          <div class="success-card">
+            <div class="success-icon">🎉</div>
+            <h3>Application Submitted!</h3>
+            <p>Your enrollment application has been received. Our admin team will review it within 2-3 working days and reach out via email.</p>
+            <div style="background:#D1FAE5;border-radius:14px;padding:1.25rem;margin-bottom:1.5rem;font-size:.85rem;">
+              <strong style="color:#059669;">Application ID: #ADM2026-00847</strong><br>
+              <span style="color:#047857;">Please save this ID for future reference.</span>
+            </div>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+              <a href="index.html" style="background:#F1F5F9;color:#334155;padding:.75rem 1.5rem;border-radius:50px;font-weight:600;font-size:.9rem;">Back to Home</a>
+              <a href="login.html" style="background:linear-gradient(135deg,#059669,#047857);color:#fff;padding:.75rem 1.5rem;border-radius:50px;font-weight:700;font-size:.9rem;">Go to Login</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Info -->
+      <div>
+        <div class="sidebar-info" style="margin-bottom:1.5rem;">
+          <h4>📋 Why Join Vidyalaya?</h4>
+          <div class="info-item">
+            <div class="info-dot"><i class="fas fa-trophy"></i></div>
+            <span>15+ years of academic excellence with 98% pass rate</span>
+          </div>
+          <div class="info-item">
+            <div class="info-dot"><i class="fas fa-laptop"></i></div>
+            <span>Full digital LMS with video lectures & notes</span>
+          </div>
+          <div class="info-item">
+            <div class="info-dot"><i class="fas fa-users"></i></div>
+            <span>Expert faculty with 10+ years average experience</span>
+          </div>
+          <div class="info-item">
+            <div class="info-dot"><i class="fas fa-shield-alt"></i></div>
+            <span>Safe, inclusive campus with CCTV & security</span>
+          </div>
+          <div class="info-item">
+            <div class="info-dot"><i class="fas fa-bus"></i></div>
+            <span>School bus service across 30+ routes</span>
+          </div>
+        </div>
+        <div class="sidebar-info">
+          <div class="doc-list">
+            <h5>Required Documents</h5>
+            <div class="doc-item"><i class="fas fa-check-circle"></i> Birth Certificate</div>
+            <div class="doc-item"><i class="fas fa-check-circle"></i> Previous School Report Card</div>
+            <div class="doc-item"><i class="fas fa-check-circle"></i> Transfer Certificate (TC)</div>
+            <div class="doc-item"><i class="fas fa-check-circle"></i> Student Aadhar Card</div>
+            <div class="doc-item"><i class="fas fa-check-circle"></i> Passport Size Photo (4 copies)</div>
+            <div class="doc-item"><i class="fas fa-check-circle"></i> Parent ID Proof</div>
+            <div class="doc-item"><i class="fas fa-check-circle"></i> Caste Certificate (if applicable)</div>
+          </div>
+          <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.1);">
+            <div style="font-size:.82rem;color:rgba(255,255,255,.6);">Need help? Contact us:</div>
+            <div style="font-size:.88rem;color:#F59E0B;font-weight:600;margin-top:.3rem;"><i class="fas fa-phone"></i> +91 98765 43210</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+  function goStep(n) {
+    document.getElementById('step'+currentStep).classList.remove('active');
+    document.getElementById('sc'+currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('step'+n).classList.add('active');
+    document.getElementById('sc'+n)?.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function showFile(inp, lblId) {
+    if (inp.files && inp.files[0]) {
+      document.getElementById(lblId).textContent = '✓ ' + inp.files[0].name;
+    }
+  }
+</script>
+</body>
+</html>

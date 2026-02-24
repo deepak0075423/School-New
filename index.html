@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vidyalaya ERP — Shaping Tomorrow's Leaders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">
+          Vidyalaya ERP
+          <span>Excellence in Education</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">Academics</a></li>
+        <li><a href="#">Faculty</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary nav-login">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-bg-shapes">
+    <div class="hero-shape s1"></div>
+    <div class="hero-shape s2"></div>
+    <div class="hero-shape s3"></div>
+    <div class="hero-dots"></div>
+  </div>
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Left: Content -->
+      <div class="hero-content">
+        <div class="hero-badge animate-fadeup" style="animation-delay:.1s">
+          <i class="fas fa-star"></i> #1 Ranked School ERP Platform
+        </div>
+        <h1 class="hero-title animate-fadeup" style="animation-delay:.2s">
+          Shaping
+          <span>Tomorrow's</span>
+          Leaders Today
+        </h1>
+        <p class="hero-desc animate-fadeup" style="animation-delay:.3s">
+          A complete digital ecosystem for students, parents, and teachers.
+          Smart learning, real-time tracking, and seamless communication —
+          all in one place.
+        </p>
+        <div class="hero-actions animate-fadeup" style="animation-delay:.4s">
+          <a href="admissions.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-paper-plane"></i> Apply Now
+          </a>
+          <a href="#features" class="btn btn-outline btn-lg">
+            <i class="fas fa-play-circle"></i> Explore Features
+          </a>
+        </div>
+        <div class="hero-stats animate-fadeup" style="animation-delay:.5s">
+          <div class="hstat-item">
+            <span class="hstat-num" data-count="2500">0</span>
+            <span class="hstat-label">Students</span>
+          </div>
+          <div class="hstat-item">
+            <span class="hstat-num" data-count="150">0</span>
+            <span class="hstat-label">Teachers</span>
+          </div>
+          <div class="hstat-item">
+            <span class="hstat-num" data-count="15">0</span>
+            <span class="hstat-label">Years</span>
+          </div>
+          <div class="hstat-item">
+            <span class="hstat-num">98%</span>
+            <span class="hstat-label">Pass Rate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Portal Cards -->
+      <div class="hero-portals animate-fadeup" style="animation-delay:.35s">
+        <a href="student/dashboard.html" class="portal-card">
+          <div class="portal-icon student">🎒</div>
+          <div class="portal-card-info">
+            <div class="portal-card-title">Student Portal</div>
+            <div class="portal-card-desc">Access courses, attendance, schedules & more</div>
+          </div>
+          <div class="portal-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+        <a href="parent/dashboard.html" class="portal-card">
+          <div class="portal-icon parent">👨‍👩‍👧</div>
+          <div class="portal-card-info">
+            <div class="portal-card-title">Parent Portal</div>
+            <div class="portal-card-desc">Track your child's progress & communicate</div>
+          </div>
+          <div class="portal-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+        <a href="teacher/dashboard.html" class="portal-card">
+          <div class="portal-icon teacher">👩‍🏫</div>
+          <div class="portal-card-info">
+            <div class="portal-card-title">Teacher Portal</div>
+            <div class="portal-card-desc">Manage classes, upload lectures & track HR</div>
+          </div>
+          <div class="portal-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+        <a href="admin/dashboard.html" class="portal-card" style="opacity:.85">
+          <div class="portal-icon" style="background:linear-gradient(135deg,#b91c1c,#991b1b)">🛡️</div>
+          <div class="portal-card-info">
+            <div class="portal-card-title">Admin Portal</div>
+            <div class="portal-card-desc">Full school management & reports</div>
+          </div>
+          <div class="portal-card-arrow"><i class="fas fa-chevron-right"></i></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STATS BAR ==================== -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <span class="stat-num">2,500+</span>
+        <div class="stat-label"><i class="fas fa-user-graduate"></i> Enrolled Students</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-num">150+</span>
+        <div class="stat-label"><i class="fas fa-chalkboard-teacher"></i> Expert Teachers</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-num">45+</span>
+        <div class="stat-label"><i class="fas fa-book-open"></i> Subjects Offered</div>
+      </div>
+      <div class="stat-item reveal">
+        <span class="stat-num">98%</span>
+        <div class="stat-label"><i class="fas fa-trophy"></i> Annual Pass Rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Platform Features</div>
+      <h2 class="section-title reveal">Everything You Need in One Place</h2>
+      <p class="section-sub reveal">From learning management to HR, attendance to payroll — our comprehensive platform handles it all seamlessly.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-purple"><i class="fas fa-laptop-code"></i></div>
+        <h3>Learning Management System</h3>
+        <p>Chapter-wise video lectures, PDF notes, and assignments. Students learn at their own pace with structured content delivery.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-green"><i class="fas fa-clipboard-check"></i></div>
+        <h3>Smart Attendance Tracking</h3>
+        <p>Real-time attendance marking with instant parent notifications. Monthly reports and analytics available at a glance.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-blue"><i class="fas fa-comments"></i></div>
+        <h3>Parent–Teacher Communication</h3>
+        <p>Secure, moderated messaging between parents and teachers. Schedule calls, share updates, and stay connected always.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-amber"><i class="fas fa-bell"></i></div>
+        <h3>Real-time Notifications</h3>
+        <p>Email, in-app, and SMS alerts for attendance, grades, announcements, and important school events.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-teal"><i class="fas fa-chart-line"></i></div>
+        <h3>Performance Analytics</h3>
+        <p>Detailed progress reports, subject-wise performance charts, and AI-driven insights for students and teachers.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-red"><i class="fas fa-shield-alt"></i></div>
+        <h3>Secure & Reliable</h3>
+        <p>Role-based access control, encrypted data, CSRF protection, and audit logs ensure your school data stays safe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== EXPERIENCE ==================== -->
+<section class="section experience-section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Tailored Experience</div>
+      <h2 class="section-title reveal">Designed for Everyone</h2>
+      <p class="section-sub reveal">Each role gets a personalized, intuitive experience built specifically for their needs.</p>
+    </div>
+    <div class="experience-grid">
+      <!-- Student -->
+      <div class="exp-card ec-student reveal">
+        <div class="exp-avatar av-student">🎒</div>
+        <div class="exp-role">Student Experience</div>
+        <h3>Learn Without Limits</h3>
+        <p>Access your entire curriculum digitally. Watch lectures, submit assignments, and track your own progress — anytime, anywhere.</p>
+        <div class="exp-features">
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Chapter-wise video lectures</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Live attendance view</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Exam schedule & results</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Download notes & PDFs</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Peer & subject feed</div>
+        </div>
+      </div>
+
+      <!-- Parent -->
+      <div class="exp-card ec-parent reveal">
+        <div class="exp-avatar av-parent">👨‍👩‍👧</div>
+        <div class="exp-role">Parent Experience</div>
+        <h3>Stay Connected & Informed</h3>
+        <p>Get real-time updates on your child's attendance, grades, and behaviour. Communicate directly with teachers anytime.</p>
+        <div class="exp-features">
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Daily attendance alerts</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Academic progress reports</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Message teachers directly</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Fee payment & receipts</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Schedule parent-teacher calls</div>
+        </div>
+      </div>
+
+      <!-- Teacher -->
+      <div class="exp-card ec-teacher reveal">
+        <div class="exp-avatar av-teacher">👩‍🏫</div>
+        <div class="exp-role">Teacher Experience</div>
+        <h3>Teach Smarter, Not Harder</h3>
+        <p>Upload content, mark attendance, manage leave, and track your appraisals — all from one clean dashboard.</p>
+        <div class="exp-features">
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Upload lectures & notes</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Mark & manage attendance</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Leave management system</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Salary slip downloads</div>
+          <div class="exp-feat-item"><i class="fas fa-check-circle"></i> Appraisal & self-review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== EVENTS ==================== -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">School Life</div>
+      <h2 class="section-title reveal">Upcoming Events</h2>
+      <p class="section-sub reveal">Stay updated with the latest happenings at Vidyalaya.</p>
+    </div>
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="event-banner eb-purple">🏆</div>
+        <div class="event-body">
+          <div class="event-meta">
+            <span class="event-date"><i class="fas fa-calendar"></i> Mar 15, 2026</span>
+            <span class="badge badge-student">Academic</span>
+          </div>
+          <h4>Annual Science Exhibition</h4>
+          <p>Showcase your innovation! Open to all students from Class 6 to 12.</p>
+        </div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-banner eb-green">🎭</div>
+        <div class="event-body">
+          <div class="event-meta">
+            <span class="event-date"><i class="fas fa-calendar"></i> Mar 22, 2026</span>
+            <span class="badge badge-parent">Cultural</span>
+          </div>
+          <h4>Annual Day Celebration</h4>
+          <p>A grand celebration of talent, culture, and school achievements.</p>
+        </div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-banner eb-blue">📝</div>
+        <div class="event-body">
+          <div class="event-meta">
+            <span class="event-date"><i class="fas fa-calendar"></i> Apr 1, 2026</span>
+            <span class="badge badge-teacher">Exam</span>
+          </div>
+          <h4>Term 2 Final Examinations</h4>
+          <p>All students must carry their hall tickets. Time table now live.</p>
+        </div>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-banner eb-amber">⚽</div>
+        <div class="event-body">
+          <div class="event-meta">
+            <span class="event-date"><i class="fas fa-calendar"></i> Mar 28, 2026</span>
+            <span class="badge badge-accent">Sports</span>
+          </div>
+          <h4>Inter-School Sports Meet</h4>
+          <p>Competitions in Cricket, Football, Badminton, and Athletics.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label">Community Voice</div>
+      <h2 class="section-title">What Our Community Says</h2>
+      <p class="section-sub">Real experiences from students, parents, and teachers who use Vidyalaya ERP every day.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The LMS portal is amazing! I can rewatch lectures anytime I miss something in class. My grades have improved significantly since we started using Vidyalaya."</p>
+        <div class="testi-author">
+          <div class="testi-avatar ta-student">AA</div>
+          <div>
+            <div class="testi-name">Aarav Sharma</div>
+            <div class="testi-role">Student, Class 10</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I used to worry about my daughter's attendance. Now I get instant alerts on my phone. The parent portal keeps me involved in her education like never before."</p>
+        <div class="testi-author">
+          <div class="testi-avatar ta-parent">PM</div>
+          <div>
+            <div class="testi-name">Priya Mehta</div>
+            <div class="testi-role">Parent of Class 8 Student</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Managing attendance, uploading lectures, and applying for leave — everything is in one place. The teacher dashboard saves me at least 2 hours every day."</p>
+        <div class="testi-author">
+          <div class="testi-avatar ta-teacher">RK</div>
+          <div>
+            <div class="testi-name">Rajesh Kumar</div>
+            <div class="testi-role">Senior Math Teacher</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label">Join Us Today</div>
+    <h2>Ready to Transform Your School Experience?</h2>
+    <p>Join thousands of students, parents, and teachers already using Vidyalaya ERP for a smarter school life.</p>
+    <a href="admissions.html" class="btn-cta">
+      <i class="fas fa-paper-plane"></i> Start Your Enrollment
+    </a>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo">
+          <div class="logo-icon">🎓</div>
+          <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+        </div>
+        <p>A comprehensive school management platform empowering students, parents, and teachers with smart digital tools.</p>
+        <div class="footer-socials">
+          <div class="social-btn"><i class="fab fa-facebook-f"></i></div>
+          <div class="social-btn"><i class="fab fa-twitter"></i></div>
+          <div class="social-btn"><i class="fab fa-instagram"></i></div>
+          <div class="social-btn"><i class="fab fa-youtube"></i></div>
+          <div class="social-btn"><i class="fab fa-linkedin-in"></i></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="admissions.html">Admissions</a>
+          <a href="#">Academic Calendar</a>
+          <a href="#">Events</a>
+          <a href="#">Gallery</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Portals</h5>
+        <div class="footer-links">
+          <a href="login.html">Student Login</a>
+          <a href="login.html">Parent Login</a>
+          <a href="login.html">Teacher Login</a>
+          <a href="login.html">Admin Login</a>
+          <a href="#">Help & Support</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Contact Us</h5>
+        <div class="footer-contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>123 Education Lane, Knowledge Park, New Delhi - 110001</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+91 98765 43210</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>info@vidyalayaerp.edu</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-clock"></i>
+          <span>Mon–Sat: 8:00 AM – 5:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Vidyalaya ERP. All rights reserved.</span>
+      <span style="display:flex;gap:1.5rem;">
+        <a href="#" style="transition:color .2s" onmouseover="this.style.color='#F59E0B'" onmouseout="this.style.color=''">Privacy Policy</a>
+        <a href="#" style="transition:color .2s" onmouseover="this.style.color='#F59E0B'" onmouseout="this.style.color=''">Terms of Use</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

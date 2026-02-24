@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parent Dashboard — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<div class="dash-page parent-dash">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🎓</div>
+        <span>Vidyalaya ERP</span>
+      </div>
+      <button class="sidebar-close" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar ua-parent">PM</div>
+      <div class="user-info">
+        <span class="user-name">Priya Mehta</span>
+        <span class="user-role">Parent · 1 Child Enrolled</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item active parent-active" href="#" onclick="showSection('dashboard',this)">
+        <i class="fas fa-home"></i> Dashboard
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('child',this)">
+        <i class="fas fa-child"></i> My Child
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('attendance',this)">
+        <i class="fas fa-clipboard-check"></i> Attendance
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('progress',this)">
+        <i class="fas fa-chart-line"></i> Academic Progress
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('fees',this)">
+        <i class="fas fa-rupee-sign"></i> Fee Management
+      </a>
+
+      <div class="nav-section-label">Communication</div>
+      <a class="nav-item" href="#" onclick="showSection('messages',this)">
+        <i class="fas fa-comment-dots"></i> Messages
+        <span class="nav-badge">2</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('schedule-call',this)">
+        <i class="fas fa-phone-alt"></i> Schedule Call
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('notifications',this)">
+        <i class="fas fa-bell"></i> Notifications
+        <span class="nav-badge">4</span>
+      </a>
+
+      <div class="nav-section-label">Account</div>
+      <a class="nav-item" href="#"><i class="fas fa-user"></i> My Profile</a>
+      <a class="nav-item" href="#"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="../login.html">
+        <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ====== MAIN ====== -->
+  <div class="dash-main">
+
+    <div class="dash-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="topbar-title">
+          <h2 id="topbarTitle">Dashboard</h2>
+          <p>Monitoring Aarav's progress</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date"><i class="fas fa-calendar-day"></i> Mon, Feb 23, 2026</div>
+        <button class="notif-btn"><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+        <div class="topbar-avatar ua-parent">PM</div>
+      </div>
+    </div>
+
+    <!-- ====== DASHBOARD ====== -->
+    <div class="dash-content" id="sec-dashboard">
+
+      <div class="dash-greeting">
+        <div class="greeting-text">
+          <h2>Hello, Priya! 👋</h2>
+          <p>Aarav is present today. Last updated 08:45 AM.</p>
+        </div>
+        <div class="greeting-emoji animate-float">👨‍👩‍👧</div>
+      </div>
+
+      <!-- Child Profile Card -->
+      <div style="background:#fff;border-radius:20px;padding:1.5rem 2rem;border:1px solid #E2E8F0;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:1.75rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div style="width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,#7C3AED,#5B21B6);display:grid;place-items:center;font-size:1.6rem;color:#fff;font-weight:800;flex-shrink:0;">AA</div>
+        <div style="flex:1;">
+          <h3 style="font-size:1.2rem;margin-bottom:.2rem;">Aarav Sharma</h3>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;font-size:.83rem;color:#64748B;">
+            <span><i class="fas fa-school" style="color:#7C3AED"></i> Class 10 — Section A</span>
+            <span><i class="fas fa-id-card" style="color:#7C3AED"></i> Roll No. 12</span>
+            <span><i class="fas fa-user-tie" style="color:#7C3AED"></i> Class Teacher: Mr. Rajesh Kumar</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:.75rem;">
+          <div style="text-align:center;background:#D1FAE5;border-radius:12px;padding:.75rem 1.25rem;">
+            <div style="font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:#059669;">92%</div>
+            <div style="font-size:.75rem;color:#047857;">Attendance</div>
+          </div>
+          <div style="text-align:center;background:#EDE9FE;border-radius:12px;padding:.75rem 1.25rem;">
+            <div style="font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:#7C3AED;">78%</div>
+            <div style="font-size:.75rem;color:#5B21B6;">Avg Score</div>
+          </div>
+          <div style="text-align:center;background:#DBEAFE;border-radius:12px;padding:.75rem 1.25rem;">
+            <div style="font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:#2563EB;">B+</div>
+            <div style="font-size:.75rem;color:#1D4ED8;">Grade</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="dash-stat ds-green">
+          <div class="stat-icon si-green"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">Present</div>
+            <div class="stat-key">Today's Status</div>
+            <div class="stat-change change-up"><i class="fas fa-clock"></i> Marked at 08:45 AM</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-purple">
+          <div class="stat-icon si-purple"><i class="fas fa-chart-bar"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">78%</div>
+            <div class="stat-key">Overall Score</div>
+            <div class="stat-change change-up"><i class="fas fa-arrow-up"></i> 5% vs last term</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-amber">
+          <div class="stat-icon si-amber"><i class="fas fa-rupee-sign"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">₹4,500</div>
+            <div class="stat-key">Fees Pending</div>
+            <div class="stat-change change-down"><i class="fas fa-exclamation-circle"></i> Due Mar 1</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-blue">
+          <div class="stat-icon si-blue"><i class="fas fa-tasks"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">4</div>
+            <div class="stat-key">Pending Assignments</div>
+            <div class="stat-change change-down"><i class="fas fa-exclamation"></i> 2 due this week</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <div class="dash-grid dash-grid-3" style="grid-template-columns:1fr 1fr;">
+
+        <!-- Attendance This Week -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-calendar-week" style="color:#059669"></i> Attendance This Week</h3>
+            <button class="card-action">Full Report →</button>
+          </div>
+          <div class="card-body">
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;text-align:center;margin-bottom:1rem;">
+              <div><div style="font-size:.72rem;font-weight:700;color:#94A3B8;margin-bottom:.4rem;">MON</div><div style="width:44px;height:44px;border-radius:12px;background:#D1FAE5;display:grid;place-items:center;font-size:1.1rem;margin:0 auto;">✅</div></div>
+              <div><div style="font-size:.72rem;font-weight:700;color:#94A3B8;margin-bottom:.4rem;">TUE</div><div style="width:44px;height:44px;border-radius:12px;background:#D1FAE5;display:grid;place-items:center;font-size:1.1rem;margin:0 auto;">✅</div></div>
+              <div><div style="font-size:.72rem;font-weight:700;color:#94A3B8;margin-bottom:.4rem;">WED</div><div style="width:44px;height:44px;border-radius:12px;background:#FEE2E2;display:grid;place-items:center;font-size:1.1rem;margin:0 auto;">❌</div></div>
+              <div><div style="font-size:.72rem;font-weight:700;color:#94A3B8;margin-bottom:.4rem;">THU</div><div style="width:44px;height:44px;border-radius:12px;background:#D1FAE5;display:grid;place-items:center;font-size:1.1rem;margin:0 auto;">✅</div></div>
+              <div><div style="font-size:.72rem;font-weight:700;color:#0D1B4B;margin-bottom:.4rem;font-weight:800;">FRI</div><div style="width:44px;height:44px;border-radius:12px;background:#0D1B4B;display:grid;place-items:center;font-size:.75rem;color:#fff;font-weight:700;margin:0 auto;">TODAY</div></div>
+            </div>
+            <div style="background:#F8FAFC;border-radius:12px;padding:1rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:space-around;font-size:.82rem;text-align:center;">
+              <div><strong style="color:#059669;font-size:1.2rem;display:block;">3</strong><span style="color:#047857;">Present</span></div>
+              <div><strong style="color:#DC2626;font-size:1.2rem;display:block;">1</strong><span style="color:#991B1B;">Absent</span></div>
+              <div><strong style="color:#0D1B4B;font-size:1.2rem;display:block;">75%</strong><span style="color:#334155;">This Week</span></div>
+            </div>
+            <div style="background:#FEF3C7;border-radius:10px;padding:.75rem 1rem;margin-top:.75rem;font-size:.82rem;color:#92400E;">
+              <i class="fas fa-exclamation-triangle" style="color:#D97706"></i> Aarav was absent on Tuesday. <a href="#" style="color:#D97706;font-weight:600;">View reason →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Grades -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-star" style="color:#059669"></i> Recent Test Scores</h3>
+            <button class="card-action">All Results →</button>
+          </div>
+          <div class="card-body">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Test</th>
+                  <th>Score</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mathematics</td>
+                  <td style="font-size:.78rem;color:#94A3B8;">Unit Test 2</td>
+                  <td><strong>82/100</strong></td>
+                  <td><span class="badge badge-success">B+</span></td>
+                </tr>
+                <tr>
+                  <td>English</td>
+                  <td style="font-size:.78rem;color:#94A3B8;">Chapter Test</td>
+                  <td><strong>95/100</strong></td>
+                  <td><span class="badge badge-success">A+</span></td>
+                </tr>
+                <tr>
+                  <td>Science</td>
+                  <td style="font-size:.78rem;color:#94A3B8;">Lab Test</td>
+                  <td><strong>71/100</strong></td>
+                  <td><span class="badge badge-warning">B</span></td>
+                </tr>
+                <tr>
+                  <td>Hindi</td>
+                  <td style="font-size:.78rem;color:#94A3B8;">Oral Test</td>
+                  <td><strong>60/100</strong></td>
+                  <td><span class="badge badge-warning">C+</span></td>
+                </tr>
+                <tr>
+                  <td>Computer Sc.</td>
+                  <td style="font-size:.78rem;color:#94A3B8;">Project</td>
+                  <td><strong>96/100</strong></td>
+                  <td><span class="badge badge-success">A+</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid: Fees + Messages + Feed -->
+      <div class="dash-grid" style="grid-template-columns:1fr 1fr;margin-top:0;">
+
+        <!-- Fee Status -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-rupee-sign" style="color:#059669"></i> Fee Status</h3>
+            <button class="card-action">Pay Now →</button>
+          </div>
+          <div class="card-body">
+            <div style="background:#D1FAE5;border-radius:12px;padding:1rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.85rem;color:#047857;">Total Annual Fee</span>
+              <strong style="color:#059669;font-size:1rem;">₹48,000</strong>
+            </div>
+            <div class="fee-item">
+              <div>
+                <div class="fee-name">Term 1 Fee</div>
+                <div style="font-size:.75rem;color:#94A3B8;">Paid on Aug 12, 2025</div>
+              </div>
+              <span class="fee-amount fee-paid">₹16,000 ✓</span>
+            </div>
+            <div class="fee-item">
+              <div>
+                <div class="fee-name">Term 2 Fee</div>
+                <div style="font-size:.75rem;color:#94A3B8;">Paid on Jan 5, 2026</div>
+              </div>
+              <span class="fee-amount fee-paid">₹16,000 ✓</span>
+            </div>
+            <div class="fee-item">
+              <div>
+                <div class="fee-name">Term 3 Fee</div>
+                <div style="font-size:.75rem;color:#D97706;">Due: Mar 1, 2026</div>
+              </div>
+              <span class="fee-amount fee-pending">₹16,000</span>
+            </div>
+            <div style="background:#FEF3C7;border-radius:10px;padding:.75rem 1rem;margin-top:.75rem;font-size:.82rem;color:#92400E;">
+              <i class="fas fa-info-circle" style="color:#D97706"></i> Term 3 fee is due in <strong>7 days</strong>.
+              <a href="#" style="color:#D97706;font-weight:700;margin-left:.5rem;">Pay Online →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-comment-dots" style="color:#059669"></i> Messages from Teachers</h3>
+            <button class="card-action">New Message →</button>
+          </div>
+          <div class="card-body">
+            <div class="msg-list">
+              <div class="msg-item msg-unread">
+                <div class="msg-avatar" style="background:#7C3AED">RK</div>
+                <div class="msg-info">
+                  <div class="msg-name">Rajesh Kumar <span style="font-size:.72rem;color:#7C3AED;background:#EDE9FE;padding:.1rem .4rem;border-radius:4px;margin-left:.3rem;">Math</span></div>
+                  <div class="msg-preview">Aarav's performance in Algebra is improving. Please ensure he practices daily...</div>
+                </div>
+                <div>
+                  <div class="msg-time">10:30 AM</div>
+                  <div style="text-align:right;margin-top:.25rem;"><span class="msg-unread-dot" style="display:inline-block;"></span></div>
+                </div>
+              </div>
+              <div class="msg-item msg-unread">
+                <div class="msg-avatar" style="background:#059669">PS</div>
+                <div class="msg-info">
+                  <div class="msg-name">Priya Singh <span style="font-size:.72rem;color:#059669;background:#D1FAE5;padding:.1rem .4rem;border-radius:4px;margin-left:.3rem;">Science</span></div>
+                  <div class="msg-preview">The lab report is due this Friday. Please remind Aarav to submit it...</div>
+                </div>
+                <div>
+                  <div class="msg-time">Yesterday</div>
+                  <div style="text-align:right;margin-top:.25rem;"><span class="msg-unread-dot" style="display:inline-block;"></span></div>
+                </div>
+              </div>
+              <div class="msg-item">
+                <div class="msg-avatar" style="background:#2563EB">AV</div>
+                <div class="msg-info">
+                  <div class="msg-name">Anita Verma <span style="font-size:.72rem;color:#2563EB;background:#DBEAFE;padding:.1rem .4rem;border-radius:4px;margin-left:.3rem;">English</span></div>
+                  <div class="msg-preview">Aarav scored 95/100 in the English test! Excellent performance.</div>
+                </div>
+                <div>
+                  <div class="msg-time">Feb 20</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid #F1F5F9;">
+              <div style="font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.6rem;">Quick Message</div>
+              <div style="display:flex;gap:.5rem;">
+                <input type="text" placeholder="Write a message to teachers..." style="flex:1;padding:.6rem .9rem;border:1.5px solid #E2E8F0;border-radius:10px;font-size:.83rem;outline:none;font-family:'Inter',sans-serif;" />
+                <button style="background:linear-gradient(135deg,#059669,#047857);color:#fff;border:none;padding:.6rem 1rem;border-radius:10px;cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dashboard -->
+
+    <!-- CHILD SECTION -->
+    <div class="dash-content" id="sec-child" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>My Child 👶</h2><p>Detailed profile and academic overview</p></div><div class="greeting-emoji">📋</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Detailed child profile — attendance history, behavior reports, academic timeline.</div></div>
+    </div>
+
+    <!-- ATTENDANCE SECTION -->
+    <div class="dash-content" id="sec-attendance" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Attendance Report 📋</h2><p>Monthly and subject-wise breakdown</p></div><div class="greeting-emoji">✅</div></div>
+      <div class="dash-grid" style="margin-top:1.75rem;">
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-calendar" style="color:#059669"></i> Monthly Overview</h3></div>
+          <div class="card-body">
+            <div class="progress-list">
+              <div class="progress-item"><div class="progress-header"><span>January 2026</span><span class="progress-pct" style="color:#059669">96%</span></div><div class="progress-bar"><div class="progress-fill pf-green" style="width:96%"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>February 2026</span><span class="progress-pct" style="color:#059669">92%</span></div><div class="progress-bar"><div class="progress-fill pf-green" style="width:92%"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>December 2025</span><span class="progress-pct" style="color:#D97706">84%</span></div><div class="progress-bar"><div class="progress-fill pf-amber" style="width:84%"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>November 2025</span><span class="progress-pct" style="color:#059669">90%</span></div><div class="progress-bar"><div class="progress-fill pf-green" style="width:90%"></div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-chart-bar" style="color:#059669"></i> Stats Summary</h3></div>
+          <div class="card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+              <div style="background:#D1FAE5;border-radius:14px;padding:1.25rem;text-align:center;"><div style="font-size:2rem;font-weight:800;color:#059669;font-family:'Poppins',sans-serif;">46</div><div style="font-size:.8rem;color:#047857;">Days Present</div></div>
+              <div style="background:#FEE2E2;border-radius:14px;padding:1.25rem;text-align:center;"><div style="font-size:2rem;font-weight:800;color:#DC2626;font-family:'Poppins',sans-serif;">4</div><div style="font-size:.8rem;color:#991B1B;">Days Absent</div></div>
+              <div style="background:#FEF3C7;border-radius:14px;padding:1.25rem;text-align:center;"><div style="font-size:2rem;font-weight:800;color:#D97706;font-family:'Poppins',sans-serif;">2</div><div style="font-size:.8rem;color:#92400E;">Days Late</div></div>
+              <div style="background:#DBEAFE;border-radius:14px;padding:1.25rem;text-align:center;"><div style="font-size:2rem;font-weight:800;color:#2563EB;font-family:'Poppins',sans-serif;">5</div><div style="font-size:.8rem;color:#1D4ED8;">Holidays</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS SECTION -->
+    <div class="dash-content" id="sec-progress" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Academic Progress 📈</h2><p>Subject-wise performance tracking</p></div><div class="greeting-emoji">🏆</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-header"><h3><i class="fas fa-chart-line" style="color:#059669"></i> Subject Performance</h3></div>
+        <div class="card-body">
+          <div class="progress-list">
+            <div class="progress-item"><div class="progress-header"><span>Mathematics</span><span class="progress-pct" style="color:#7C3AED">82%</span></div><div class="progress-bar"><div class="progress-fill pf-purple" style="width:82%"></div></div></div>
+            <div class="progress-item"><div class="progress-header"><span>Science</span><span class="progress-pct" style="color:#059669">71%</span></div><div class="progress-bar"><div class="progress-fill pf-green" style="width:71%"></div></div></div>
+            <div class="progress-item"><div class="progress-header"><span>English Literature</span><span class="progress-pct" style="color:#2563EB">95%</span></div><div class="progress-bar"><div class="progress-fill pf-blue" style="width:95%"></div></div></div>
+            <div class="progress-item"><div class="progress-header"><span>Hindi</span><span class="progress-pct" style="color:#DC2626">60%</span></div><div class="progress-bar"><div class="progress-fill pf-red" style="width:60%"></div></div></div>
+            <div class="progress-item"><div class="progress-header"><span>Computer Science</span><span class="progress-pct" style="color:#0891B2">96%</span></div><div class="progress-bar"><div class="progress-fill" style="width:96%;background:linear-gradient(90deg,#0891B2,#0E7490)"></div></div></div>
+          </div>
+          <div style="background:#FEF3C7;border-radius:12px;padding:1rem;margin-top:1rem;font-size:.85rem;color:#92400E;"><i class="fas fa-lightbulb" style="color:#D97706"></i> <strong>Attention needed:</strong> Hindi score (60%) is below class average (72%). Consider extra practice or private tutoring.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEES SECTION -->
+    <div class="dash-content" id="sec-fees" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Fee Management 💳</h2><p>Payment history & upcoming dues</p></div><div class="greeting-emoji">💰</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Full fee history, receipts and online payment portal.</div></div>
+    </div>
+
+    <!-- MESSAGES SECTION -->
+    <div class="dash-content" id="sec-messages" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Messages 💬</h2><p>Communicate with Aarav's teachers</p></div><div class="greeting-emoji">✉️</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Full messaging thread with all teachers.</div></div>
+    </div>
+
+    <!-- SCHEDULE CALL -->
+    <div class="dash-content" id="sec-schedule-call" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Schedule a Call 📞</h2><p>Book a parent-teacher meeting</p></div><div class="greeting-emoji">📅</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-header"><h3><i class="fas fa-phone-alt" style="color:#059669"></i> Book Appointment</h3></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Select Teacher</label>
+            <select style="width:100%;padding:.75rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;">
+              <option>Mr. Rajesh Kumar (Math)</option><option>Mrs. Priya Singh (Science)</option><option>Ms. Anita Verma (English)</option>
+            </select></div>
+            <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Preferred Date</label>
+            <input type="date" style="width:100%;padding:.75rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;" /></div>
+            <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Time Slot</label>
+            <select style="width:100%;padding:.75rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;">
+              <option>09:00 AM – 09:30 AM</option><option>10:00 AM – 10:30 AM</option><option>02:00 PM – 02:30 PM</option><option>04:00 PM – 04:30 PM</option>
+            </select></div>
+            <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Meeting Mode</label>
+            <select style="width:100%;padding:.75rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;">
+              <option>Video Call (Google Meet)</option><option>In-person at School</option><option>Phone Call</option>
+            </select></div>
+            <div style="grid-column:1/-1;"><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Reason / Agenda</label>
+            <textarea style="width:100%;padding:.75rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;resize:vertical;min-height:80px;" placeholder="Brief description of what you'd like to discuss..."></textarea></div>
+          </div>
+          <button style="margin-top:1rem;background:linear-gradient(135deg,#059669,#047857);color:#fff;padding:.85rem 2rem;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 12px rgba(5,150,105,.3);">
+            <i class="fas fa-calendar-check"></i> Book Appointment
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="dash-content" id="sec-notifications" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Notifications 🔔</h2><p>Updates about Aarav</p></div><div class="greeting-emoji">📢</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-body">
+          <div class="notif-list">
+            <div class="notif-item notif-unread"><div class="notif-icon ni-green"><i class="fas fa-calendar-check"></i></div><div class="notif-info"><div class="notif-text">Aarav has been marked Present today at 08:45 AM</div><div class="notif-time">Today, 08:45 AM</div></div></div>
+            <div class="notif-item notif-unread"><div class="notif-icon ni-purple"><i class="fas fa-star"></i></div><div class="notif-info"><div class="notif-text">Aarav scored 95/100 in English Chapter Test!</div><div class="notif-time">Yesterday, 3:00 PM</div></div></div>
+            <div class="notif-item notif-unread"><div class="notif-icon ni-amber"><i class="fas fa-rupee-sign"></i></div><div class="notif-info"><div class="notif-text">Term 3 fee of ₹16,000 is due on March 1, 2026</div><div class="notif-time">Feb 20, 2026</div></div></div>
+            <div class="notif-item"><div class="notif-icon ni-red"><i class="fas fa-calendar-times"></i></div><div class="notif-info"><div class="notif-text">Aarav was marked Absent on Feb 19, 2026</div><div class="notif-time">Feb 19, 2026</div></div></div>
+            <div class="notif-item"><div class="notif-icon ni-blue"><i class="fas fa-bullhorn"></i></div><div class="notif-info"><div class="notif-text">Annual Day celebration on Mar 22. Parents are invited!</div><div class="notif-time">Feb 15, 2026</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+  function showSection(sec, el) {
+    document.querySelectorAll('.dash-content').forEach(s => s.style.display = 'none');
+    document.getElementById('sec-'+sec).style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active','parent-active'));
+    if (el) el.classList.add('active','parent-active');
+    document.getElementById('topbarTitle').textContent = el ? el.textContent.trim() : 'Dashboard';
+    if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
+  }
+</script>
+</body>
+</html>

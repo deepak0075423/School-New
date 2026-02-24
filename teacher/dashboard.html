@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Dashboard — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<div class="dash-page teacher-dash">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🎓</div>
+        <span>Vidyalaya ERP</span>
+      </div>
+      <button class="sidebar-close" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar ua-teacher">RK</div>
+      <div class="user-info">
+        <span class="user-name">Rajesh Kumar</span>
+        <span class="user-role">Sr. Math Teacher · EMP001</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Teaching</div>
+      <a class="nav-item active teacher-active" href="#" onclick="showSection('dashboard',this)">
+        <i class="fas fa-home"></i> Dashboard
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('classes',this)">
+        <i class="fas fa-chalkboard"></i> My Classes
+        <span class="nav-badge">5</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('lms',this)">
+        <i class="fas fa-play-circle"></i> LMS / Content
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('attendance',this)">
+        <i class="fas fa-clipboard-list"></i> Mark Attendance
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('assignments',this)">
+        <i class="fas fa-tasks"></i> Assignments
+      </a>
+
+      <div class="nav-section-label">HRMS</div>
+      <a class="nav-item" href="#" onclick="showSection('leave',this)">
+        <i class="fas fa-calendar-minus"></i> Leave Management
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('payroll',this)">
+        <i class="fas fa-rupee-sign"></i> Payroll & Salary
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('appraisal',this)">
+        <i class="fas fa-star"></i> Appraisal
+      </a>
+
+      <div class="nav-section-label">Communication</div>
+      <a class="nav-item" href="#" onclick="showSection('messages',this)">
+        <i class="fas fa-comment-dots"></i> Messages
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('notifications',this)">
+        <i class="fas fa-bell"></i> Notifications
+        <span class="nav-badge">2</span>
+      </a>
+
+      <div class="nav-section-label">Account</div>
+      <a class="nav-item" href="#"><i class="fas fa-user"></i> My Profile</a>
+      <a class="nav-item" href="#"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="../login.html">
+        <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ====== MAIN ====== -->
+  <div class="dash-main">
+
+    <div class="dash-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="topbar-title">
+          <h2 id="topbarTitle">Dashboard</h2>
+          <p>Mathematics Department</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date"><i class="fas fa-calendar-day"></i> Mon, Feb 23, 2026</div>
+        <button class="notif-btn"><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+        <div class="topbar-avatar ua-teacher">RK</div>
+      </div>
+    </div>
+
+    <!-- ====== DASHBOARD ====== -->
+    <div class="dash-content" id="sec-dashboard">
+
+      <div class="dash-greeting">
+        <div class="greeting-text">
+          <h2>Good Morning, Rajesh Sir! 👋</h2>
+          <p>You have 4 classes today. 2 lectures pending upload from last week.</p>
+        </div>
+        <div class="greeting-emoji animate-float">👩‍🏫</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="dash-stat ds-blue">
+          <div class="stat-icon si-blue"><i class="fas fa-chalkboard"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">4</div>
+            <div class="stat-key">Classes Today</div>
+            <div class="stat-change change-up"><i class="fas fa-clock"></i> Next at 09:30 AM</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-green">
+          <div class="stat-icon si-green"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">142</div>
+            <div class="stat-key">Total Students</div>
+            <div class="stat-change change-up"><i class="fas fa-check"></i> 5 Classes</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-purple">
+          <div class="stat-icon si-purple"><i class="fas fa-video"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">38</div>
+            <div class="stat-key">Lectures Uploaded</div>
+            <div class="stat-change change-up"><i class="fas fa-arrow-up"></i> 2 this week</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-amber">
+          <div class="stat-icon si-amber"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">96%</div>
+            <div class="stat-key">My Attendance</div>
+            <div class="stat-change change-up"><i class="fas fa-star"></i> Excellent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid" style="grid-template-columns:1.3fr 1fr;">
+
+        <!-- Today's Schedule -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-clock" style="color:#2563EB"></i> Today's Classes</h3>
+            <button class="card-action">Full Timetable →</button>
+          </div>
+          <div class="card-body">
+            <div class="schedule-list">
+              <div class="schedule-item">
+                <div class="schedule-time">08:00<br><span style="font-size:.7rem;color:#94A3B8">AM</span></div>
+                <div class="schedule-subject ss-math">10A</div>
+                <div class="schedule-info">
+                  <h4>Class 10 — Section A</h4>
+                  <p>Quadratic Equations · 35 students</p>
+                </div>
+                <span class="badge badge-success">Done</span>
+              </div>
+              <div class="schedule-item" style="border-color:#2563EB;background:rgba(37,99,235,.04);">
+                <div class="schedule-time">09:30<br><span style="font-size:.7rem;color:#2563EB;font-weight:700">NOW</span></div>
+                <div class="schedule-subject ss-math">10B</div>
+                <div class="schedule-info">
+                  <h4>Class 10 — Section B <span style="font-size:.72rem;background:#DBEAFE;color:#2563EB;padding:.15rem .5rem;border-radius:6px;margin-left:.25rem;">Live</span></h4>
+                  <p>Quadratic Equations · 32 students</p>
+                </div>
+                <div class="schedule-room">Room 202</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">11:00<br><span style="font-size:.7rem;color:#94A3B8">AM</span></div>
+                <div class="schedule-subject ss-math">9A</div>
+                <div class="schedule-info">
+                  <h4>Class 9 — Section A</h4>
+                  <p>Polynomials · 38 students</p>
+                </div>
+                <div class="schedule-room">Room 105</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">02:00<br><span style="font-size:.7rem;color:#94A3B8">PM</span></div>
+                <div class="schedule-subject ss-math">8B</div>
+                <div class="schedule-info">
+                  <h4>Class 8 — Section B</h4>
+                  <p>Algebraic Expressions · 37 students</p>
+                </div>
+                <div class="schedule-room">Room 103</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Leave + Performance -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <!-- Leave Balance -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3><i class="fas fa-calendar-minus" style="color:#2563EB"></i> Leave Balance</h3>
+              <button class="card-action" onclick="showSection('leave',null)">Apply →</button>
+            </div>
+            <div class="card-body">
+              <div class="leave-grid">
+                <div class="leave-card lc-casual">
+                  <span class="leave-num">8</span>
+                  <span class="leave-type">Casual</span>
+                </div>
+                <div class="leave-card lc-sick">
+                  <span class="leave-num">5</span>
+                  <span class="leave-type">Sick</span>
+                </div>
+                <div class="leave-card lc-earned">
+                  <span class="leave-num">12</span>
+                  <span class="leave-type">Earned</span>
+                </div>
+              </div>
+              <div style="margin-top:1rem;">
+                <div style="font-size:.78rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Pending Requests</div>
+                <div style="padding:.65rem .9rem;background:#FEF3C7;border-radius:10px;font-size:.82rem;color:#92400E;display:flex;align-items:center;justify-content:space-between;">
+                  <span><i class="fas fa-clock" style="color:#D97706"></i> Mar 3–4 Casual Leave</span>
+                  <span class="badge badge-warning">Pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance Donut -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3><i class="fas fa-chart-pie" style="color:#2563EB"></i> Class Avg Performance</h3>
+            </div>
+            <div class="card-body">
+              <div class="donut-wrap">
+                <svg viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#DBEAFE" stroke-width="12"/>
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#2563EB" stroke-width="12"
+                    stroke-dasharray="289.0" stroke-dashoffset="72.2"
+                    stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                  <text x="60" y="56" text-anchor="middle" font-size="18" font-weight="800" fill="#0F172A" font-family="Poppins,sans-serif">75%</text>
+                  <text x="60" y="70" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">Avg Score</text>
+                </svg>
+                <div class="donut-label">
+                  <strong>Class 10 Average</strong>
+                  <span>Feb 2026 Tests</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid: Quick Actions + Recent Uploads + Messages -->
+      <div class="dash-grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:0;" id="qgrid">
+
+        <!-- Quick Actions -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-bolt" style="color:#2563EB"></i> Quick Actions</h3>
+          </div>
+          <div class="card-body">
+            <div class="quick-actions">
+              <button class="quick-btn" onclick="showSection('attendance',null)">
+                <div class="qb-icon" style="background:#DBEAFE;color:#2563EB"><i class="fas fa-clipboard-check"></i></div>
+                Mark Attendance
+              </button>
+              <button class="quick-btn" onclick="showSection('lms',null)">
+                <div class="qb-icon" style="background:#EDE9FE;color:#7C3AED"><i class="fas fa-upload"></i></div>
+                Upload Lecture
+              </button>
+              <button class="quick-btn" onclick="showSection('leave',null)">
+                <div class="qb-icon" style="background:#D1FAE5;color:#059669"><i class="fas fa-calendar-plus"></i></div>
+                Apply Leave
+              </button>
+              <button class="quick-btn" onclick="showSection('payroll',null)">
+                <div class="qb-icon" style="background:#FEF3C7;color:#D97706"><i class="fas fa-file-invoice-dollar"></i></div>
+                View Salary Slip
+              </button>
+              <button class="quick-btn" onclick="showSection('messages',null)">
+                <div class="qb-icon" style="background:#DBEAFE;color:#2563EB"><i class="fas fa-envelope"></i></div>
+                Message Parent
+              </button>
+              <button class="quick-btn" onclick="showSection('appraisal',null)">
+                <div class="qb-icon" style="background:#FEE2E2;color:#DC2626"><i class="fas fa-star"></i></div>
+                Self Appraisal
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Uploads -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-video" style="color:#2563EB"></i> Recent Uploads</h3>
+            <button class="card-action" onclick="showSection('lms',null)">All →</button>
+          </div>
+          <div class="card-body" style="padding-top:.75rem;">
+            <div style="display:flex;flex-direction:column;gap:.6rem;">
+              <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem;background:#F8FAFC;border-radius:10px;border:1px solid #E2E8F0;">
+                <div style="width:38px;height:38px;border-radius:8px;background:#EDE9FE;color:#7C3AED;display:grid;place-items:center;font-size:.9rem;flex-shrink:0;"><i class="fas fa-video"></i></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:.83rem;font-weight:600;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Quadratic Eq. — Lecture 3</div>
+                  <div style="font-size:.75rem;color:#94A3B8;">Class 10 · 2h ago · 28 min</div>
+                </div>
+                <span class="badge badge-success" style="font-size:.68rem;">Live</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem;background:#F8FAFC;border-radius:10px;border:1px solid #E2E8F0;">
+                <div style="width:38px;height:38px;border-radius:8px;background:#DBEAFE;color:#2563EB;display:grid;place-items:center;font-size:.9rem;flex-shrink:0;"><i class="fas fa-file-pdf"></i></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:.83rem;font-weight:600;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Polynomials — Notes PDF</div>
+                  <div style="font-size:.75rem;color:#94A3B8;">Class 9 · Yesterday</div>
+                </div>
+                <span class="badge badge-success" style="font-size:.68rem;">Live</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem;background:#F8FAFC;border-radius:10px;border:1px solid #E2E8F0;">
+                <div style="width:38px;height:38px;border-radius:8px;background:#D1FAE5;color:#059669;display:grid;place-items:center;font-size:.9rem;flex-shrink:0;"><i class="fas fa-file-alt"></i></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:.83rem;font-weight:600;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Algebra — Practice Sheet</div>
+                  <div style="font-size:.75rem;color:#94A3B8;">Class 8 · Feb 20</div>
+                </div>
+                <span class="badge badge-warning" style="font-size:.68rem;">Locked</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem;background:#F8FAFC;border-radius:10px;border:1px solid #E2E8F0;">
+                <div style="width:38px;height:38px;border-radius:8px;background:#EDE9FE;color:#7C3AED;display:grid;place-items:center;font-size:.9rem;flex-shrink:0;"><i class="fas fa-video"></i></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:.83rem;font-weight:600;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Quadratic Eq. — Lecture 2</div>
+                  <div style="font-size:.75rem;color:#94A3B8;">Class 10 · Feb 18</div>
+                </div>
+                <span class="badge badge-success" style="font-size:.68rem;">Live</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Parent Messages -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-comment-dots" style="color:#2563EB"></i> Parent Messages</h3>
+            <button class="card-action">Reply →</button>
+          </div>
+          <div class="card-body">
+            <div class="msg-list">
+              <div class="msg-item msg-unread">
+                <div class="msg-avatar" style="background:#059669">PM</div>
+                <div class="msg-info">
+                  <div class="msg-name">Priya Mehta <span style="font-size:.7rem;color:#94A3B8;">(Aarav's Mom)</span></div>
+                  <div class="msg-preview">Thank you for your feedback. We will make sure Aarav practices daily...</div>
+                </div>
+                <div class="msg-time">10:15 AM</div>
+              </div>
+              <div class="msg-item msg-unread">
+                <div class="msg-avatar" style="background:#7C3AED">AS</div>
+                <div class="msg-info">
+                  <div class="msg-name">Arjun Singh <span style="font-size:.7rem;color:#94A3B8;">(Rohan's Dad)</span></div>
+                  <div class="msg-preview">Can we schedule a call this week to discuss Rohan's progress?</div>
+                </div>
+                <div class="msg-time">Yesterday</div>
+              </div>
+              <div class="msg-item">
+                <div class="msg-avatar" style="background:#D97706">GK</div>
+                <div class="msg-info">
+                  <div class="msg-name">Geeta Kumar</div>
+                  <div class="msg-preview">Divya has been unwell. Will submit the assignment by Friday.</div>
+                </div>
+                <div class="msg-time">Feb 21</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /dashboard -->
+
+    <!-- ====== CLASSES ====== -->
+    <div class="dash-content" id="sec-classes" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>My Classes 🏫</h2><p>5 active classes · 142 total students</p></div><div class="greeting-emoji">📋</div></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1.75rem;">
+        <div style="background:#fff;border-radius:18px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;border-top:4px solid #2563EB;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#DBEAFE;display:grid;place-items:center;font-weight:800;font-size:1rem;color:#2563EB;">10A</div>
+            <span class="badge badge-teacher">35 Students</span>
+          </div>
+          <h4 style="font-size:1rem;margin-bottom:.25rem;">Class 10 — Section A</h4>
+          <p style="font-size:.82rem;margin-bottom:1rem;">Mathematics · Room 201</p>
+          <div class="progress-bar" style="margin-bottom:.5rem;"><div class="progress-fill pf-blue" style="width:65%"></div></div>
+          <div style="font-size:.78rem;color:#94A3B8;">65% syllabus completed</div>
+        </div>
+        <div style="background:#fff;border-radius:18px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;border-top:4px solid #7C3AED;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#EDE9FE;display:grid;place-items:center;font-weight:800;font-size:1rem;color:#7C3AED;">10B</div>
+            <span class="badge badge-student">32 Students</span>
+          </div>
+          <h4 style="font-size:1rem;margin-bottom:.25rem;">Class 10 — Section B</h4>
+          <p style="font-size:.82rem;margin-bottom:1rem;">Mathematics · Room 202</p>
+          <div class="progress-bar" style="margin-bottom:.5rem;"><div class="progress-fill pf-purple" style="width:62%"></div></div>
+          <div style="font-size:.78rem;color:#94A3B8;">62% syllabus completed</div>
+        </div>
+        <div style="background:#fff;border-radius:18px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;border-top:4px solid #059669;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+            <div style="width:48px;height:48px;border-radius:12px;background:#D1FAE5;display:grid;place-items:center;font-weight:800;font-size:1rem;color:#059669;">9A</div>
+            <span class="badge badge-parent">38 Students</span>
+          </div>
+          <h4 style="font-size:1rem;margin-bottom:.25rem;">Class 9 — Section A</h4>
+          <p style="font-size:.82rem;margin-bottom:1rem;">Mathematics · Room 105</p>
+          <div class="progress-bar" style="margin-bottom:.5rem;"><div class="progress-fill pf-green" style="width:70%"></div></div>
+          <div style="font-size:.78rem;color:#94A3B8;">70% syllabus completed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== LMS ====== -->
+    <div class="dash-content" id="sec-lms" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>LMS — Content Manager 📹</h2><p>Upload and manage lectures, notes & assignments</p></div><div class="greeting-emoji">📁</div></div>
+      <div class="dash-grid" style="margin-top:1.75rem;">
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-cloud-upload-alt" style="color:#2563EB"></i> Upload New Content</h3></div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Class</label>
+              <select style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;">
+                <option>Class 10 — Section A</option><option>Class 10 — Section B</option><option>Class 9 — Section A</option><option>Class 8 — Section B</option>
+              </select></div>
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Chapter</label>
+              <select style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;">
+                <option>Chapter 4: Quadratic Equations</option><option>Chapter 5: Arithmetic Progressions</option><option>Chapter 6: Triangles</option>
+              </select></div>
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Content Title</label>
+              <input type="text" placeholder="e.g. Lecture 4 — Solving by Factoring" style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;" /></div>
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Content Type</label>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;">
+                <label style="display:flex;align-items:center;gap:.4rem;padding:.65rem;border:2px solid #2563EB;border-radius:10px;background:#DBEAFE;cursor:pointer;font-size:.82rem;font-weight:600;color:#1D4ED8;"><input type="radio" name="ctype" checked> Video</label>
+                <label style="display:flex;align-items:center;gap:.4rem;padding:.65rem;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;color:#64748B;"><input type="radio" name="ctype"> PDF Notes</label>
+                <label style="display:flex;align-items:center;gap:.4rem;padding:.65rem;border:2px solid #E2E8F0;border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;color:#64748B;"><input type="radio" name="ctype"> Assignment</label>
+              </div></div>
+              <div style="border:2px dashed #E2E8F0;border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#2563EB';this.style.background='rgba(37,99,235,.02)'" onmouseout="this.style.borderColor='#E2E8F0';this.style.background='transparent'">
+                <i class="fas fa-cloud-upload-alt" style="font-size:1.75rem;color:#2563EB;display:block;margin-bottom:.5rem;"></i>
+                <div style="font-size:.85rem;font-weight:600;color:#334155;">Drop file here or <span style="color:#2563EB;">Browse</span></div>
+                <div style="font-size:.75rem;color:#94A3B8;margin-top:.25rem;">MP4, PDF, DOC · Max 500MB</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <label style="display:flex;align-items:center;gap:.5rem;font-size:.83rem;font-weight:600;color:#334155;cursor:pointer;"><input type="checkbox" checked> Publish immediately</label>
+                <button style="background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;padding:.75rem 1.5rem;border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 12px rgba(37,99,235,.3);">
+                  <i class="fas fa-upload"></i> Upload
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-list" style="color:#2563EB"></i> Content Library</h3></div>
+          <div class="card-body" style="padding:0;">
+            <table class="dash-table">
+              <thead><tr><th>Title</th><th>Class</th><th>Type</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><div class="td-name"><div class="td-avatar" style="background:#EDE9FE;color:#7C3AED;"><i class="fas fa-video" style="font-size:.75rem;"></i></div>Lecture 3</div></td><td>10A</td><td><span class="badge badge-student" style="font-size:.68rem;">Video</span></td><td><span class="badge badge-success" style="font-size:.68rem;">Live</span></td></tr>
+                <tr><td><div class="td-name"><div class="td-avatar" style="background:#DBEAFE;color:#2563EB;"><i class="fas fa-file-pdf" style="font-size:.75rem;"></i></div>Notes Ch.4</div></td><td>10A/B</td><td><span class="badge badge-teacher" style="font-size:.68rem;">PDF</span></td><td><span class="badge badge-success" style="font-size:.68rem;">Live</span></td></tr>
+                <tr><td><div class="td-name"><div class="td-avatar" style="background:#D1FAE5;color:#059669;"><i class="fas fa-video" style="font-size:.75rem;"></i></div>Lecture 2</div></td><td>10A/B</td><td><span class="badge badge-student" style="font-size:.68rem;">Video</span></td><td><span class="badge badge-success" style="font-size:.68rem;">Live</span></td></tr>
+                <tr><td><div class="td-name"><div class="td-avatar" style="background:#FEF3C7;color:#D97706;"><i class="fas fa-tasks" style="font-size:.75rem;"></i></div>Assignment 2</div></td><td>9A</td><td><span class="badge badge-accent" style="font-size:.68rem;">Task</span></td><td><span class="badge badge-warning" style="font-size:.68rem;">Locked</span></td></tr>
+                <tr><td><div class="td-name"><div class="td-avatar" style="background:#EDE9FE;color:#7C3AED;"><i class="fas fa-video" style="font-size:.75rem;"></i></div>Lecture 1</div></td><td>All</td><td><span class="badge badge-student" style="font-size:.68rem;">Video</span></td><td><span class="badge badge-success" style="font-size:.68rem;">Live</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== ATTENDANCE MARKING ====== -->
+    <div class="dash-content" id="sec-attendance" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Mark Attendance 📋</h2><p>Feb 23, 2026 · Class 10 — Section A</p></div><div class="greeting-emoji">✅</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-header">
+          <h3><i class="fas fa-clipboard-check" style="color:#2563EB"></i> Class 10 — Section A (35 Students)</h3>
+          <div style="display:flex;gap:.75rem;align-items:center;">
+            <button onclick="markAll('present')" style="background:#D1FAE5;color:#059669;padding:.4rem .85rem;border:none;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;">Mark All Present</button>
+            <button style="background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;padding:.4rem 1rem;border:none;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;">Save & Submit</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="attendList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== LEAVE ====== -->
+    <div class="dash-content" id="sec-leave" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Leave Management 📅</h2><p>Apply, track and manage your leave</p></div><div class="greeting-emoji">🏖️</div></div>
+      <div class="dash-grid" style="margin-top:1.75rem;">
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-calendar-plus" style="color:#2563EB"></i> Apply for Leave</h3></div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Leave Type</label>
+              <select style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;">
+                <option>Casual Leave (8 remaining)</option><option>Sick Leave (5 remaining)</option><option>Earned Leave (12 remaining)</option><option>Maternity/Paternity</option><option>Emergency Leave</option>
+              </select></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">From Date</label>
+                <input type="date" style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;" /></div>
+                <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">To Date</label>
+                <input type="date" style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;" /></div>
+              </div>
+              <div><label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Reason</label>
+              <textarea style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;resize:vertical;min-height:90px;" placeholder="Brief reason for leave..."></textarea></div>
+              <button style="background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;padding:.85rem;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 12px rgba(37,99,235,.3);">
+                <i class="fas fa-paper-plane"></i> Submit Leave Request
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-history" style="color:#2563EB"></i> Leave History</h3></div>
+          <div class="card-body" style="padding:0;">
+            <table class="dash-table">
+              <thead><tr><th>Type</th><th>Dates</th><th>Days</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Casual</td><td style="font-size:.8rem;">Mar 3–4, 2026</td><td>2</td><td><span class="badge badge-warning">Pending</span></td></tr>
+                <tr><td>Sick</td><td style="font-size:.8rem;">Jan 15, 2026</td><td>1</td><td><span class="badge badge-success">Approved</span></td></tr>
+                <tr><td>Casual</td><td style="font-size:.8rem;">Dec 24–25, 2025</td><td>2</td><td><span class="badge badge-success">Approved</span></td></tr>
+                <tr><td>Earned</td><td style="font-size:.8rem;">Oct 2–6, 2025</td><td>5</td><td><span class="badge badge-success">Approved</span></td></tr>
+                <tr><td>Sick</td><td style="font-size:.8rem;">Sep 10, 2025</td><td>1</td><td><span class="badge badge-error">Rejected</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== PAYROLL ====== -->
+    <div class="dash-content" id="sec-payroll" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Payroll & Salary 💰</h2><p>Monthly salary slips and tax details</p></div><div class="greeting-emoji">💳</div></div>
+      <div class="dash-grid" style="margin-top:1.75rem;">
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-file-invoice-dollar" style="color:#2563EB"></i> February 2026 Salary</h3>
+          <button style="background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;padding:.4rem 1rem;border:none;border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;"><i class="fas fa-download"></i> Download PDF</button></div>
+          <div class="card-body">
+            <div style="display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#2563EB,#1D4ED8);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;">
+              <div><div style="font-size:.8rem;color:rgba(255,255,255,.7);">Net Salary</div><div style="font-size:1.8rem;font-weight:800;font-family:'Poppins',sans-serif;color:#fff;">₹52,400</div></div>
+              <div style="text-align:right;font-size:.82rem;color:rgba(255,255,255,.75);">Credited on<br><strong style="color:#fff;">Feb 1, 2026</strong></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+              <div style="display:flex;justify-content:space-between;font-size:.88rem;padding-bottom:.75rem;border-bottom:1px solid #F1F5F9;"><span style="color:#64748B;">Basic Salary</span><span style="font-weight:600;">₹40,000</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.88rem;padding-bottom:.75rem;border-bottom:1px solid #F1F5F9;"><span style="color:#64748B;">HRA Allowance</span><span style="font-weight:600;color:#059669;">+ ₹8,000</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.88rem;padding-bottom:.75rem;border-bottom:1px solid #F1F5F9;"><span style="color:#64748B;">Transport Allowance</span><span style="font-weight:600;color:#059669;">+ ₹2,000</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.88rem;padding-bottom:.75rem;border-bottom:1px solid #F1F5F9;"><span style="color:#64748B;">Special Allowance</span><span style="font-weight:600;color:#059669;">+ ₹5,000</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.88rem;padding-bottom:.75rem;border-bottom:1px solid #F1F5F9;"><span style="color:#64748B;">Provident Fund (12%)</span><span style="font-weight:600;color:#DC2626;">- ₹4,800</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.88rem;"><span style="color:#64748B;">Tax Deduction (TDS)</span><span style="font-weight:600;color:#DC2626;">- ₹2,800</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-history" style="color:#2563EB"></i> Salary History</h3></div>
+          <div class="card-body" style="padding:0;">
+            <table class="dash-table">
+              <thead><tr><th>Month</th><th>Gross</th><th>Net</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Feb 2026</strong></td><td>₹55,000</td><td>₹52,400</td><td><span class="badge badge-success">Credited</span></td></tr>
+                <tr><td>Jan 2026</td><td>₹55,000</td><td>₹52,400</td><td><span class="badge badge-success">Credited</span></td></tr>
+                <tr><td>Dec 2025</td><td>₹55,000</td><td>₹49,600</td><td><span class="badge badge-success">Credited</span></td></tr>
+                <tr><td>Nov 2025</td><td>₹55,000</td><td>₹52,400</td><td><span class="badge badge-success">Credited</span></td></tr>
+                <tr><td>Oct 2025</td><td>₹55,000</td><td>₹52,400</td><td><span class="badge badge-success">Credited</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== APPRAISAL ====== -->
+    <div class="dash-content" id="sec-appraisal" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Appraisal & Self Review ⭐</h2><p>Annual performance evaluation 2025–26</p></div><div class="greeting-emoji">🏆</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-header"><h3><i class="fas fa-star" style="color:#2563EB"></i> Self Evaluation Form</h3><span class="badge badge-warning">In Progress</span></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+            <div style="background:#F8FAFC;border-radius:12px;padding:1.25rem;">
+              <div style="font-size:.88rem;font-weight:700;color:#334155;margin-bottom:.75rem;">1. Teaching Effectiveness</div>
+              <div style="display:flex;gap:.5rem;">
+                <button class="rating-star" style="font-size:1.5rem;background:none;border:none;cursor:pointer;opacity:.4;" onclick="rate(this,1)">★</button>
+                <button class="rating-star" style="font-size:1.5rem;background:none;border:none;cursor:pointer;opacity:.4;" onclick="rate(this,2)">★</button>
+                <button class="rating-star" style="font-size:1.5rem;background:none;border:none;cursor:pointer;opacity:.4;" onclick="rate(this,3)">★</button>
+                <button class="rating-star" style="font-size:1.5rem;background:none;border:none;cursor:pointer;opacity:.4;" onclick="rate(this,4)">★</button>
+                <button class="rating-star" style="font-size:1.5rem;background:none;border:none;cursor:pointer;opacity:.4;" onclick="rate(this,5)">★</button>
+              </div>
+            </div>
+            <div style="background:#F8FAFC;border-radius:12px;padding:1.25rem;">
+              <div style="font-size:.88rem;font-weight:700;color:#334155;margin-bottom:.75rem;">2. Student Engagement & Interaction</div>
+              <div style="display:flex;gap:.5rem;">
+                <button style="font-size:1.5rem;background:none;border:none;cursor:pointer;color:#F59E0B;">★</button>
+                <button style="font-size:1.5rem;background:none;border:none;cursor:pointer;color:#F59E0B;">★</button>
+                <button style="font-size:1.5rem;background:none;border:none;cursor:pointer;color:#F59E0B;">★</button>
+                <button style="font-size:1.5rem;background:none;border:none;cursor:pointer;color:#F59E0B;">★</button>
+                <button style="font-size:1.5rem;background:none;border:none;cursor:pointer;opacity:.4;">★</button>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Achievements this year</label>
+              <textarea style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;resize:vertical;min-height:80px;" placeholder="Describe your key achievements and contributions...">Introduced interactive problem-solving sessions. Class 10A average improved from 68% to 75%. Uploaded 38 video lectures covering full syllabus ahead of schedule.</textarea>
+            </div>
+            <div>
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Goals for next year</label>
+              <textarea style="width:100%;padding:.7rem 1rem;border:2px solid #E2E8F0;border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;outline:none;resize:vertical;min-height:80px;" placeholder="Set your goals for the next academic year..."></textarea>
+            </div>
+            <button style="background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;padding:.85rem;border:none;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 12px rgba(37,99,235,.3);">
+              <i class="fas fa-paper-plane"></i> Submit for Principal Review
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGES + NOTIFICATIONS placeholders -->
+    <div class="dash-content" id="sec-messages" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Messages 💬</h2><p>Communication with parents</p></div><div class="greeting-emoji">✉️</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Full messaging thread with parents. Moderated and secure.</div></div>
+    </div>
+    <div class="dash-content" id="sec-notifications" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Notifications 🔔</h2><p>School & system alerts</p></div><div class="greeting-emoji">📢</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;">
+        <div class="card-body">
+          <div class="notif-list">
+            <div class="notif-item notif-unread"><div class="notif-icon ni-amber"><i class="fas fa-calendar"></i></div><div class="notif-info"><div class="notif-text">Leave request for Mar 3–4 is pending principal approval</div><div class="notif-time">Today, 9:00 AM</div></div></div>
+            <div class="notif-item notif-unread"><div class="notif-icon ni-green"><i class="fas fa-rupee-sign"></i></div><div class="notif-info"><div class="notif-text">February salary of ₹52,400 has been credited to your account</div><div class="notif-time">Feb 1, 2026</div></div></div>
+            <div class="notif-item"><div class="notif-icon ni-blue"><i class="fas fa-bullhorn"></i></div><div class="notif-info"><div class="notif-text">Staff meeting scheduled for Feb 28 at 3:00 PM in Conference Hall</div><div class="notif-time">Feb 20, 2026</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-content" id="sec-assignments" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Assignments 📝</h2><p>Create and manage assignments</p></div><div class="greeting-emoji">📌</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Assignment creation and submission tracking module.</div></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const students = ['Aarav Sharma','Rohan Mehta','Priya Patel','Ananya Singh','Karan Gupta','Divya Kumar','Arjun Nair','Sneha Roy','Rahul Verma','Pooja Joshi','Aditya Shah','Meera Iyer','Nikhil Das','Riya Kapoor','Siddharth Rao'];
+
+  function buildAttendList() {
+    const c = document.getElementById('attendList');
+    if (!c) return;
+    c.innerHTML = students.map((s,i) => `
+      <div class="attend-student-row" id="arow${i}">
+        <div class="td-avatar" style="background:${['#7C3AED','#059669','#2563EB','#D97706','#DC2626'][i%5]};color:#fff;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:.72rem;font-weight:700;flex-shrink:0;">${s.split(' ').map(n=>n[0]).join('')}</div>
+        <span>${s}</span>
+        <div class="attend-btns">
+          <button class="attend-btn present" onclick="setAttend(${i},'present',this)">P</button>
+          <button class="attend-btn absent"  onclick="setAttend(${i},'absent',this)">A</button>
+          <button class="attend-btn late"    onclick="setAttend(${i},'late',this)">L</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function setAttend(i, status, btn) {
+    const row = document.getElementById('arow'+i);
+    row.querySelectorAll('.attend-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+  }
+
+  function markAll(status) {
+    document.querySelectorAll('.attend-btn.present').forEach(b => { b.classList.remove('sel'); if(status==='present') b.classList.add('sel'); });
+    document.querySelectorAll('.attend-btn.absent').forEach(b => b.classList.remove('sel'));
+    document.querySelectorAll('.attend-btn.late').forEach(b => b.classList.remove('sel'));
+  }
+
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+  function showSection(sec, el) {
+    document.querySelectorAll('.dash-content').forEach(s => s.style.display = 'none');
+    document.getElementById('sec-'+sec).style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active','teacher-active'));
+    if (el) el.classList.add('active','teacher-active');
+    document.getElementById('topbarTitle').textContent = el ? el.textContent.trim() : 'Dashboard';
+    if (sec === 'attendance') buildAttendList();
+    if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
+  }
+</script>
+</body>
+</html>

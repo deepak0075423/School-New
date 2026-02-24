@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<div class="dash-page student-dash">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🎓</div>
+        <span>Vidyalaya ERP</span>
+      </div>
+      <button class="sidebar-close" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar ua-student">AA</div>
+      <div class="user-info">
+        <span class="user-name">Aarav Sharma</span>
+        <span class="user-role">Class 10 — A · Roll No. 12</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item active student-active" href="#" onclick="showSection('dashboard',this)">
+        <i class="fas fa-home"></i> Dashboard
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('courses',this)">
+        <i class="fas fa-book-open"></i> My Courses
+        <span class="nav-badge">6</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('attendance',this)">
+        <i class="fas fa-clipboard-check"></i> Attendance
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('schedule',this)">
+        <i class="fas fa-calendar-alt"></i> Schedule
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('results',this)">
+        <i class="fas fa-chart-bar"></i> Results
+      </a>
+
+      <div class="nav-section-label">Communication</div>
+      <a class="nav-item" href="#" onclick="showSection('messages',this)">
+        <i class="fas fa-comment-dots"></i> Messages
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('notifications',this)">
+        <i class="fas fa-bell"></i> Notifications
+        <span class="nav-badge">5</span>
+      </a>
+      <a class="nav-item" href="#" onclick="showSection('feed',this)">
+        <i class="fas fa-newspaper"></i> School Feed
+      </a>
+
+      <div class="nav-section-label">Account</div>
+      <a class="nav-item" href="#">
+        <i class="fas fa-user"></i> My Profile
+      </a>
+      <a class="nav-item" href="#">
+        <i class="fas fa-cog"></i> Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="../login.html">
+        <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ====== MAIN ====== -->
+  <div class="dash-main">
+
+    <!-- Topbar -->
+    <div class="dash-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="topbar-title">
+          <h2 id="topbarTitle">Dashboard</h2>
+          <p>Welcome back, Aarav!</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date"><i class="fas fa-calendar-day"></i> Mon, Feb 23, 2026</div>
+        <button class="notif-btn"><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+        <div class="topbar-avatar ua-student">AA</div>
+      </div>
+    </div>
+
+    <!-- ====== DASHBOARD SECTION ====== -->
+    <div class="dash-content" id="sec-dashboard">
+
+      <!-- Greeting -->
+      <div class="dash-greeting">
+        <div class="greeting-text">
+          <h2>Good Morning, Aarav! 👋</h2>
+          <p>You have 5 classes today. Your next class starts in 35 minutes.</p>
+        </div>
+        <div class="greeting-emoji animate-float">📚</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="dash-stat ds-purple">
+          <div class="stat-icon si-purple"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">92%</div>
+            <div class="stat-key">Attendance</div>
+            <div class="stat-change change-up"><i class="fas fa-arrow-up"></i> 3% this month</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-blue">
+          <div class="stat-icon si-blue"><i class="fas fa-book"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">6</div>
+            <div class="stat-key">Subjects</div>
+            <div class="stat-change change-up"><i class="fas fa-check"></i> All Active</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-green">
+          <div class="stat-icon si-green"><i class="fas fa-tasks"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">4</div>
+            <div class="stat-key">Assignments Due</div>
+            <div class="stat-change change-down"><i class="fas fa-exclamation"></i> 2 this week</div>
+          </div>
+        </div>
+        <div class="dash-stat ds-amber">
+          <div class="stat-icon si-amber"><i class="fas fa-star"></i></div>
+          <div class="stat-info">
+            <div class="stat-val">78%</div>
+            <div class="stat-key">Overall Score</div>
+            <div class="stat-change change-up"><i class="fas fa-arrow-up"></i> 5% vs last term</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid: Schedule + Attendance Chart -->
+      <div class="dash-grid dash-grid-3" style="grid-template-columns:1.4fr 1fr;">
+
+        <!-- Today's Schedule -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-clock" style="color:#7C3AED"></i> Today's Schedule</h3>
+            <button class="card-action">View Full →</button>
+          </div>
+          <div class="card-body">
+            <div class="schedule-list">
+              <div class="schedule-item">
+                <div class="schedule-time">08:00<br><span style="font-size:.7rem;color:#94A3B8">AM</span></div>
+                <div class="schedule-subject ss-math">MA</div>
+                <div class="schedule-info">
+                  <h4>Mathematics</h4>
+                  <p>Mr. Rajesh Kumar</p>
+                </div>
+                <div class="schedule-room">Room 201</div>
+              </div>
+              <div class="schedule-item" style="border-color:#7C3AED;background:rgba(124,58,237,.04);">
+                <div class="schedule-time">09:30<br><span style="font-size:.7rem;color:#7C3AED;font-weight:700">NOW</span></div>
+                <div class="schedule-subject ss-sci">SC</div>
+                <div class="schedule-info">
+                  <h4>Science <span style="font-size:.72rem;background:#EDE9FE;color:#7C3AED;padding:.15rem .5rem;border-radius:6px;margin-left:.25rem;">In Progress</span></h4>
+                  <p>Mrs. Priya Singh</p>
+                </div>
+                <div class="schedule-room">Lab 1</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">11:00<br><span style="font-size:.7rem;color:#94A3B8">AM</span></div>
+                <div class="schedule-subject ss-eng">EN</div>
+                <div class="schedule-info">
+                  <h4>English Literature</h4>
+                  <p>Ms. Anita Verma</p>
+                </div>
+                <div class="schedule-room">Room 103</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">12:30<br><span style="font-size:.7rem;color:#94A3B8">PM</span></div>
+                <div class="schedule-subject" style="background:#F59E0B">LU</div>
+                <div class="schedule-info">
+                  <h4>Lunch Break</h4>
+                  <p>Cafeteria</p>
+                </div>
+                <div class="schedule-room">30 min</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">01:00<br><span style="font-size:.7rem;color:#94A3B8">PM</span></div>
+                <div class="schedule-subject ss-hist">HI</div>
+                <div class="schedule-info">
+                  <h4>Social Studies</h4>
+                  <p>Mr. Suresh Nair</p>
+                </div>
+                <div class="schedule-room">Room 105</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">02:30<br><span style="font-size:.7rem;color:#94A3B8">PM</span></div>
+                <div class="schedule-subject ss-cs">CS</div>
+                <div class="schedule-info">
+                  <h4>Computer Science</h4>
+                  <p>Mr. Amit Joshi</p>
+                </div>
+                <div class="schedule-room">Lab 2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+          <!-- Attendance Donut -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3><i class="fas fa-chart-pie" style="color:#7C3AED"></i> Attendance</h3>
+              <button class="card-action">Details →</button>
+            </div>
+            <div class="card-body">
+              <div class="donut-wrap">
+                <svg viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#EDE9FE" stroke-width="12"/>
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#7C3AED" stroke-width="12"
+                    stroke-dasharray="289.0" stroke-dashoffset="23.1"
+                    stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                  <text x="60" y="56" text-anchor="middle" font-size="18" font-weight="800" fill="#0F172A" font-family="Poppins,sans-serif">92%</text>
+                  <text x="60" y="70" text-anchor="middle" font-size="8" fill="#94A3B8" font-family="Inter,sans-serif">Present</text>
+                </svg>
+                <div class="donut-label">
+                  <strong>46 / 50 Days</strong>
+                  <span>February 2026</span>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem;font-size:.78rem;">
+                <div style="background:#D1FAE5;border-radius:8px;padding:.5rem .75rem;text-align:center;"><strong style="color:#059669;">46</strong><br><span style="color:#047857;">Present</span></div>
+                <div style="background:#FEE2E2;border-radius:8px;padding:.5rem .75rem;text-align:center;"><strong style="color:#DC2626;">4</strong><br><span style="color:#991B1B;">Absent</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Test -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3><i class="fas fa-pen-alt" style="color:#D97706"></i> Upcoming Tests</h3>
+            </div>
+            <div class="card-body" style="padding-top:.75rem;">
+              <div style="display:flex;flex-direction:column;gap:.6rem;">
+                <div style="padding:.75rem;background:#FEF3C7;border-radius:10px;border-left:3px solid #F59E0B;">
+                  <div style="font-size:.82rem;font-weight:700;color:#92400E;">📝 Math — Chapter Test</div>
+                  <div style="font-size:.75rem;color:#78350F;margin-top:.2rem;">Feb 26, 2026 · 10:00 AM</div>
+                </div>
+                <div style="padding:.75rem;background:#DBEAFE;border-radius:10px;border-left:3px solid #2563EB;">
+                  <div style="font-size:.82rem;font-weight:700;color:#1D4ED8;">📝 Science — Unit Test</div>
+                  <div style="font-size:.75rem;color:#1E40AF;margin-top:.2rem;">Mar 2, 2026 · 11:30 AM</div>
+                </div>
+                <div style="padding:.75rem;background:#EDE9FE;border-radius:10px;border-left:3px solid #7C3AED;">
+                  <div style="font-size:.82rem;font-weight:700;color:#5B21B6;">📝 Term 2 Finals</div>
+                  <div style="font-size:.75rem;color:#4C1D95;margin-top:.2rem;">Apr 1–10, 2026</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid: Subject Progress + Notifications -->
+      <div class="dash-grid" style="margin-top:0;">
+
+        <!-- Subject Progress -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-graduation-cap" style="color:#7C3AED"></i> Subject Progress</h3>
+            <button class="card-action">Full Report →</button>
+          </div>
+          <div class="card-body">
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-header">
+                  <span>Mathematics</span>
+                  <span class="progress-pct" style="color:#7C3AED">82%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-purple" style="width:82%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-header">
+                  <span>Science</span>
+                  <span class="progress-pct" style="color:#059669">78%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-green" style="width:78%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-header">
+                  <span>English Literature</span>
+                  <span class="progress-pct" style="color:#2563EB">85%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-blue" style="width:85%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-header">
+                  <span>Social Studies</span>
+                  <span class="progress-pct" style="color:#D97706">70%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-amber" style="width:70%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-header">
+                  <span>Computer Science</span>
+                  <span class="progress-pct" style="color:#0891B2">90%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:90%;background:linear-gradient(90deg,#0891B2,#0E7490)"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-header">
+                  <span>Hindi</span>
+                  <span class="progress-pct" style="color:#DC2626">65%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-red" style="width:65%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3><i class="fas fa-bell" style="color:#7C3AED"></i> Notifications</h3>
+            <button class="card-action">All →</button>
+          </div>
+          <div class="card-body" style="padding-top:.5rem;">
+            <div class="notif-list">
+              <div class="notif-item notif-unread">
+                <div class="notif-icon ni-purple"><i class="fas fa-video"></i></div>
+                <div class="notif-info">
+                  <div class="notif-text">New lecture uploaded: "Quadratic Equations Ch.3"</div>
+                  <div class="notif-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="notif-item notif-unread">
+                <div class="notif-icon ni-amber"><i class="fas fa-tasks"></i></div>
+                <div class="notif-info">
+                  <div class="notif-text">Assignment due: Science Lab Report by Feb 25</div>
+                  <div class="notif-time">5 hours ago</div>
+                </div>
+              </div>
+              <div class="notif-item notif-unread">
+                <div class="notif-icon ni-green"><i class="fas fa-trophy"></i></div>
+                <div class="notif-info">
+                  <div class="notif-text">Congratulations! You scored 95/100 in English test</div>
+                  <div class="notif-time">Yesterday</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-icon ni-blue"><i class="fas fa-bullhorn"></i></div>
+                <div class="notif-info">
+                  <div class="notif-text">School holiday on Feb 28 (National Holiday)</div>
+                  <div class="notif-time">2 days ago</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-icon ni-red"><i class="fas fa-calendar"></i></div>
+                <div class="notif-info">
+                  <div class="notif-text">Term 2 exam schedule published. Check portal.</div>
+                  <div class="notif-time">3 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dashboard -->
+
+    <!-- ====== COURSES SECTION ====== -->
+    <div class="dash-content" id="sec-courses" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>My Courses 📖</h2><p>6 subjects · Chapter-wise lectures & notes</p></div><div class="greeting-emoji">🎒</div></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1.75rem;">
+        <!-- Course Cards -->
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;">
+          <div style="height:80px;background:linear-gradient(135deg,#7C3AED,#5B21B6);display:flex;align-items:center;justify-content:center;font-size:2.2rem;">📐</div>
+          <div style="padding:1.25rem;">
+            <div style="font-size:.72rem;font-weight:700;color:#7C3AED;text-transform:uppercase;letter-spacing:.08em;">Mathematics</div>
+            <h3 style="font-size:1rem;margin:.25rem 0 .5rem;">Algebra & Calculus</h3>
+            <div style="font-size:.8rem;color:#64748B;margin-bottom:.85rem;">Mr. Rajesh Kumar · 12 Chapters</div>
+            <div style="background:#F1F5F9;border-radius:8px;height:6px;margin-bottom:.75rem;overflow:hidden;"><div style="width:65%;height:100%;background:linear-gradient(90deg,#7C3AED,#5B21B6);border-radius:8px;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#94A3B8;"><span>65% complete</span><span>8/12 chapters</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;">
+          <div style="height:80px;background:linear-gradient(135deg,#059669,#047857);display:flex;align-items:center;justify-content:center;font-size:2.2rem;">🔬</div>
+          <div style="padding:1.25rem;">
+            <div style="font-size:.72rem;font-weight:700;color:#059669;text-transform:uppercase;letter-spacing:.08em;">Science</div>
+            <h3 style="font-size:1rem;margin:.25rem 0 .5rem;">Physics & Chemistry</h3>
+            <div style="font-size:.8rem;color:#64748B;margin-bottom:.85rem;">Mrs. Priya Singh · 10 Chapters</div>
+            <div style="background:#F1F5F9;border-radius:8px;height:6px;margin-bottom:.75rem;overflow:hidden;"><div style="width:50%;height:100%;background:linear-gradient(90deg,#059669,#047857);border-radius:8px;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#94A3B8;"><span>50% complete</span><span>5/10 chapters</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;">
+          <div style="height:80px;background:linear-gradient(135deg,#2563EB,#1D4ED8);display:flex;align-items:center;justify-content:center;font-size:2.2rem;">📖</div>
+          <div style="padding:1.25rem;">
+            <div style="font-size:.72rem;font-weight:700;color:#2563EB;text-transform:uppercase;letter-spacing:.08em;">English</div>
+            <h3 style="font-size:1rem;margin:.25rem 0 .5rem;">Literature & Grammar</h3>
+            <div style="font-size:.8rem;color:#64748B;margin-bottom:.85rem;">Ms. Anita Verma · 8 Chapters</div>
+            <div style="background:#F1F5F9;border-radius:8px;height:6px;margin-bottom:.75rem;overflow:hidden;"><div style="width:75%;height:100%;background:linear-gradient(90deg,#2563EB,#1D4ED8);border-radius:8px;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#94A3B8;"><span>75% complete</span><span>6/8 chapters</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;">
+          <div style="height:80px;background:linear-gradient(135deg,#D97706,#B45309);display:flex;align-items:center;justify-content:center;font-size:2.2rem;">🌍</div>
+          <div style="padding:1.25rem;">
+            <div style="font-size:.72rem;font-weight:700;color:#D97706;text-transform:uppercase;letter-spacing:.08em;">Social Studies</div>
+            <h3 style="font-size:1rem;margin:.25rem 0 .5rem;">History & Geography</h3>
+            <div style="font-size:.8rem;color:#64748B;margin-bottom:.85rem;">Mr. Suresh Nair · 14 Chapters</div>
+            <div style="background:#F1F5F9;border-radius:8px;height:6px;margin-bottom:.75rem;overflow:hidden;"><div style="width:45%;height:100%;background:linear-gradient(90deg,#D97706,#B45309);border-radius:8px;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#94A3B8;"><span>45% complete</span><span>6/14 chapters</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;">
+          <div style="height:80px;background:linear-gradient(135deg,#0891B2,#0E7490);display:flex;align-items:center;justify-content:center;font-size:2.2rem;">💻</div>
+          <div style="padding:1.25rem;">
+            <div style="font-size:.72rem;font-weight:700;color:#0891B2;text-transform:uppercase;letter-spacing:.08em;">Computer Science</div>
+            <h3 style="font-size:1rem;margin:.25rem 0 .5rem;">Python & Web Dev</h3>
+            <div style="font-size:.8rem;color:#64748B;margin-bottom:.85rem;">Mr. Amit Joshi · 9 Chapters</div>
+            <div style="background:#F1F5F9;border-radius:8px;height:6px;margin-bottom:.75rem;overflow:hidden;"><div style="width:88%;height:100%;background:linear-gradient(90deg,#0891B2,#0E7490);border-radius:8px;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#94A3B8;"><span>88% complete</span><span>8/9 chapters</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;">
+          <div style="height:80px;background:linear-gradient(135deg,#DC2626,#991B1B);display:flex;align-items:center;justify-content:center;font-size:2.2rem;">🗣️</div>
+          <div style="padding:1.25rem;">
+            <div style="font-size:.72rem;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.08em;">Hindi</div>
+            <h3 style="font-size:1rem;margin:.25rem 0 .5rem;">Grammar & Literature</h3>
+            <div style="font-size:.8rem;color:#64748B;margin-bottom:.85rem;">Mrs. Geeta Sharma · 11 Chapters</div>
+            <div style="background:#F1F5F9;border-radius:8px;height:6px;margin-bottom:.75rem;overflow:hidden;"><div style="width:40%;height:100%;background:linear-gradient(90deg,#DC2626,#991B1B);border-radius:8px;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#94A3B8;"><span>40% complete</span><span>4/11 chapters</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== ATTENDANCE SECTION ====== -->
+    <div class="dash-content" id="sec-attendance" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>My Attendance 📋</h2><p>February 2026 — 92% Attendance Rate</p></div><div class="greeting-emoji">✅</div></div>
+      <div class="dash-grid" style="margin-top:1.75rem;">
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-calendar" style="color:#7C3AED"></i> Monthly Calendar</h3></div>
+          <div class="card-body">
+            <div class="cal-grid">
+              <div class="cal-day-label">Sun</div><div class="cal-day-label">Mon</div><div class="cal-day-label">Tue</div>
+              <div class="cal-day-label">Wed</div><div class="cal-day-label">Thu</div><div class="cal-day-label">Fri</div><div class="cal-day-label">Sat</div>
+              <div class="cal-day cd-empty"></div><div class="cal-day cd-empty"></div><div class="cal-day cd-empty"></div><div class="cal-day cd-empty"></div><div class="cal-day cd-empty"></div><div class="cal-day cd-empty"></div><div class="cal-day cd-holiday">1</div>
+              <div class="cal-day cd-other">2</div><div class="cal-day cd-present">3</div><div class="cal-day cd-present">4</div><div class="cal-day cd-present">5</div><div class="cal-day cd-absent">6</div><div class="cal-day cd-present">7</div><div class="cal-day cd-other">8</div>
+              <div class="cal-day cd-other">9</div><div class="cal-day cd-present">10</div><div class="cal-day cd-present">11</div><div class="cal-day cd-late">12</div><div class="cal-day cd-present">13</div><div class="cal-day cd-present">14</div><div class="cal-day cd-other">15</div>
+              <div class="cal-day cd-other">16</div><div class="cal-day cd-present">17</div><div class="cal-day cd-present">18</div><div class="cal-day cd-present">19</div><div class="cal-day cd-absent">20</div><div class="cal-day cd-present">21</div><div class="cal-day cd-other">22</div>
+              <div class="cal-day cd-other">23</div><div class="cal-day cd-today">24</div><div class="cal-day cd-empty">25</div><div class="cal-day cd-empty">26</div><div class="cal-day cd-empty">27</div><div class="cal-day cd-holiday">28</div><div class="cal-day cd-other">29</div>
+            </div>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;font-size:.75rem;">
+              <span style="display:flex;align-items:center;gap:.3rem;"><span style="width:12px;height:12px;border-radius:3px;background:#D1FAE5;display:inline-block;"></span>Present</span>
+              <span style="display:flex;align-items:center;gap:.3rem;"><span style="width:12px;height:12px;border-radius:3px;background:#FEE2E2;display:inline-block;"></span>Absent</span>
+              <span style="display:flex;align-items:center;gap:.3rem;"><span style="width:12px;height:12px;border-radius:3px;background:rgba(245,158,11,.15);display:inline-block;"></span>Late</span>
+              <span style="display:flex;align-items:center;gap:.3rem;"><span style="width:12px;height:12px;border-radius:3px;background:#DBEAFE;display:inline-block;"></span>Holiday</span>
+            </div>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="card-header"><h3><i class="fas fa-chart-bar" style="color:#7C3AED"></i> Subject-wise Attendance</h3></div>
+          <div class="card-body">
+            <div class="progress-list">
+              <div class="progress-item"><div class="progress-header"><span>Mathematics</span><span class="progress-pct" style="color:#7C3AED">96%</span></div><div class="progress-bar"><div class="progress-fill pf-purple" style="width:96%"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>Science</span><span class="progress-pct" style="color:#059669">94%</span></div><div class="progress-bar"><div class="progress-fill pf-green" style="width:94%"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>English</span><span class="progress-pct" style="color:#2563EB">90%</span></div><div class="progress-bar"><div class="progress-fill pf-blue" style="width:90%"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>Social Studies</span><span class="progress-pct" style="color:#D97706">88%</span></div><div class="progress-bar"><div class="progress-fill pf-amber" style="width:88%"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>Computer Science</span><span class="progress-pct" style="color:#0891B2">98%</span></div><div class="progress-bar"><div class="progress-fill" style="width:98%;background:linear-gradient(90deg,#0891B2,#0E7490)"></div></div></div>
+              <div class="progress-item"><div class="progress-header"><span>Hindi</span><span class="progress-pct" style="color:#DC2626">85%</span></div><div class="progress-bar"><div class="progress-fill pf-red" style="width:85%"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other sections (placeholders) -->
+    <div class="dash-content" id="sec-schedule" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Weekly Schedule 📅</h2><p>Full timetable for the week</p></div><div class="greeting-emoji">🗓️</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Full timetable view coming soon.</div></div>
+    </div>
+    <div class="dash-content" id="sec-results" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>My Results 🏆</h2><p>Academic performance overview</p></div><div class="greeting-emoji">📊</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Results section — detailed view available after exams.</div></div>
+    </div>
+    <div class="dash-content" id="sec-messages" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Messages 💬</h2><p>Communication with teachers</p></div><div class="greeting-emoji">✉️</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">Messaging module — connect with your teachers.</div></div>
+    </div>
+    <div class="dash-content" id="sec-notifications" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>Notifications 🔔</h2><p>All your alerts and updates</p></div><div class="greeting-emoji">📢</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">All notifications listed here.</div></div>
+    </div>
+    <div class="dash-content" id="sec-feed" style="display:none;">
+      <div class="dash-greeting"><div class="greeting-text"><h2>School Feed 📰</h2><p>Announcements & updates</p></div><div class="greeting-emoji">📋</div></div>
+      <div class="dash-card" style="margin-top:1.75rem;"><div class="card-body" style="padding:2rem;text-align:center;color:#94A3B8;">School announcements and events feed.</div></div>
+    </div>
+
+  </div><!-- /dash-main -->
+</div><!-- /dash-page -->
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+  function showSection(sec, el) {
+    document.querySelectorAll('.dash-content').forEach(s => s.style.display = 'none');
+    document.getElementById('sec-'+sec).style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(n => { n.classList.remove('active','student-active'); });
+    if (el) { el.classList.add('active','student-active'); }
+    document.getElementById('topbarTitle').textContent = el ? el.textContent.trim() : 'Dashboard';
+    if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .login-page-wrap {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0D1B4B 0%, #1a2f7a 60%, #0d3b70 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-shape { position: absolute; border-radius: 50%; opacity: .06; background: #fff; }
+    .lp-shape.s1 { width: 600px; height: 600px; top: -200px; right: -150px; }
+    .lp-shape.s2 { width: 350px; height: 350px; bottom: -80px; left: -100px; }
+    .lp-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 28px 28px; }
+
+    .back-link {
+      position: fixed;
+      top: 1.25rem; left: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.75);
+      font-size: .88rem;
+      font-weight: 500;
+      z-index: 10;
+      transition: color .2s;
+      text-decoration: none;
+    }
+    .back-link:hover { color: #F59E0B; }
+
+    .login-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,.25);
+    }
+    .login-card-top {
+      padding: 2.5rem 2.5rem 0;
+      text-align: center;
+    }
+    .login-card-logo {
+      width: 68px; height: 68px;
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1rem;
+      box-shadow: 0 8px 24px rgba(245,158,11,.35);
+    }
+    .login-card-top h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: .25rem;
+    }
+    .login-card-top p { font-size: .88rem; color: #64748B; }
+
+    /* Role Tabs */
+    .role-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .5rem;
+      padding: 1.75rem 2rem 0;
+    }
+    .rtab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      padding: .85rem .5rem;
+      border-radius: 14px;
+      border: 2px solid #E2E8F0;
+      background: #F8FAFC;
+      cursor: pointer;
+      transition: all .22s ease;
+      font-size: .75rem;
+      font-weight: 700;
+      color: #94A3B8;
+    }
+    .rtab .ri { font-size: 1.4rem; }
+    .rtab:hover { border-color: #CBD5E1; background: #fff; color: #334155; }
+    .rtab.sel-student { border-color: #7C3AED; background: #EDE9FE; color: #5B21B6; }
+    .rtab.sel-parent  { border-color: #059669; background: #D1FAE5; color: #047857; }
+    .rtab.sel-teacher { border-color: #2563EB; background: #DBEAFE; color: #1D4ED8; }
+    .rtab.sel-admin   { border-color: #DC2626; background: #FEE2E2; color: #991B1B; }
+
+    /* Form */
+    .login-form-body { padding: 1.5rem 2rem 2.5rem; }
+    .form-g { margin-bottom: 1.1rem; }
+    .form-g label { display: block; font-size: .82rem; font-weight: 700; color: #334155; margin-bottom: .4rem; }
+    .inp-wrap { position: relative; }
+    .inp-wrap .inp-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: .9rem; }
+    .inp {
+      width: 100%;
+      padding: .78rem 1rem .78rem 2.8rem;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      color: #0F172A;
+      background: #F8FAFC;
+      outline: none;
+      transition: all .22s;
+    }
+    .inp:focus { background: #fff; }
+    .inp.s:focus { border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(124,58,237,.1); }
+    .inp.p:focus { border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,.1); }
+    .inp.t:focus { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+    .inp.a:focus { border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220,38,38,.1); }
+
+    .eye-toggle { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94A3B8; cursor: pointer; font-size: .9rem; }
+
+    .row-opts {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      font-size: .82rem;
+    }
+    .row-opts .chk-label { display: flex; align-items: center; gap: .4rem; cursor: pointer; color: #64748B; }
+    .row-opts a { font-weight: 600; }
+    .row-opts a.s-link { color: #7C3AED; }
+    .row-opts a.p-link { color: #059669; }
+    .row-opts a.t-link { color: #2563EB; }
+    .row-opts a.a-link { color: #DC2626; }
+
+    .login-btn {
+      width: 100%;
+      padding: .88rem;
+      border: none;
+      border-radius: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: all .22s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+    }
+    .login-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .lbtn-s { background: linear-gradient(135deg, #7C3AED, #5B21B6); box-shadow: 0 6px 20px rgba(124,58,237,.35); }
+    .lbtn-p { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 6px 20px rgba(5,150,105,.35); }
+    .lbtn-t { background: linear-gradient(135deg, #2563EB, #1D4ED8); box-shadow: 0 6px 20px rgba(37,99,235,.35); }
+    .lbtn-a { background: linear-gradient(135deg, #DC2626, #991B1B); box-shadow: 0 6px 20px rgba(220,38,38,.35); }
+
+    .demo-box {
+      margin-top: 1rem;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: .85rem 1rem;
+      font-size: .79rem;
+      color: #64748B;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .demo-box strong { color: #334155; }
+
+    /* Animated role indicator bar */
+    .role-bar {
+      height: 4px;
+      transition: background .3s;
+      border-radius: 0;
+    }
+    .rb-s { background: linear-gradient(90deg, #7C3AED, #5B21B6); }
+    .rb-p { background: linear-gradient(90deg, #059669, #047857); }
+    .rb-t { background: linear-gradient(90deg, #2563EB, #1D4ED8); }
+    .rb-a { background: linear-gradient(90deg, #DC2626, #991B1B); }
+    .rb-default { background: linear-gradient(90deg, #F59E0B, #D97706); }
+
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+  </style>
+</head>
+<body>
+<a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+<div class="login-page-wrap">
+  <div class="lp-shape s1"></div>
+  <div class="lp-shape s2"></div>
+  <div class="lp-dots"></div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Top color bar -->
+      <div class="role-bar rb-default" id="roleBar"></div>
+
+      <!-- Header -->
+      <div class="login-card-top">
+        <div class="login-card-logo">🎓</div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your <strong>Vidyalaya ERP</strong> portal</p>
+      </div>
+
+      <!-- Role Selector -->
+      <div class="role-selector">
+        <div class="rtab sel-student" data-role="student" onclick="selectRole('student')">
+          <span class="ri">🎒</span> Student
+        </div>
+        <div class="rtab" data-role="parent" onclick="selectRole('parent')">
+          <span class="ri">👨‍👩‍👧</span> Parent
+        </div>
+        <div class="rtab" data-role="teacher" onclick="selectRole('teacher')">
+          <span class="ri">👩‍🏫</span> Teacher
+        </div>
+        <div class="rtab" data-role="admin" onclick="selectRole('admin')">
+          <span class="ri">🛡️</span> Admin
+        </div>
+      </div>
+
+      <!-- Forms -->
+      <div class="login-form-body">
+
+        <!-- Student Form -->
+        <div class="form-panel active" id="panel-student">
+          <div class="form-g">
+            <label>Student ID / Email</label>
+            <div class="inp-wrap">
+              <i class="fas fa-id-card inp-icon"></i>
+              <input class="inp s" type="text" placeholder="e.g. STU2026001 or student@school.edu" />
+            </div>
+          </div>
+          <div class="form-g">
+            <label>Password</label>
+            <div class="inp-wrap">
+              <i class="fas fa-lock inp-icon"></i>
+              <input class="inp s" type="password" id="s-pass" placeholder="Enter your password" />
+              <span class="eye-toggle" onclick="togglePwd('s-pass',this)"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+          <div class="row-opts">
+            <label class="chk-label"><input type="checkbox"> Remember me</label>
+            <a href="#" class="s-link">Forgot password?</a>
+          </div>
+          <a href="student/dashboard.html">
+            <button class="login-btn lbtn-s"><i class="fas fa-sign-in-alt"></i> Sign In as Student</button>
+          </a>
+          <div class="demo-box">Demo: <strong>STU2026001</strong> / <strong>student123</strong></div>
+        </div>
+
+        <!-- Parent Form -->
+        <div class="form-panel" id="panel-parent">
+          <div class="form-g">
+            <label>Registered Email / Phone</label>
+            <div class="inp-wrap">
+              <i class="fas fa-envelope inp-icon"></i>
+              <input class="inp p" type="text" placeholder="parent@email.com or 98XXXXXXXX" />
+            </div>
+          </div>
+          <div class="form-g">
+            <label>Password</label>
+            <div class="inp-wrap">
+              <i class="fas fa-lock inp-icon"></i>
+              <input class="inp p" type="password" id="p-pass" placeholder="Enter your password" />
+              <span class="eye-toggle" onclick="togglePwd('p-pass',this)"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+          <div class="row-opts">
+            <label class="chk-label"><input type="checkbox"> Remember me</label>
+            <a href="#" class="p-link">Forgot password?</a>
+          </div>
+          <a href="parent/dashboard.html">
+            <button class="login-btn lbtn-p"><i class="fas fa-sign-in-alt"></i> Sign In as Parent</button>
+          </a>
+          <div class="demo-box">Demo: <strong>parent@demo.com</strong> / <strong>parent123</strong></div>
+        </div>
+
+        <!-- Teacher Form -->
+        <div class="form-panel" id="panel-teacher">
+          <div class="form-g">
+            <label>Employee ID / Email</label>
+            <div class="inp-wrap">
+              <i class="fas fa-id-badge inp-icon"></i>
+              <input class="inp t" type="text" placeholder="EMP001 or teacher@school.edu" />
+            </div>
+          </div>
+          <div class="form-g">
+            <label>Password</label>
+            <div class="inp-wrap">
+              <i class="fas fa-lock inp-icon"></i>
+              <input class="inp t" type="password" id="t-pass" placeholder="Enter your password" />
+              <span class="eye-toggle" onclick="togglePwd('t-pass',this)"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+          <div class="row-opts">
+            <label class="chk-label"><input type="checkbox"> Remember me</label>
+            <a href="#" class="t-link">Forgot password?</a>
+          </div>
+          <a href="teacher/dashboard.html">
+            <button class="login-btn lbtn-t"><i class="fas fa-sign-in-alt"></i> Sign In as Teacher</button>
+          </a>
+          <div class="demo-box">Demo: <strong>EMP001</strong> / <strong>teacher123</strong></div>
+        </div>
+
+        <!-- Admin Form -->
+        <div class="form-panel" id="panel-admin">
+          <div class="form-g">
+            <label>Admin Username</label>
+            <div class="inp-wrap">
+              <i class="fas fa-user-shield inp-icon"></i>
+              <input class="inp a" type="text" placeholder="admin@vidyalaya.edu" />
+            </div>
+          </div>
+          <div class="form-g">
+            <label>Password</label>
+            <div class="inp-wrap">
+              <i class="fas fa-lock inp-icon"></i>
+              <input class="inp a" type="password" id="a-pass" placeholder="Enter admin password" />
+              <span class="eye-toggle" onclick="togglePwd('a-pass',this)"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+          <div class="form-g">
+            <label>Two-Factor Code <span style="font-weight:400;color:#94A3B8">(if enabled)</span></label>
+            <div class="inp-wrap">
+              <i class="fas fa-mobile-alt inp-icon"></i>
+              <input class="inp a" type="text" placeholder="6-digit code" maxlength="6" />
+            </div>
+          </div>
+          <div class="row-opts">
+            <label class="chk-label"><input type="checkbox"> Remember this device</label>
+            <a href="#" class="a-link">Forgot password?</a>
+          </div>
+          <a href="admin/dashboard.html">
+            <button class="login-btn lbtn-a"><i class="fas fa-shield-alt"></i> Sign In as Admin</button>
+          </a>
+          <div class="demo-box">Demo: <strong>admin@demo.com</strong> / <strong>admin123</strong></div>
+        </div>
+
+      </div><!-- /form body -->
+    </div><!-- /card -->
+
+    <p style="text-align:center;color:rgba(255,255,255,.5);font-size:.78rem;margin-top:1.25rem;">
+      New student? <a href="admissions.html" style="color:#F59E0B;font-weight:600;">Apply for Admission →</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  let currentRole = 'student';
+  const barClasses = { student:'rb-s', parent:'rb-p', teacher:'rb-t', admin:'rb-a' };
+
+  function selectRole(role) {
+    currentRole = role;
+    // Update tabs
+    document.querySelectorAll('.rtab').forEach(t => {
+      t.className = 'rtab';
+      if (t.dataset.role === role) t.classList.add('sel-'+role);
+    });
+    // Update panels
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-'+role).classList.add('active');
+    // Update bar
+    const bar = document.getElementById('roleBar');
+    bar.className = 'role-bar ' + barClasses[role];
+  }
+
+  function togglePwd(id, el) {
+    const inp = document.getElementById(id);
+    const isText = inp.type === 'text';
+    inp.type = isText ? 'password' : 'text';
+    el.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+  }
+</script>
+</body>
+</html>
