@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== CONTACT PAGE STYLES ===== */
+
+    /* Hero */
+    .contact-hero {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 40%, #92400e 100%);
+      padding: 110px 0 70px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .contact-hero .breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: .85rem;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 18px;
+    }
+    .contact-hero .breadcrumb a { color: rgba(255,255,255,.85); text-decoration: none; }
+    .contact-hero .breadcrumb a:hover { color: #fff; }
+    .contact-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      margin: 0 0 16px;
+    }
+    .contact-hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.85);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Quick Contact Bar */
+    .quick-bar {
+      background: #0D1B4B;
+      padding: 20px 0;
+    }
+    .quick-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .quick-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #fff;
+    }
+    .quick-item .qi-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #F59E0B;
+      flex-shrink: 0;
+    }
+    .quick-item .qi-text label {
+      display: block;
+      font-size: .75rem;
+      color: rgba(255,255,255,.55);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 2px;
+    }
+    .quick-item .qi-text span {
+      font-size: .9rem;
+      font-weight: 500;
+    }
+
+    /* Main Contact Section */
+    .contact-main {
+      padding: 72px 0;
+      background: #f8fafc;
+    }
+    .contact-main .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Contact Form */
+    .contact-form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 44px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    }
+    .contact-form-card h2 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 8px;
+    }
+    .contact-form-card .subtitle {
+      color: var(--text-muted);
+      font-size: .95rem;
+      margin: 0 0 32px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 20px;
+    }
+    .form-field label {
+      font-size: .85rem;
+      font-weight: 600;
+      color: #374151;
+    }
+    .form-field label span { color: #ef4444; }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      padding: 11px 14px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: .92rem;
+      color: #111827;
+      transition: border-color .2s, box-shadow .2s;
+      background: #fafafa;
+      outline: none;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: #d97706;
+      box-shadow: 0 0 0 3px rgba(217,119,6,.12);
+      background: #fff;
+    }
+    .form-field textarea { resize: vertical; min-height: 130px; }
+    .form-field select { cursor: pointer; }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(180,83,9,.35);
+    }
+    .form-note {
+      text-align: center;
+      margin-top: 14px;
+      font-size: .82rem;
+      color: var(--text-muted);
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px;
+    }
+    .form-success .success-icon {
+      width: 72px; height: 72px;
+      background: #d1fae5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #059669;
+      margin: 0 auto 16px;
+    }
+    .form-success h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin: 0 0 8px;
+    }
+    .form-success p { color: var(--text-muted); margin: 0; }
+
+    /* Info Sidebar */
+    .contact-sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+    .info-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+    }
+    .info-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-card h3 i {
+      width: 32px; height: 32px;
+      background: #fef3c7;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      color: #d97706;
+    }
+
+    .contact-detail-list { list-style: none; padding: 0; margin: 0; }
+    .contact-detail-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .contact-detail-list li:last-child { border-bottom: none; }
+    .contact-detail-list .cd-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: #f0f9ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      color: #0369a1;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .contact-detail-list .cd-info label {
+      display: block;
+      font-size: .75rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .contact-detail-list .cd-info a,
+    .contact-detail-list .cd-info span {
+      font-size: .9rem;
+      font-weight: 500;
+      color: #111827;
+      text-decoration: none;
+    }
+    .contact-detail-list .cd-info a:hover { color: #d97706; }
+
+    /* Hours Table */
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid #f3f4f6; }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table td {
+      padding: 8px 0;
+      font-size: .88rem;
+      color: #374151;
+    }
+    .hours-table td:last-child {
+      text-align: right;
+      font-weight: 600;
+      color: #111827;
+    }
+    .hours-table tr.today td { color: #d97706; }
+    .badge-open {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: .85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .social-links a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+    .social-links .fb  { background: #1877f2; color: #fff; }
+    .social-links .yt  { background: #ff0000; color: #fff; }
+    .social-links .tw  { background: #1da1f2; color: #fff; }
+    .social-links .ig  { background: linear-gradient(135deg,#e1306c,#833ab4); color: #fff; }
+
+    /* Department Contacts */
+    .dept-contacts {
+      padding: 72px 0;
+      background: #fff;
+    }
+    .dept-contacts .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-header .tag {
+      display: inline-block;
+      padding: 5px 16px;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      color: var(--primary);
+      margin: 0 0 12px;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .dept-card {
+      border-radius: 16px;
+      padding: 28px;
+      border: 1.5px solid #f1f5f9;
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .dept-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .dept-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.09); }
+    .dept-card.admissions::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
+    .dept-card.academic::before  { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .dept-card.accounts::before  { background: linear-gradient(90deg, #059669, #34d399); }
+    .dept-card.hr::before         { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+
+    .dept-card .dept-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    .dept-card.admissions .dept-icon { background: #fef3c7; color: #d97706; }
+    .dept-card.academic .dept-icon   { background: #ede9fe; color: #7c3aed; }
+    .dept-card.accounts .dept-icon   { background: #d1fae5; color: #059669; }
+    .dept-card.hr .dept-icon          { background: #dbeafe; color: #2563eb; }
+
+    .dept-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 6px;
+    }
+    .dept-card .dept-desc {
+      font-size: .85rem;
+      color: var(--text-muted);
+      margin: 0 0 18px;
+      line-height: 1.55;
+    }
+    .dept-contact-list { list-style: none; padding: 0; margin: 0; }
+    .dept-contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .85rem;
+      color: #374151;
+      padding: 5px 0;
+    }
+    .dept-contact-list li i {
+      width: 22px;
+      color: #94a3b8;
+      font-size: .8rem;
+    }
+    .dept-contact-list a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .dept-contact-list a:hover { color: #d97706; }
+
+    /* Map Section */
+    .map-section {
+      padding: 72px 0;
+      background: #f8fafc;
+    }
+    .map-section .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .map-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 32px;
+      align-items: start;
+      margin-top: 48px;
+    }
+    .map-placeholder {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 420px;
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 1rem;
+      gap: 12px;
+      position: relative;
+      border: 2px dashed #94a3b8;
+    }
+    .map-placeholder i { font-size: 3rem; color: #d97706; }
+    .map-placeholder strong { font-size: 1.1rem; color: #1e293b; }
+    .map-placeholder span { font-size: .85rem; }
+    .map-placeholder .map-pin {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      text-align: center;
+    }
+    .map-placeholder .map-pin .pin {
+      width: 40px; height: 40px;
+      background: #d97706;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      margin: 0 auto 8px;
+      box-shadow: 0 4px 12px rgba(217,119,6,.4);
+      animation: pinBounce 1.5s ease-in-out infinite;
+    }
+    @keyframes pinBounce {
+      0%, 100% { transform: rotate(-45deg) translateY(0); }
+      50% { transform: rotate(-45deg) translateY(-8px); }
+    }
+    .map-placeholder .map-pin span {
+      font-weight: 600;
+      color: #0D1B4B;
+      font-size: .9rem;
+      background: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+
+    .directions-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+    }
+    .directions-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 20px;
+    }
+    .transport-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .transport-item:last-of-type { border-bottom: none; }
+    .transport-item .t-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: #f0f9ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .95rem;
+      color: #0369a1;
+      flex-shrink: 0;
+    }
+    .transport-item .t-info strong {
+      display: block;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 3px;
+    }
+    .transport-item .t-info span {
+      font-size: .82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .directions-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: #fff;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: .9rem;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .directions-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(180,83,9,.3);
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: 72px 0;
+      background: #fff;
+    }
+    .faq-section .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .faq-list { margin-top: 40px; }
+    .faq-item {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .95rem;
+      color: #111827;
+      user-select: none;
+      transition: background .2s;
+    }
+    .faq-q:hover { background: #fffbeb; }
+    .faq-q i {
+      color: #d97706;
+      transition: transform .3s;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+    .faq-item.open .faq-q { background: #fffbeb; }
+    .faq-item.open .faq-q i { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .3s;
+    }
+    .faq-a-inner {
+      padding: 0 22px 18px;
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    /* CTA */
+    .contact-cta {
+      background: linear-gradient(135deg, #0D1B4B 0%, #1e3a8a 100%);
+      padding: 72px 0;
+      text-align: center;
+      color: #fff;
+    }
+    .contact-cta .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .contact-cta h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin: 0 0 14px;
+    }
+    .contact-cta p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.8);
+      margin: 0 0 32px;
+      line-height: 1.7;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-btn-primary {
+      padding: 14px 32px;
+      background: #F59E0B;
+      color: #0D1B4B;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(245,158,11,.35); }
+    .cta-btn-secondary {
+      padding: 14px 32px;
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,.25);
+      transition: background .2s, transform .2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-btn-secondary:hover { background: rgba(255,255,255,.18); transform: translateY(-3px); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .contact-main .container { grid-template-columns: 1fr; }
+      .contact-sidebar { order: -1; }
+      .map-wrapper { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .contact-form-card { padding: 24px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="navbar-logo">
+          <div class="logo-icon">🎓</div>
+          <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="faculty.html">Faculty</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="help.html">Help</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="contact-hero">
+    <div class="breadcrumb">
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+      <span>Contact Us</span>
+    </div>
+    <h1>Get in Touch</h1>
+    <p>We're here to help. Reach out to us with any questions, concerns, or feedback about Vidyalaya ERP.</p>
+  </section>
+
+  <!-- ===== QUICK CONTACT BAR ===== -->
+  <div class="quick-bar">
+    <div class="quick-bar-inner">
+      <div class="quick-item">
+        <div class="qi-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="qi-text">
+          <label>Main Office</label>
+          <span>+91 11 2345 6789</span>
+        </div>
+      </div>
+      <div class="quick-item">
+        <div class="qi-icon"><i class="fas fa-envelope"></i></div>
+        <div class="qi-text">
+          <label>Email Us</label>
+          <span>info@vidyalayaerp.edu.in</span>
+        </div>
+      </div>
+      <div class="quick-item">
+        <div class="qi-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="qi-text">
+          <label>Address</label>
+          <span>Sector 18, Noida, UP — 201301</span>
+        </div>
+      </div>
+      <div class="quick-item">
+        <div class="qi-icon"><i class="fas fa-clock"></i></div>
+        <div class="qi-text">
+          <label>Office Hours</label>
+          <span>Mon–Sat, 8:00 AM – 5:00 PM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTACT FORM + INFO ===== -->
+  <section class="contact-main">
+    <div class="container">
+
+      <!-- Form -->
+      <div class="contact-form-card reveal">
+        <h2>Send Us a Message</h2>
+        <p class="subtitle">Fill in the form below and we'll get back to you within 1–2 business days.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label>First Name <span>*</span></label>
+              <input type="text" id="firstName" placeholder="e.g. Aarav" required />
+            </div>
+            <div class="form-field">
+              <label>Last Name <span>*</span></label>
+              <input type="text" id="lastName" placeholder="e.g. Sharma" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Email Address <span>*</span></label>
+              <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-field">
+              <label>Phone Number</label>
+              <input type="tel" id="phone" placeholder="+91 98765 43210" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Department / Subject <span>*</span></label>
+            <select id="dept" required>
+              <option value="" disabled selected>Select a department…</option>
+              <option value="admissions">Admissions &amp; Enrollment</option>
+              <option value="academic">Academic Office</option>
+              <option value="accounts">Accounts &amp; Fees</option>
+              <option value="hr">HR &amp; Careers</option>
+              <option value="it">IT &amp; Portal Support</option>
+              <option value="general">General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Your Role</label>
+            <select id="role">
+              <option value="" disabled selected>Are you a…</option>
+              <option value="parent">Parent / Guardian</option>
+              <option value="student">Current Student</option>
+              <option value="prospective">Prospective Student</option>
+              <option value="teacher">Teacher / Staff</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Message <span>*</span></label>
+            <textarea id="message" placeholder="Write your message here…" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+          <p class="form-note"><i class="fas fa-lock" style="color:#d97706"></i> Your information is secure and will never be shared.</p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon"><i class="fas fa-check"></i></div>
+          <h3>Message Sent Successfully!</h3>
+          <p>Thank you for reaching out. Our team will respond to your message within 1–2 business days.</p>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="contact-sidebar reveal">
+
+        <!-- School Contact Info -->
+        <div class="info-card">
+          <h3><i class="fas fa-info-circle"></i> Contact Information</h3>
+          <ul class="contact-detail-list">
+            <li>
+              <div class="cd-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="cd-info">
+                <label>Address</label>
+                <span>Plot 14, Knowledge Park, Sector 18,<br>Noida, Uttar Pradesh — 201301</span>
+              </div>
+            </li>
+            <li>
+              <div class="cd-icon"><i class="fas fa-phone"></i></div>
+              <div class="cd-info">
+                <label>Main Office</label>
+                <a href="tel:+911123456789">+91 11 2345 6789</a>
+              </div>
+            </li>
+            <li>
+              <div class="cd-icon"><i class="fas fa-phone-alt"></i></div>
+              <div class="cd-info">
+                <label>Admissions Helpline</label>
+                <a href="tel:+919876543210">+91 98765 43210</a>
+              </div>
+            </li>
+            <li>
+              <div class="cd-icon"><i class="fas fa-envelope"></i></div>
+              <div class="cd-info">
+                <label>General Enquiries</label>
+                <a href="mailto:info@vidyalayaerp.edu.in">info@vidyalayaerp.edu.in</a>
+              </div>
+            </li>
+            <li>
+              <div class="cd-icon"><i class="fas fa-envelope-open-text"></i></div>
+              <div class="cd-info">
+                <label>Admissions</label>
+                <a href="mailto:admissions@vidyalayaerp.edu.in">admissions@vidyalayaerp.edu.in</a>
+              </div>
+            </li>
+            <li>
+              <div class="cd-icon"><i class="fas fa-globe"></i></div>
+              <div class="cd-info">
+                <label>Website</label>
+                <span>www.vidyalayaerp.edu.in</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Office Hours -->
+        <div class="info-card">
+          <h3><i class="fas fa-clock"></i> Office Hours</h3>
+          <table class="hours-table">
+            <tr class="today">
+              <td><strong>Monday</strong> <span class="badge-open">Open</span></td>
+              <td>8:00 AM – 5:00 PM</td>
+            </tr>
+            <tr><td>Tuesday</td><td>8:00 AM – 5:00 PM</td></tr>
+            <tr><td>Wednesday</td><td>8:00 AM – 5:00 PM</td></tr>
+            <tr><td>Thursday</td><td>8:00 AM – 5:00 PM</td></tr>
+            <tr><td>Friday</td><td>8:00 AM – 5:00 PM</td></tr>
+            <tr><td>Saturday</td><td>9:00 AM – 1:00 PM</td></tr>
+            <tr><td>Sunday</td><td style="color:#ef4444;font-weight:600">Closed</td></tr>
+          </table>
+        </div>
+
+        <!-- Social Media -->
+        <div class="info-card">
+          <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
+          <div class="social-links">
+            <a href="#" class="fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#" class="yt"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="#" class="tw"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#" class="ig"><i class="fab fa-instagram"></i> Instagram</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DEPARTMENT CONTACTS ===== -->
+  <section class="dept-contacts">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Department Contacts</div>
+        <h2>Reach the Right Team</h2>
+        <p>Each department has a dedicated point of contact to ensure your query reaches the right person quickly.</p>
+      </div>
+      <div class="dept-grid">
+
+        <div class="dept-card admissions reveal">
+          <div class="dept-icon"><i class="fas fa-user-plus"></i></div>
+          <h3>Admissions Office</h3>
+          <p class="dept-desc">New enrollment, application status, transfer certificates, and student registration queries.</p>
+          <ul class="dept-contact-list">
+            <li><i class="fas fa-user-tie"></i> <span>Mrs. Priya Kapoor — Head of Admissions</span></li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+919876543210">+91 98765 43210</a></li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:admissions@vidyalayaerp.edu.in">admissions@vidyalayaerp.edu.in</a></li>
+            <li><i class="fas fa-clock"></i> <span>Mon–Fri: 9 AM – 4 PM</span></li>
+          </ul>
+        </div>
+
+        <div class="dept-card academic reveal">
+          <div class="dept-icon"><i class="fas fa-book-open"></i></div>
+          <h3>Academic Office</h3>
+          <p class="dept-desc">Curriculum, timetables, examinations, results, and academic calendar related enquiries.</p>
+          <ul class="dept-contact-list">
+            <li><i class="fas fa-user-tie"></i> <span>Dr. Rajesh Verma — Academic Director</span></li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+919876543211">+91 98765 43211</a></li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:academics@vidyalayaerp.edu.in">academics@vidyalayaerp.edu.in</a></li>
+            <li><i class="fas fa-clock"></i> <span>Mon–Fri: 8 AM – 3 PM</span></li>
+          </ul>
+        </div>
+
+        <div class="dept-card accounts reveal">
+          <div class="dept-icon"><i class="fas fa-rupee-sign"></i></div>
+          <h3>Accounts &amp; Fees</h3>
+          <p class="dept-desc">Fee payments, receipts, fee structure, scholarships, and financial assistance queries.</p>
+          <ul class="dept-contact-list">
+            <li><i class="fas fa-user-tie"></i> <span>Mr. Suresh Agarwal — Finance Manager</span></li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+919876543212">+91 98765 43212</a></li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:accounts@vidyalayaerp.edu.in">accounts@vidyalayaerp.edu.in</a></li>
+            <li><i class="fas fa-clock"></i> <span>Mon–Sat: 9 AM – 2 PM</span></li>
+          </ul>
+        </div>
+
+        <div class="dept-card hr reveal">
+          <div class="dept-icon"><i class="fas fa-users"></i></div>
+          <h3>HR &amp; Careers</h3>
+          <p class="dept-desc">Staff recruitment, employment opportunities, payroll, and HR policy related queries.</p>
+          <ul class="dept-contact-list">
+            <li><i class="fas fa-user-tie"></i> <span>Ms. Anita Menon — HR Manager</span></li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+919876543213">+91 98765 43213</a></li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:hr@vidyalayaerp.edu.in">hr@vidyalayaerp.edu.in</a></li>
+            <li><i class="fas fa-clock"></i> <span>Mon–Fri: 9 AM – 5 PM</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAP SECTION ===== -->
+  <section class="map-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">Find Us</div>
+        <h2>Our Location</h2>
+        <p>Conveniently located in Sector 18, Noida — well connected by metro, road, and school bus routes.</p>
+      </div>
+      <div class="map-wrapper">
+        <div class="map-placeholder reveal">
+          <div class="map-pin">
+            <div class="pin"></div>
+            <span>Vidyalaya ERP, Sector 18</span>
+          </div>
+          <i class="fas fa-map" style="position:absolute;bottom:24px;right:24px;font-size:5rem;opacity:.08"></i>
+        </div>
+        <div class="directions-card reveal">
+          <h3><i class="fas fa-directions" style="color:#d97706;margin-right:8px"></i> How to Reach Us</h3>
+          <div class="transport-item">
+            <div class="t-icon"><i class="fas fa-subway"></i></div>
+            <div class="t-info">
+              <strong>By Metro</strong>
+              <span>Sector 18 Metro Station (Blue Line) — 5 min walk</span>
+            </div>
+          </div>
+          <div class="transport-item">
+            <div class="t-icon"><i class="fas fa-bus"></i></div>
+            <div class="t-info">
+              <strong>By Bus</strong>
+              <span>UP Roadways buses stop at Sector 18 bus stand — 3 min walk</span>
+            </div>
+          </div>
+          <div class="transport-item">
+            <div class="t-icon"><i class="fas fa-car"></i></div>
+            <div class="t-info">
+              <strong>By Car</strong>
+              <span>Noida–Greater Noida Expressway, take Sector 18 exit. Ample parking available on campus.</span>
+            </div>
+          </div>
+          <div class="transport-item">
+            <div class="t-icon"><i class="fas fa-school"></i></div>
+            <div class="t-info">
+              <strong>School Bus</strong>
+              <span>28 bus routes covering major areas of Noida, Greater Noida &amp; Delhi NCR</span>
+            </div>
+          </div>
+          <a href="#" class="directions-btn">
+            <i class="fas fa-map-marked-alt"></i> Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag">FAQ</div>
+        <h2>Frequently Asked Questions</h2>
+        <p>Quick answers to common queries. Can't find yours? Send us a message above.</p>
+      </div>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How do I apply for admission to Vidyalaya ERP?
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">You can apply online through our <a href="admissions.html" style="color:#d97706">Admissions page</a>. Fill in the 4-step enrollment form with the student's personal details, academic records, and upload required documents. Our admissions team will review and contact you within 3 working days.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How do I access the parent or student portal?
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Visit our <a href="login.html" style="color:#d97706">Login page</a> and select the appropriate role (Student or Parent). Use the credentials provided at the time of admission. For credential recovery or portal access issues, contact our IT support at <a href="mailto:itsupport@vidyalayaerp.edu.in" style="color:#d97706">itsupport@vidyalayaerp.edu.in</a>.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What documents are required for new student admission?
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Required documents include: birth certificate, previous school transfer certificate (TC), last class marksheets, Aadhar card (student and parent), 4 passport-size photographs, and medical fitness certificate. All documents should be self-attested. Original documents are verified at the time of enrollment.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How can parents schedule a meeting with teachers?
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Parents can schedule meetings directly through the Parent Portal — log in, go to the Messages section, and use the "Schedule a Call" feature to book a convenient time slot. Alternatively, you can call the school office to arrange a parent-teacher meeting during PTM days (held every alternate month).</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How do I pay school fees online?
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Fees can be paid through the Parent Portal under the Fees section. We accept UPI, Net Banking, credit/debit cards, and demand drafts. For any payment discrepancies or receipt queries, contact our Accounts department at <a href="mailto:accounts@vidyalayaerp.edu.in" style="color:#d97706">accounts@vidyalayaerp.edu.in</a>.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Are there scholarships or fee concessions available?
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">Yes! We offer merit-based scholarships for students scoring above 90% in board exams, and need-based concessions for economically weaker sections (EWS). The RTE quota provides free education for eligible students. Contact the Accounts office for details and application forms.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="contact-cta">
+    <div class="container">
+      <h2>Ready to Join Vidyalaya?</h2>
+      <p>Applications for the 2026–27 academic session are now open. Begin your journey towards excellence today.</p>
+      <div class="cta-buttons">
+        <a href="admissions.html" class="cta-btn-primary">
+          <i class="fas fa-file-alt"></i> Apply for Admission
+        </a>
+        <a href="about.html" class="cta-btn-secondary">
+          <i class="fas fa-info-circle"></i> Learn About Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo"><div class="logo-icon">🎓</div><div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div></div>
+          <p>A comprehensive school management platform empowering students, parents, and teachers with smart digital tools.</p>
+          <div class="footer-socials">
+            <div class="social-btn"><i class="fab fa-facebook-f"></i></div>
+            <div class="social-btn"><i class="fab fa-twitter"></i></div>
+            <div class="social-btn"><i class="fab fa-instagram"></i></div>
+            <div class="social-btn"><i class="fab fa-youtube"></i></div>
+          </div>
+        </div>
+        <div class="footer-col"><h5>Quick Links</h5><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="admissions.html">Admissions</a><a href="contact.html">Contact</a></div></div>
+        <div class="footer-col"><h5>Portals</h5><div class="footer-links"><a href="login.html">Student Login</a><a href="login.html">Parent Login</a><a href="login.html">Teacher Login</a><a href="login.html">Admin Login</a><a href="help.html">Help &amp; Support</a></div></div>
+        <div class="footer-col"><h5>Contact</h5>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Plot 14, Sector 18, Noida, UP — 201301</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 11 2345 6789</span></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@vidyalayaerp.edu.in</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Vidyalaya ERP. All rights reserved.</span><span>Privacy Policy · Terms of Use</span></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    /* ---- Contact Form Submit ---- */
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const first  = document.getElementById('firstName').value.trim();
+      const last   = document.getElementById('lastName').value.trim();
+      const email  = document.getElementById('email').value.trim();
+      const dept   = document.getElementById('dept').value;
+      const msg    = document.getElementById('message').value.trim();
+      if (!first || !last || !email || !dept || !msg) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRe.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      this.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    });
+
+    /* ---- FAQ Toggle ---- */
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+</body>
+</html>

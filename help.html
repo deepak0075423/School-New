@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help & Support — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== HELP PAGE ===== */
+
+    /* Hero */
+    .help-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f4c81 100%);
+      padding: 110px 0 60px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .help-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 60%, rgba(59,130,246,.15) 0%, transparent 55%),
+                  radial-gradient(circle at 75% 20%, rgba(99,102,241,.12) 0%, transparent 45%);
+    }
+    .help-hero .breadcrumb {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; font-size: .85rem; color: rgba(255,255,255,.65); margin-bottom: 18px;
+    }
+    .help-hero .breadcrumb a { color: rgba(255,255,255,.8); text-decoration: none; }
+    .help-hero .breadcrumb a:hover { color: #fff; }
+    .help-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin: 0 0 14px;
+    }
+    .help-hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,.75);
+      max-width: 520px; margin: 0 auto 36px; line-height: 1.7;
+    }
+
+    /* Search bar */
+    .help-search {
+      max-width: 560px; margin: 0 auto;
+      display: flex; gap: 0;
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
+      position: relative; z-index: 1;
+    }
+    .help-search input {
+      flex: 1; padding: 16px 20px;
+      border: none; outline: none;
+      font-family: var(--font-body); font-size: .97rem;
+      background: #fff; color: #111827;
+    }
+    .help-search input::placeholder { color: #94a3b8; }
+    .help-search button {
+      padding: 16px 24px;
+      background: #f59e0b; color: #1e293b;
+      border: none; cursor: pointer;
+      font-family: var(--font-heading); font-weight: 700; font-size: .95rem;
+      display: flex; align-items: center; gap: 8px;
+      transition: background .2s;
+    }
+    .help-search button:hover { background: #d97706; }
+
+    /* Quick links bar */
+    .quick-nav {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0;
+      position: sticky; top: 0; z-index: 90;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+    .quick-nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; gap: 4px; overflow-x: auto;
+      scrollbar-width: none; padding-top: 12px; padding-bottom: 12px;
+    }
+    .quick-nav-inner::-webkit-scrollbar { display: none; }
+    .qnav-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 50px;
+      border: 1.5px solid #e5e7eb; background: #fff;
+      font-size: .85rem; font-weight: 500; color: #374151;
+      cursor: pointer; white-space: nowrap; text-decoration: none;
+      transition: all .2s; flex-shrink: 0;
+    }
+    .qnav-btn:hover, .qnav-btn.active {
+      border-color: #2563eb; color: #2563eb; background: #eff6ff;
+    }
+    .qnav-btn i { font-size: .8rem; }
+
+    /* Portal Cards */
+    .portal-section {
+      padding: 72px 0;
+      background: #f8fafc;
+    }
+    .portal-section .container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .section-hdr {
+      text-align: center; margin-bottom: 48px;
+    }
+    .section-hdr .tag {
+      display: inline-block; padding: 4px 16px;
+      background: #dbeafe; color: #1e40af;
+      border-radius: 20px; font-size: .78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px;
+    }
+    .section-hdr h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800;
+      color: var(--primary); margin: 0 0 10px;
+    }
+    .section-hdr p { color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+
+    .portal-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .portal-card-help {
+      background: #fff; border-radius: 18px;
+      padding: 28px; border: 1.5px solid #f1f5f9;
+      transition: transform .25s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .portal-card-help::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+    }
+    .portal-card-help:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.09); }
+    .portal-card-help.student::before  { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .portal-card-help.parent::before   { background: linear-gradient(90deg, #059669, #34d399); }
+    .portal-card-help.teacher::before  { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+    .portal-card-help.admin::before    { background: linear-gradient(90deg, #dc2626, #f87171); }
+
+    .portal-card-help .pc-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 16px;
+    }
+    .portal-card-help.student .pc-icon  { background: #ede9fe; color: #7c3aed; }
+    .portal-card-help.parent .pc-icon   { background: #d1fae5; color: #059669; }
+    .portal-card-help.teacher .pc-icon  { background: #dbeafe; color: #2563eb; }
+    .portal-card-help.admin .pc-icon    { background: #fee2e2; color: #dc2626; }
+
+    .portal-card-help h3 {
+      font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
+      color: var(--primary); margin: 0 0 6px;
+    }
+    .portal-card-help p {
+      font-size: .85rem; color: var(--text-muted);
+      line-height: 1.55; margin: 0 0 18px;
+    }
+    .pc-links { list-style: none; padding: 0; margin: 0; }
+    .pc-links li a {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .85rem; color: #374151;
+      padding: 7px 0; border-bottom: 1px solid #f3f4f6;
+      text-decoration: none; transition: color .2s;
+    }
+    .pc-links li:last-child a { border-bottom: none; }
+    .pc-links li a:hover { color: #2563eb; }
+    .pc-links li a i { font-size: .7rem; color: #94a3b8; }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 72px 0;
+      background: #fff;
+    }
+    .faq-section .container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .faq-layout {
+      display: grid; grid-template-columns: 240px 1fr; gap: 40px; margin-top: 48px;
+    }
+
+    /* FAQ Tabs */
+    .faq-tabs { display: flex; flex-direction: column; gap: 6px; }
+    .faq-tab {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border-radius: 12px;
+      cursor: pointer; font-size: .88rem; font-weight: 500; color: #374151;
+      border: none; background: transparent; text-align: left;
+      transition: background .2s, color .2s;
+    }
+    .faq-tab i { width: 18px; text-align: center; font-size: .85rem; color: #94a3b8; }
+    .faq-tab:hover { background: #f1f5f9; }
+    .faq-tab.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
+    .faq-tab.active i { color: #2563eb; }
+
+    /* FAQ Panels */
+    .faq-panel { display: none; }
+    .faq-panel.active { display: block; }
+    .faq-item {
+      border: 1.5px solid #e5e7eb; border-radius: 12px;
+      margin-bottom: 10px; overflow: hidden;
+    }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; cursor: pointer;
+      font-weight: 600; font-size: .93rem; color: #111827;
+      user-select: none; transition: background .2s;
+    }
+    .faq-q:hover { background: #f8fafc; }
+    .faq-q .fq-icon { color: #2563eb; transition: transform .3s; flex-shrink: 0; margin-left: 12px; }
+    .faq-item.open .faq-q { background: #eff6ff; }
+    .faq-item.open .faq-q .fq-icon { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a-inner {
+      padding: 0 20px 16px;
+      font-size: .88rem; color: #64748b; line-height: 1.75;
+    }
+    .faq-a-inner a { color: #2563eb; text-decoration: none; }
+    .faq-a-inner a:hover { text-decoration: underline; }
+    .faq-a-inner ul { padding-left: 18px; margin: 8px 0; }
+    .faq-a-inner ul li { margin-bottom: 4px; }
+    .faq-item.open .faq-a { max-height: 400px; }
+
+    /* Troubleshooting */
+    .trouble-section {
+      padding: 72px 0; background: #f8fafc;
+    }
+    .trouble-section .container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .trouble-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .trouble-card {
+      background: #fff; border-radius: 14px; padding: 24px;
+      border: 1.5px solid #f1f5f9;
+      transition: box-shadow .2s;
+    }
+    .trouble-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+    .trouble-card .tc-head {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    }
+    .trouble-card .tc-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .95rem; flex-shrink: 0;
+    }
+    .trouble-card .tc-icon.red   { background: #fee2e2; color: #dc2626; }
+    .trouble-card .tc-icon.blue  { background: #dbeafe; color: #2563eb; }
+    .trouble-card .tc-icon.amber { background: #fef3c7; color: #d97706; }
+    .trouble-card .tc-icon.green { background: #d1fae5; color: #059669; }
+    .trouble-card .tc-icon.purple{ background: #ede9fe; color: #7c3aed; }
+    .trouble-card .tc-icon.slate { background: #f1f5f9; color: #475569; }
+    .trouble-card h4 {
+      font-family: var(--font-heading); font-size: .95rem;
+      font-weight: 700; color: #111827; margin: 0;
+    }
+    .trouble-steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+    .trouble-steps li {
+      display: flex; gap: 10px; font-size: .84rem;
+      color: #64748b; padding: 6px 0; border-bottom: 1px solid #f3f4f6;
+      counter-increment: step;
+    }
+    .trouble-steps li:last-child { border-bottom: none; }
+    .trouble-steps li::before {
+      content: counter(step);
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #f1f5f9; color: #475569;
+      font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Support Ticket */
+    .ticket-section {
+      padding: 72px 0; background: #fff;
+    }
+    .ticket-section .container {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+    .ticket-layout {
+      display: grid; grid-template-columns: 1fr 360px; gap: 40px;
+      margin-top: 48px; align-items: start;
+    }
+    .ticket-form-card {
+      background: #f8fafc; border-radius: 20px; padding: 36px;
+      border: 1.5px solid #e5e7eb;
+    }
+    .ticket-form-card h3 {
+      font-family: var(--font-heading); font-size: 1.3rem;
+      font-weight: 700; color: var(--primary); margin: 0 0 6px;
+    }
+    .ticket-form-card .sub { color: var(--text-muted); font-size: .9rem; margin: 0 0 28px; }
+    .tf-group { margin-bottom: 18px; }
+    .tf-group label {
+      display: block; font-size: .83rem; font-weight: 600;
+      color: #334155; margin-bottom: 6px;
+    }
+    .tf-group label span { color: #ef4444; }
+    .tf-group input,
+    .tf-group select,
+    .tf-group textarea {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid #e2e8f0; border-radius: 10px;
+      font-family: var(--font-body); font-size: .92rem; color: #111827;
+      background: #fff; outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .tf-group input:focus,
+    .tf-group select:focus,
+    .tf-group textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+    }
+    .tf-group textarea { resize: vertical; min-height: 110px; }
+    .tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .ticket-submit {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff; border: none; border-radius: 12px;
+      font-family: var(--font-heading); font-size: .97rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 8px; transition: transform .2s, box-shadow .2s;
+    }
+    .ticket-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
+    .ticket-success {
+      display: none; text-align: center; padding: 32px;
+    }
+    .ticket-success .ts-icon {
+      width: 68px; height: 68px; background: #dbeafe;
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; font-size: 1.8rem; color: #2563eb;
+      margin: 0 auto 16px;
+    }
+    .ticket-success h3 { font-family: var(--font-heading); color: var(--primary); margin: 0 0 8px; }
+    .ticket-success p { color: var(--text-muted); font-size: .9rem; margin: 0; }
+
+    /* Contact channels */
+    .contact-channels { display: flex; flex-direction: column; gap: 16px; }
+    .channel-card {
+      background: #fff; border-radius: 14px; padding: 20px 22px;
+      border: 1.5px solid #f1f5f9; display: flex; gap: 16px; align-items: flex-start;
+      transition: box-shadow .2s;
+    }
+    .channel-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.06); }
+    .ch-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .ch-icon.blue   { background: #dbeafe; color: #2563eb; }
+    .ch-icon.green  { background: #d1fae5; color: #059669; }
+    .ch-icon.amber  { background: #fef3c7; color: #d97706; }
+    .ch-icon.purple { background: #ede9fe; color: #7c3aed; }
+    .ch-body h4 {
+      font-family: var(--font-heading); font-size: .93rem;
+      font-weight: 700; color: #111827; margin: 0 0 3px;
+    }
+    .ch-body p { font-size: .82rem; color: #64748b; margin: 0 0 4px; }
+    .ch-body a { font-size: .85rem; font-weight: 600; color: #2563eb; text-decoration: none; }
+    .ch-body a:hover { text-decoration: underline; }
+    .ch-badge {
+      display: inline-block; padding: 2px 8px;
+      background: #d1fae5; color: #065f46;
+      border-radius: 20px; font-size: .7rem; font-weight: 600; margin-left: 6px;
+    }
+
+    /* CTA */
+    .help-cta {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      padding: 64px 0; text-align: center; color: #fff;
+    }
+    .help-cta .container { max-width: 620px; margin: 0 auto; padding: 0 24px; }
+    .help-cta h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.5vw, 2.1rem); font-weight: 800; margin: 0 0 12px;
+    }
+    .help-cta p { color: rgba(255,255,255,.75); margin: 0 0 28px; }
+    .help-cta .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .help-cta .btn-gold {
+      padding: 13px 28px; background: #f59e0b; color: #1e293b;
+      border-radius: 50px; font-weight: 700; text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .help-cta .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,.35); }
+    .help-cta .btn-ghost {
+      padding: 13px 28px; background: rgba(255,255,255,.1);
+      color: #fff; border-radius: 50px; font-weight: 600; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,.25);
+      display: flex; align-items: center; gap: 8px;
+      transition: background .2s, transform .2s;
+    }
+    .help-cta .btn-ghost:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
+
+    @media (max-width: 900px) {
+      .faq-layout { grid-template-columns: 1fr; }
+      .faq-tabs { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+      .faq-tab { padding: 8px 14px; }
+      .ticket-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .tf-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="help.html" class="active">Help</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="help-hero">
+  <div class="breadcrumb">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+    <span>Help & Support</span>
+  </div>
+  <h1><i class="fas fa-life-ring" style="color:#f59e0b;margin-right:12px"></i>Help & Support</h1>
+  <p>Find answers to common questions, troubleshoot issues, or raise a support ticket — we're here for you.</p>
+  <div class="help-search">
+    <input type="text" id="searchInput" placeholder="Search for help topics… e.g. 'reset password', 'view results'" />
+    <button onclick="searchHelp()"><i class="fas fa-search"></i> Search</button>
+  </div>
+</section>
+
+<!-- ===== QUICK NAV ===== -->
+<div class="quick-nav">
+  <div class="quick-nav-inner">
+    <a class="qnav-btn active" href="#portals"><i class="fas fa-th-large"></i> Portals</a>
+    <a class="qnav-btn" href="#faq"><i class="fas fa-question-circle"></i> FAQs</a>
+    <a class="qnav-btn" href="#troubleshoot"><i class="fas fa-tools"></i> Troubleshooting</a>
+    <a class="qnav-btn" href="#ticket"><i class="fas fa-ticket-alt"></i> Raise Ticket</a>
+    <a class="qnav-btn" href="#contact-channels"><i class="fas fa-headset"></i> Contact Support</a>
+  </div>
+</div>
+
+<!-- ===== PORTAL GUIDES ===== -->
+<section class="portal-section" id="portals">
+  <div class="container">
+    <div class="section-hdr">
+      <div class="tag">Portal Guides</div>
+      <h2>Choose Your Portal</h2>
+      <p>Find help specific to your role — student, parent, teacher, or admin.</p>
+    </div>
+    <div class="portal-cards">
+
+      <div class="portal-card-help student reveal">
+        <div class="pc-icon"><i class="fas fa-user-graduate"></i></div>
+        <h3>Student Portal</h3>
+        <p>Access your courses, attendance, results, schedule, and notifications.</p>
+        <ul class="pc-links">
+          <li><a href="#faq" onclick="switchTab('student')"><i class="fas fa-chevron-right"></i> How to log in as a student</a></li>
+          <li><a href="#faq" onclick="switchTab('student')"><i class="fas fa-chevron-right"></i> View my attendance report</a></li>
+          <li><a href="#faq" onclick="switchTab('student')"><i class="fas fa-chevron-right"></i> Download study material</a></li>
+          <li><a href="#faq" onclick="switchTab('student')"><i class="fas fa-chevron-right"></i> Check exam results</a></li>
+          <li><a href="#faq" onclick="switchTab('student')"><i class="fas fa-chevron-right"></i> Reset my password</a></li>
+        </ul>
+      </div>
+
+      <div class="portal-card-help parent reveal">
+        <div class="pc-icon"><i class="fas fa-users"></i></div>
+        <h3>Parent Portal</h3>
+        <p>Monitor your child's academics, fees, attendance, and communicate with teachers.</p>
+        <ul class="pc-links">
+          <li><a href="#faq" onclick="switchTab('parent')"><i class="fas fa-chevron-right"></i> Track child's attendance</a></li>
+          <li><a href="#faq" onclick="switchTab('parent')"><i class="fas fa-chevron-right"></i> Pay school fees online</a></li>
+          <li><a href="#faq" onclick="switchTab('parent')"><i class="fas fa-chevron-right"></i> Message a teacher</a></li>
+          <li><a href="#faq" onclick="switchTab('parent')"><i class="fas fa-chevron-right"></i> Schedule a parent-teacher call</a></li>
+          <li><a href="#faq" onclick="switchTab('parent')"><i class="fas fa-chevron-right"></i> View fee receipts</a></li>
+        </ul>
+      </div>
+
+      <div class="portal-card-help teacher reveal">
+        <div class="pc-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h3>Teacher Portal</h3>
+        <p>Manage classes, mark attendance, upload content, apply for leave, and view payroll.</p>
+        <ul class="pc-links">
+          <li><a href="#faq" onclick="switchTab('teacher')"><i class="fas fa-chevron-right"></i> Upload LMS content</a></li>
+          <li><a href="#faq" onclick="switchTab('teacher')"><i class="fas fa-chevron-right"></i> Mark student attendance</a></li>
+          <li><a href="#faq" onclick="switchTab('teacher')"><i class="fas fa-chevron-right"></i> Apply for leave</a></li>
+          <li><a href="#faq" onclick="switchTab('teacher')"><i class="fas fa-chevron-right"></i> View payslip</a></li>
+          <li><a href="#faq" onclick="switchTab('teacher')"><i class="fas fa-chevron-right"></i> Complete self-appraisal</a></li>
+        </ul>
+      </div>
+
+      <div class="portal-card-help admin reveal">
+        <div class="pc-icon"><i class="fas fa-user-shield"></i></div>
+        <h3>Admin Panel</h3>
+        <p>Manage enrollments, staff, announcements, reports, fees, and school settings.</p>
+        <ul class="pc-links">
+          <li><a href="#faq" onclick="switchTab('admin')"><i class="fas fa-chevron-right"></i> Approve enrollment requests</a></li>
+          <li><a href="#faq" onclick="switchTab('admin')"><i class="fas fa-chevron-right"></i> Manage teacher leave</a></li>
+          <li><a href="#faq" onclick="switchTab('admin')"><i class="fas fa-chevron-right"></i> Post announcements</a></li>
+          <li><a href="#faq" onclick="switchTab('admin')"><i class="fas fa-chevron-right"></i> Generate attendance reports</a></li>
+          <li><a href="#faq" onclick="switchTab('admin')"><i class="fas fa-chevron-right"></i> Manage holiday calendar</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-hdr">
+      <div class="tag" style="background:#d1fae5;color:#065f46;">FAQs</div>
+      <h2>Frequently Asked Questions</h2>
+      <p>Browse questions by portal or topic. Click any question to expand the answer.</p>
+    </div>
+    <div class="faq-layout">
+
+      <!-- Tab Sidebar -->
+      <div class="faq-tabs">
+        <button class="faq-tab active" id="tab-general" onclick="switchTab('general')"><i class="fas fa-globe"></i> General</button>
+        <button class="faq-tab" id="tab-student" onclick="switchTab('student')"><i class="fas fa-user-graduate"></i> Student</button>
+        <button class="faq-tab" id="tab-parent" onclick="switchTab('parent')"><i class="fas fa-users"></i> Parent</button>
+        <button class="faq-tab" id="tab-teacher" onclick="switchTab('teacher')"><i class="fas fa-chalkboard-teacher"></i> Teacher</button>
+        <button class="faq-tab" id="tab-admin" onclick="switchTab('admin')"><i class="fas fa-user-shield"></i> Admin</button>
+        <button class="faq-tab" id="tab-technical" onclick="switchTab('technical')"><i class="fas fa-laptop"></i> Technical</button>
+      </div>
+
+      <!-- FAQ Panels -->
+      <div>
+        <!-- General -->
+        <div class="faq-panel active" id="panel-general">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is Vidyalaya ERP? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Vidyalaya ERP is a comprehensive School Management System that digitises daily school operations — attendance, results, fee management, communication, LMS, HR, payroll, and more. It provides dedicated portals for students, parents, teachers, and admins.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I get login credentials? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Login credentials are issued by the school administration:<ul><li><strong>Students & Parents</strong> — credentials are shared via registered email/SMS at the time of admission.</li><li><strong>Teachers & Staff</strong> — credentials are provided by the HR department on joining.</li></ul>If you haven't received credentials, contact the school office or raise a support ticket below.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What browsers are supported? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Vidyalaya ERP works best on Google Chrome (v90+), Mozilla Firefox (v85+), Microsoft Edge, and Safari (v14+). Internet Explorer is not supported. We recommend keeping your browser updated for the best experience.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is there a mobile app? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">The web portal is fully responsive and works well on smartphones and tablets. A dedicated Android and iOS app is currently under development and will be available soon. You can bookmark the portal on your home screen for quick access.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How is my data kept secure? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">All data is encrypted in transit (HTTPS/TLS) and at rest. Passwords are hashed using industry-standard algorithms. We follow DPDP (Digital Personal Data Protection) Act guidelines. Role-based access control ensures users only see data they are authorised to view.</div></div></div>
+        </div>
+
+        <!-- Student -->
+        <div class="faq-panel" id="panel-student">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I log in to the Student Portal? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to the <a href="login.html">Login page</a> and select the <strong>Student</strong> tab. Enter your Student ID (shared at admission) and your password. If you haven't received credentials, contact your class teacher or the admin office.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Where can I see my attendance? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">After logging in, click <strong>Attendance</strong> in the left sidebar. You'll see a monthly calendar view with colour-coded days (green = present, red = absent, yellow = late), along with your overall attendance percentage per subject.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I download study material? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to <strong>My Courses</strong> in the sidebar. Click on any subject card to open it. You'll find PDFs, notes, videos, and assignments uploaded by your teacher. Click the download icon next to any file to save it.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I check my exam results? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Results are published in the <strong>Results</strong> section of your dashboard once your teacher or admin makes them available. You can view marks, grades, and rank for each subject. Past results from previous terms are also accessible.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I reset my password? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">On the login page, click <strong>"Forgot Password?"</strong> and enter your registered email address. A reset link will be sent to your email. If you don't receive it within 5 minutes, check your spam folder or contact the school IT support at <a href="mailto:itsupport@vidyalayaerp.edu.in">itsupport@vidyalayaerp.edu.in</a>.</div></div></div>
+        </div>
+
+        <!-- Parent -->
+        <div class="faq-panel" id="panel-parent">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I track my child's attendance? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Log in to the <strong>Parent Portal</strong>, then navigate to the <strong>Attendance</strong> section. You'll see a weekly and monthly breakdown of your child's attendance, with subject-wise details. You'll also receive SMS/email alerts for each absence.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I pay school fees online? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to the <strong>Fees</strong> section in the Parent Portal. You'll see all pending dues, due dates, and installment options. Click <strong>Pay Now</strong> and choose from UPI, Net Banking, or Credit/Debit card. A payment receipt is generated instantly and sent to your registered email.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I message my child's teacher? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">In the Parent Portal, go to <strong>Messages</strong>. Select the teacher from the dropdown list and type your message. For a more formal meeting, use the <strong>Schedule a Call</strong> feature to book a time slot that suits both parties.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I link multiple children to one parent account? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Yes. If you have more than one child enrolled, the Parent Portal will show a child switcher at the top of the dashboard. Contact the admin office to link additional children to your parent account.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I download fee receipts? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to <strong>Fees → Payment History</strong>. Each completed payment shows a <strong>Download Receipt</strong> button. Receipts are in PDF format and include the payment reference number, date, and amount.</div></div></div>
+        </div>
+
+        <!-- Teacher -->
+        <div class="faq-panel" id="panel-teacher">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I upload content to the LMS? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">In the Teacher Portal, go to <strong>LMS</strong> in the sidebar. Click <strong>Upload Content</strong>, select the subject and class, choose the file type (PDF, Video, Assignment, or Link), and click Upload. Students will be notified automatically.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I mark attendance for my class? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Navigate to <strong>Attendance</strong> in your sidebar. Select the class and date. You'll see a list of all students — click <strong>P</strong> (Present), <strong>A</strong> (Absent), or <strong>L</strong> (Late) for each student. Use the <strong>Mark All Present</strong> button to speed up the process, then adjust individual records. Click <strong>Submit</strong> to save.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I apply for leave? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to <strong>Leave</strong> in the Teacher Portal. Click <strong>Apply for Leave</strong>, fill in the leave type (Casual, Medical, etc.), select dates, and provide a reason. Your application will be submitted to the admin for approval. You'll receive a notification once it's approved or rejected.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Where can I view my payslip? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to <strong>Payroll</strong> in the sidebar. You'll see your current month's salary breakdown (Basic, HRA, DA, Deductions, Net Pay) and a history of past payslips. Click <strong>Download PDF</strong> to save any payslip.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I complete my self-appraisal? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Navigate to <strong>Appraisal</strong> in the sidebar during the appraisal window (typically April–May). Rate yourself on the displayed criteria using the star rating system and add self-comments. Submit before the deadline. Your admin will review and provide final ratings.</div></div></div>
+        </div>
+
+        <!-- Admin -->
+        <div class="faq-panel" id="panel-admin">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I approve new enrollment requests? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">In the Admin Panel, go to <strong>Enrollment Management</strong>. New applications appear with status "Pending". Click the application to review documents and details. Use the <strong>Approve</strong> or <strong>Reject</strong> button. Approved students will receive login credentials via email automatically.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I approve or reject teacher leave? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to <strong>Leave Approvals</strong> in the Admin Panel. Pending leave requests are listed with the teacher name, leave type, dates, and reason. Click <strong>Approve</strong> or <strong>Reject</strong>. The teacher will be notified immediately via portal notification and email.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I post a school-wide announcement? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to <strong>Announcements</strong> in the Admin Panel. Click <strong>New Announcement</strong>, write your title and message, select the target audience (All / Students / Parents / Teachers), and click <strong>Post</strong>. The announcement appears in all selected users' notification feeds immediately.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I generate attendance reports? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Navigate to <strong>Attendance Reports</strong> under the Reports section. Select the class, date range, and report type (daily/monthly/subject-wise). Click <strong>Generate Report</strong>. Reports can be viewed on-screen or exported as Excel/PDF.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I add or edit the holiday calendar? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Go to <strong>Holidays</strong> in the Admin Panel. Click <strong>Add Holiday</strong>, enter the date and occasion name, and save. Students, parents, and teachers will see the updated calendar in their respective dashboards. You can also bulk-import holidays via CSV.</div></div></div>
+        </div>
+
+        <!-- Technical -->
+        <div class="faq-panel" id="panel-technical">
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">The portal is not loading. What should I do? <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner"><ul><li>Try a hard refresh: <strong>Ctrl+Shift+R</strong> (Windows) or <strong>Cmd+Shift+R</strong> (Mac)</li><li>Clear browser cache and cookies</li><li>Try a different browser or incognito/private window</li><li>Check your internet connection</li><li>Disable browser extensions (especially ad blockers)</li></ul>If the issue persists, raise a ticket below.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">I'm locked out after too many failed login attempts. <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Accounts are temporarily locked for 15 minutes after 5 consecutive failed login attempts. Wait 15 minutes and try again. If you don't remember your password, use the <strong>Forgot Password</strong> link on the login page. For immediate assistance, contact IT Support.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">File upload is failing in the Documents section. <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Ensure your file: <ul><li>Is in an accepted format: PDF, JPG, JPEG, or PNG</li><li>Does not exceed 5MB in size</li><li>Has no special characters in the filename</li></ul>Try renaming the file to something simple (e.g. birth_cert.pdf) and upload again. If it still fails, try a different browser.</div></div></div>
+
+          <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">I'm not receiving email notifications. <i class="fas fa-plus fq-icon"></i></div><div class="faq-a"><div class="faq-a-inner">Check your spam/junk folder first. Emails are sent from <strong>noreply@vidyalayaerp.edu.in</strong> — add this to your contacts. If you're still not receiving emails, ensure the registered email address in your profile is correct. Contact IT support to re-verify your email.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TROUBLESHOOTING ===== -->
+<section class="trouble-section" id="troubleshoot">
+  <div class="container">
+    <div class="section-hdr">
+      <div class="tag" style="background:#fef3c7;color:#92400e;">Troubleshooting</div>
+      <h2>Common Issues & Fixes</h2>
+      <p>Step-by-step solutions for the most frequently reported problems.</p>
+    </div>
+    <div class="trouble-grid">
+
+      <div class="trouble-card reveal">
+        <div class="tc-head">
+          <div class="tc-icon red"><i class="fas fa-key"></i></div>
+          <h4>Can't Log In</h4>
+        </div>
+        <ol class="trouble-steps">
+          <li>Check you're on the correct role tab (Student / Parent / Teacher)</li>
+          <li>Ensure Caps Lock is off when entering password</li>
+          <li>Use "Forgot Password" to reset via email</li>
+          <li>Wait 15 min if account is locked after failed attempts</li>
+          <li>Contact admin if credentials were never received</li>
+        </ol>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="tc-head">
+          <div class="tc-icon blue"><i class="fas fa-sync-alt"></i></div>
+          <h4>Page Not Loading</h4>
+        </div>
+        <ol class="trouble-steps">
+          <li>Check your internet connection</li>
+          <li>Hard refresh with Ctrl+Shift+R or Cmd+Shift+R</li>
+          <li>Clear browser cache (Settings → Clear Data)</li>
+          <li>Try Chrome or Firefox if using another browser</li>
+          <li>Disable browser extensions temporarily</li>
+        </ol>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="tc-head">
+          <div class="tc-icon amber"><i class="fas fa-file-upload"></i></div>
+          <h4>File Upload Failing</h4>
+        </div>
+        <ol class="trouble-steps">
+          <li>Confirm file is PDF, JPG, or PNG format</li>
+          <li>Ensure file size is under 5MB</li>
+          <li>Rename file — remove spaces & special characters</li>
+          <li>Try uploading from a desktop instead of mobile</li>
+          <li>Raise a ticket if the issue persists</li>
+        </ol>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="tc-head">
+          <div class="tc-icon green"><i class="fas fa-bell-slash"></i></div>
+          <h4>No Email / SMS Alerts</h4>
+        </div>
+        <ol class="trouble-steps">
+          <li>Check spam/junk folder in your email</li>
+          <li>Add noreply@vidyalayaerp.edu.in to contacts</li>
+          <li>Verify registered email/phone in your profile</li>
+          <li>Check notification settings in the portal</li>
+          <li>Contact IT support to re-send verification</li>
+        </ol>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="tc-head">
+          <div class="tc-icon purple"><i class="fas fa-mobile-alt"></i></div>
+          <h4>Mobile Display Issues</h4>
+        </div>
+        <ol class="trouble-steps">
+          <li>Use the latest Chrome or Safari on mobile</li>
+          <li>Enable JavaScript in browser settings</li>
+          <li>Rotate to landscape for wide tables</li>
+          <li>Zoom out if content appears cut off</li>
+          <li>Bookmark the site on your home screen for app-like access</li>
+        </ol>
+      </div>
+
+      <div class="trouble-card reveal">
+        <div class="tc-head">
+          <div class="tc-icon slate"><i class="fas fa-credit-card"></i></div>
+          <h4>Payment Failed</h4>
+        </div>
+        <ol class="trouble-steps">
+          <li>Check if amount was debited from your bank first</li>
+          <li>Wait 10 min — payment may still be processing</li>
+          <li>Verify internet was stable during transaction</li>
+          <li>Try a different payment method (UPI / Net Banking)</li>
+          <li>Contact Accounts dept with transaction reference</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SUPPORT TICKET ===== -->
+<section class="ticket-section" id="ticket">
+  <div class="container">
+    <div class="section-hdr">
+      <div class="tag" style="background:#ede9fe;color:#5b21b6;">Support Ticket</div>
+      <h2>Raise a Support Ticket</h2>
+      <p>Can't find your answer above? Submit a ticket and our team will respond within 4–8 business hours.</p>
+    </div>
+    <div class="ticket-layout">
+
+      <div class="ticket-form-card reveal">
+        <h3>Submit a Ticket</h3>
+        <p class="sub">Provide as much detail as possible so we can resolve your issue faster.</p>
+
+        <form id="ticketForm" novalidate>
+          <div class="tf-row">
+            <div class="tf-group">
+              <label>Full Name <span>*</span></label>
+              <input type="text" id="tk-name" placeholder="Your name" />
+            </div>
+            <div class="tf-group">
+              <label>Role <span>*</span></label>
+              <select id="tk-role">
+                <option value="">Select role…</option>
+                <option>Student</option>
+                <option>Parent</option>
+                <option>Teacher</option>
+                <option>Admin</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="tf-row">
+            <div class="tf-group">
+              <label>Email <span>*</span></label>
+              <input type="email" id="tk-email" placeholder="your@email.com" />
+            </div>
+            <div class="tf-group">
+              <label>Phone</label>
+              <input type="tel" id="tk-phone" placeholder="+91 XXXXX XXXXX" />
+            </div>
+          </div>
+          <div class="tf-group">
+            <label>Issue Category <span>*</span></label>
+            <select id="tk-category">
+              <option value="">Choose category…</option>
+              <option>Login / Access Issue</option>
+              <option>Portal Not Loading</option>
+              <option>File Upload Problem</option>
+              <option>Payment / Fees Issue</option>
+              <option>Attendance Data Error</option>
+              <option>Missing Results / Marks</option>
+              <option>Notification Not Received</option>
+              <option>LMS / Content Issue</option>
+              <option>Profile / Data Update</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="tf-group">
+            <label>Describe Your Issue <span>*</span></label>
+            <textarea id="tk-desc" placeholder="Describe the issue in detail. Include any error messages you see, what you were trying to do, and what browser/device you're using…"></textarea>
+          </div>
+          <button type="submit" class="ticket-submit">
+            <i class="fas fa-paper-plane"></i> Submit Ticket
+          </button>
+        </form>
+
+        <div class="ticket-success" id="ticketSuccess">
+          <div class="ts-icon"><i class="fas fa-check"></i></div>
+          <h3>Ticket Raised Successfully!</h3>
+          <p>Your ticket ID is <strong id="ticketId"></strong>. Our support team will respond to <strong id="ticketEmail"></strong> within 4–8 business hours.</p>
+        </div>
+      </div>
+
+      <!-- Contact channels -->
+      <div class="contact-channels reveal" id="contact-channels">
+        <div class="channel-card">
+          <div class="ch-icon blue"><i class="fas fa-envelope"></i></div>
+          <div class="ch-body">
+            <h4>Email Support</h4>
+            <p>For non-urgent queries and documentation</p>
+            <a href="mailto:itsupport@vidyalayaerp.edu.in">itsupport@vidyalayaerp.edu.in</a>
+            <span class="ch-badge">48h response</span>
+          </div>
+        </div>
+        <div class="channel-card">
+          <div class="ch-icon green"><i class="fas fa-phone-alt"></i></div>
+          <div class="ch-body">
+            <h4>Phone Support</h4>
+            <p>Mon–Fri, 9 AM – 5 PM</p>
+            <a href="tel:+911123456789">+91 11 2345 6789</a>
+            <span class="ch-badge">Instant</span>
+          </div>
+        </div>
+        <div class="channel-card">
+          <div class="ch-icon amber"><i class="fas fa-comments"></i></div>
+          <div class="ch-body">
+            <h4>Live Chat</h4>
+            <p>Chat with support during office hours</p>
+            <a href="#">Start Chat Session</a>
+            <span class="ch-badge">Mon–Fri</span>
+          </div>
+        </div>
+        <div class="channel-card">
+          <div class="ch-icon purple"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="ch-body">
+            <h4>Visit Us</h4>
+            <p>IT Help Desk — Ground Floor, Block A</p>
+            <a href="contact.html">Get Directions</a>
+          </div>
+        </div>
+        <div class="channel-card">
+          <div class="ch-icon blue" style="background:#f0fdf4;color:#16a34a"><i class="fab fa-whatsapp"></i></div>
+          <div class="ch-body">
+            <h4>WhatsApp Support</h4>
+            <p>Quick queries via WhatsApp</p>
+            <a href="#">+91 98765 43210</a>
+            <span class="ch-badge">9AM–6PM</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="help-cta">
+  <div class="container">
+    <h2>Still Need Help?</h2>
+    <p>Our support team is always ready to assist. You can also visit the school office directly during working hours.</p>
+    <div class="cta-row">
+      <a href="contact.html" class="btn-gold"><i class="fas fa-envelope"></i> Contact Us</a>
+      <a href="login.html" class="btn-ghost"><i class="fas fa-sign-in-alt"></i> Go to Login</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo"><div class="logo-icon">🎓</div><div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div></div>
+        <p>A comprehensive school management platform empowering students, parents, and teachers with smart digital tools.</p>
+        <div class="footer-socials">
+          <div class="social-btn"><i class="fab fa-facebook-f"></i></div>
+          <div class="social-btn"><i class="fab fa-twitter"></i></div>
+          <div class="social-btn"><i class="fab fa-instagram"></i></div>
+          <div class="social-btn"><i class="fab fa-youtube"></i></div>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Quick Links</h5><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="admissions.html">Admissions</a><a href="contact.html">Contact</a></div></div>
+      <div class="footer-col"><h5>Portals</h5><div class="footer-links"><a href="login.html">Student Login</a><a href="login.html">Parent Login</a><a href="login.html">Teacher Login</a><a href="login.html">Admin Login</a><a href="help.html">Help &amp; Support</a></div></div>
+      <div class="footer-col"><h5>Contact</h5>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Plot 14, Sector 18, Noida, UP — 201301</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 11 2345 6789</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@vidyalayaerp.edu.in</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Vidyalaya ERP. All rights reserved.</span><span>Privacy Policy · Terms of Use</span></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  /* ---- FAQ Toggle ---- */
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    item.closest('.faq-panel').querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  /* ---- Tab Switch ---- */
+  function switchTab(id) {
+    document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.faq-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + id)?.classList.add('active');
+    document.getElementById('panel-' + id)?.classList.add('active');
+    document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ---- Search (highlight matching FAQs) ---- */
+  function searchHelp() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    if (!q) return;
+    const allItems = document.querySelectorAll('.faq-item');
+    let found = null;
+    allItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (!found && text.includes(q)) {
+        found = item;
+      }
+    });
+    if (found) {
+      // Find which panel it's in and switch to it
+      const panel = found.closest('.faq-panel');
+      if (panel) {
+        const id = panel.id.replace('panel-', '');
+        switchTab(id);
+        setTimeout(() => {
+          found.classList.add('open');
+          found.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      }
+    } else {
+      document.getElementById('faq').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') searchHelp();
+  });
+
+  /* ---- Ticket Form ---- */
+  document.getElementById('ticketForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name     = document.getElementById('tk-name').value.trim();
+    const role     = document.getElementById('tk-role').value;
+    const email    = document.getElementById('tk-email').value.trim();
+    const category = document.getElementById('tk-category').value;
+    const desc     = document.getElementById('tk-desc').value.trim();
+    const emailRe  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name || !role || !email || !emailRe.test(email) || !category || !desc) {
+      alert('Please fill in all required fields with valid information.');
+      return;
+    }
+
+    const ticketId = 'TKT-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 90000) + 10000);
+    document.getElementById('ticketId').textContent = ticketId;
+    document.getElementById('ticketEmail').textContent = email;
+    this.style.display = 'none';
+    document.getElementById('ticketSuccess').style.display = 'block';
+  });
+
+  /* ---- Smooth scroll for quick nav ---- */
+  document.querySelectorAll('.qnav-btn[href^="#"]').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.qnav-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

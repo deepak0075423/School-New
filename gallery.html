@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== GALLERY PAGE ===== */
+
+    /* Hero */
+    .gallery-hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 45%, #4c1d95 100%);
+      padding: 110px 0 70px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(167,139,250,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(196,181,253,.12) 0%, transparent 40%);
+    }
+    .gallery-hero .breadcrumb {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; font-size: .85rem; color: rgba(255,255,255,.7); margin-bottom: 18px;
+    }
+    .gallery-hero .breadcrumb a { color: rgba(255,255,255,.85); text-decoration: none; }
+    .gallery-hero .breadcrumb a:hover { color: #fff; }
+    .gallery-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; margin: 0 0 14px;
+    }
+    .gallery-hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,.8);
+      max-width: 540px; margin: 0 auto; line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 40px;
+      margin-top: 36px; flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; color: #fff; }
+    .hero-stat strong {
+      display: block; font-family: var(--font-heading);
+      font-size: 1.8rem; font-weight: 800; color: #c4b5fd;
+    }
+    .hero-stat span { font-size: .82rem; color: rgba(255,255,255,.7); }
+
+    /* Filter Bar */
+    .filter-bar {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .filter-bar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 8px;
+      overflow-x: auto; padding-top: 14px; padding-bottom: 14px;
+      scrollbar-width: none;
+    }
+    .filter-bar-inner::-webkit-scrollbar { display: none; }
+    .filter-label {
+      font-size: .8rem; font-weight: 700; color: #94a3b8;
+      text-transform: uppercase; letter-spacing: .08em;
+      white-space: nowrap; margin-right: 6px; flex-shrink: 0;
+    }
+    .filter-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 18px; border-radius: 50px;
+      border: 1.5px solid #e5e7eb;
+      background: #fff; color: #374151;
+      font-size: .85rem; font-weight: 500;
+      cursor: pointer; white-space: nowrap;
+      transition: all .2s; flex-shrink: 0;
+    }
+    .filter-btn i { font-size: .8rem; }
+    .filter-btn:hover { border-color: #7c3aed; color: #7c3aed; background: #f5f3ff; }
+    .filter-btn.active {
+      background: #7c3aed; color: #fff;
+      border-color: #7c3aed;
+      box-shadow: 0 4px 12px rgba(124,58,237,.3);
+    }
+    .filter-count {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(255,255,255,.25); font-size: .7rem; font-weight: 700;
+    }
+    .filter-btn:not(.active) .filter-count {
+      background: #f1f5f9; color: #64748b;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      padding: 52px 0 80px;
+      background: #f8fafc;
+    }
+    .gallery-section .container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+
+    /* Results bar */
+    .results-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 12px;
+    }
+    .results-count {
+      font-size: .9rem; color: #64748b;
+    }
+    .results-count strong { color: #111827; }
+    .view-toggle { display: flex; gap: 6px; }
+    .view-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1.5px solid #e5e7eb; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      color: #94a3b8; cursor: pointer; font-size: .9rem;
+      transition: all .2s;
+    }
+    .view-btn.active { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+
+    /* Masonry Grid */
+    .gallery-grid {
+      columns: 4 240px;
+      column-gap: 16px;
+    }
+    .gallery-grid.list-view {
+      columns: unset;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform .3s ease, box-shadow .3s ease;
+      background: #fff;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.15);
+    }
+    .gallery-item.hidden { display: none; }
+
+    /* Placeholder image area */
+    .gallery-img {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-img .img-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 2.5rem;
+      color: rgba(255,255,255,.7);
+      position: relative;
+    }
+    .gallery-img .img-inner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.08);
+    }
+    .gallery-img .img-label {
+      font-size: .75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Heights for masonry feel */
+    .gallery-item.h-sm  .gallery-img .img-inner { height: 180px; }
+    .gallery-item.h-md  .gallery-img .img-inner { height: 240px; }
+    .gallery-item.h-lg  .gallery-img .img-inner { height: 320px; }
+    .gallery-item.h-xl  .gallery-img .img-inner { height: 380px; }
+
+    /* Category color themes */
+    .gallery-item[data-cat="events"]    .gallery-img .img-inner { background: linear-gradient(135deg, #1e1b4b, #4c1d95); }
+    .gallery-item[data-cat="campus"]    .gallery-img .img-inner { background: linear-gradient(135deg, #0c4a6e, #0369a1); }
+    .gallery-item[data-cat="sports"]    .gallery-img .img-inner { background: linear-gradient(135deg, #14532d, #15803d); }
+    .gallery-item[data-cat="cultural"]  .gallery-img .img-inner { background: linear-gradient(135deg, #7c2d12, #ea580c); }
+    .gallery-item[data-cat="academic"]  .gallery-img .img-inner { background: linear-gradient(135deg, #1e3a8a, #2563eb); }
+    .gallery-item[data-cat="trips"]     .gallery-img .img-inner { background: linear-gradient(135deg, #713f12, #d97706); }
+    .gallery-item[data-cat="awards"]    .gallery-img .img-inner { background: linear-gradient(135deg, #7f1d1d, #dc2626); }
+
+    /* Overlay on hover */
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .overlay-content { color: #fff; }
+    .overlay-content h4 { font-family: var(--font-heading); font-size: .9rem; font-weight: 600; margin: 0 0 3px; }
+    .overlay-content span { font-size: .75rem; color: rgba(255,255,255,.75); }
+
+    /* Zoom icon */
+    .zoom-icon {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(4px);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: .85rem;
+      opacity: 0; transition: opacity .3s;
+    }
+    .gallery-item:hover .zoom-icon { opacity: 1; }
+
+    /* Category badge */
+    .cat-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: #fff;
+      backdrop-filter: blur(4px);
+    }
+    [data-cat="events"]   .cat-badge { background: rgba(124,58,237,.7); }
+    [data-cat="campus"]   .cat-badge { background: rgba(3,105,161,.7); }
+    [data-cat="sports"]   .cat-badge { background: rgba(21,128,61,.7); }
+    [data-cat="cultural"] .cat-badge { background: rgba(234,88,12,.7); }
+    [data-cat="academic"] .cat-badge { background: rgba(37,99,235,.7); }
+    [data-cat="trips"]    .cat-badge { background: rgba(217,119,6,.7); }
+    [data-cat="awards"]   .cat-badge { background: rgba(220,38,38,.7); }
+
+    /* Caption below image */
+    .gallery-caption {
+      padding: 12px 14px;
+    }
+    .gallery-caption h4 {
+      font-family: var(--font-heading);
+      font-size: .88rem; font-weight: 600;
+      color: #111827; margin: 0 0 3px;
+    }
+    .gallery-caption .meta {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .75rem; color: #94a3b8;
+    }
+    .gallery-caption .meta i { font-size: .65rem; }
+
+    /* List view item */
+    .gallery-grid.list-view .gallery-item {
+      display: flex; align-items: center; gap: 0;
+      border-radius: 14px; overflow: hidden;
+    }
+    .gallery-grid.list-view .gallery-img { width: 200px; flex-shrink: 0; }
+    .gallery-grid.list-view .gallery-img .img-inner { height: 130px !important; }
+    .gallery-grid.list-view .gallery-caption { flex: 1; padding: 16px 20px; }
+    .gallery-grid.list-view .gallery-caption h4 { font-size: 1rem; margin-bottom: 6px; }
+    .gallery-grid.list-view .gallery-overlay { display: none; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,.92);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      max-width: 860px; width: 100%;
+      position: relative;
+    }
+    .lightbox-img {
+      width: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+    .lightbox-img .lb-placeholder {
+      width: 100%; height: 500px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; font-size: 5rem;
+      color: rgba(255,255,255,.5);
+    }
+    .lightbox-img .lb-placeholder p {
+      font-size: 1.1rem; font-weight: 600;
+      color: rgba(255,255,255,.8);
+      font-family: var(--font-heading);
+      margin: 0;
+    }
+    .lightbox-img .lb-placeholder span {
+      font-size: .85rem; color: rgba(255,255,255,.5);
+    }
+    .lightbox-info {
+      padding: 16px 0 0;
+      color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lightbox-info h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem; font-weight: 600; margin: 0 0 4px; color: #fff;
+    }
+    .lightbox-info p { font-size: .85rem; color: rgba(255,255,255,.6); margin: 0; }
+    .lightbox-close {
+      position: fixed;
+      top: 20px; right: 20px;
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.1rem;
+      cursor: pointer; border: none;
+      transition: background .2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,.22); }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem;
+      cursor: pointer; border: none;
+      transition: background .2s;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,.22); }
+    .lightbox-nav.prev { left: -60px; }
+    .lightbox-nav.next { right: -60px; }
+    .lightbox-counter {
+      font-size: .8rem; color: rgba(255,255,255,.5);
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 80px 24px;
+      color: #94a3b8;
+    }
+    .empty-state i { font-size: 3rem; margin-bottom: 16px; color: #e2e8f0; }
+    .empty-state h3 { color: #374151; font-size: 1.2rem; margin-bottom: 8px; }
+
+    /* No filter results */
+    .gallery-grid:empty + .empty-state,
+    .gallery-grid.no-results + .empty-state { display: block; }
+
+    /* CTA */
+    .gallery-cta {
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      padding: 64px 0; text-align: center; color: #fff;
+    }
+    .gallery-cta .container { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+    .gallery-cta h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 800; margin: 0 0 12px;
+    }
+    .gallery-cta p { color: rgba(255,255,255,.75); margin: 0 0 28px; font-size: 1rem; }
+    .gallery-cta .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .gallery-cta .btn-gold {
+      padding: 13px 28px; background: #f59e0b; color: #1e1b4b;
+      border-radius: 50px; font-weight: 700; font-size: .95rem;
+      text-decoration: none; display: flex; align-items: center; gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .gallery-cta .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,.35); }
+    .gallery-cta .btn-ghost {
+      padding: 13px 28px; background: rgba(255,255,255,.1);
+      color: #fff; border-radius: 50px; font-weight: 600; font-size: .95rem;
+      text-decoration: none; border: 1.5px solid rgba(255,255,255,.25);
+      display: flex; align-items: center; gap: 8px;
+      transition: background .2s, transform .2s;
+    }
+    .gallery-cta .btn-ghost:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .gallery-grid { columns: 3 200px; }
+      .lightbox-nav.prev { left: -20px; }
+      .lightbox-nav.next { right: -20px; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { columns: 2 160px; }
+      .gallery-grid.list-view .gallery-img { width: 120px; }
+      .lightbox-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="help.html">Help</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="gallery-hero">
+  <div class="breadcrumb">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+    <span>Gallery</span>
+  </div>
+  <h1>School Gallery</h1>
+  <p>A glimpse into life at Vidyalaya — campus moments, events, sports, cultural performances, and more.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>500+</strong><span>Photos</span></div>
+    <div class="hero-stat"><strong>7</strong><span>Categories</span></div>
+    <div class="hero-stat"><strong>2026</strong><span>Latest Year</span></div>
+    <div class="hero-stat"><strong>50+</strong><span>Events Covered</span></div>
+  </div>
+</section>
+
+<!-- ===== FILTER BAR ===== -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <span class="filter-label"><i class="fas fa-filter"></i> Filter:</span>
+    <button class="filter-btn active" onclick="filterGallery('all', this)">
+      <i class="fas fa-th"></i> All Photos <span class="filter-count" id="cnt-all">36</span>
+    </button>
+    <button class="filter-btn" onclick="filterGallery('events', this)">
+      <i class="fas fa-star"></i> Events <span class="filter-count" id="cnt-events">7</span>
+    </button>
+    <button class="filter-btn" onclick="filterGallery('campus', this)">
+      <i class="fas fa-school"></i> Campus <span class="filter-count" id="cnt-campus">6</span>
+    </button>
+    <button class="filter-btn" onclick="filterGallery('sports', this)">
+      <i class="fas fa-running"></i> Sports <span class="filter-count" id="cnt-sports">6</span>
+    </button>
+    <button class="filter-btn" onclick="filterGallery('cultural', this)">
+      <i class="fas fa-music"></i> Cultural <span class="filter-count" id="cnt-cultural">6</span>
+    </button>
+    <button class="filter-btn" onclick="filterGallery('academic', this)">
+      <i class="fas fa-book"></i> Academic <span class="filter-count" id="cnt-academic">5</span>
+    </button>
+    <button class="filter-btn" onclick="filterGallery('trips', this)">
+      <i class="fas fa-bus"></i> Field Trips <span class="filter-count" id="cnt-trips">4</span>
+    </button>
+    <button class="filter-btn" onclick="filterGallery('awards', this)">
+      <i class="fas fa-trophy"></i> Awards <span class="filter-count" id="cnt-awards">2</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== GALLERY SECTION ===== -->
+<section class="gallery-section">
+  <div class="container">
+
+    <div class="results-bar">
+      <div class="results-count">Showing <strong id="visibleCount">36</strong> photos</div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid view"><i class="fas fa-th"></i></button>
+        <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="List view"><i class="fas fa-list"></i></button>
+      </div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- EVENTS (7) -->
+      <div class="gallery-item h-lg reveal" data-cat="events" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-star"></i><span class="img-label">Annual Day 2026</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Annual Day 2026</h4><span>March 2026 · Main Auditorium</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Events</div>
+        </div>
+        <div class="gallery-caption"><h4>Annual Day 2026</h4><div class="meta"><i class="fas fa-calendar"></i> March 2026 <i class="fas fa-circle" style="font-size:.3rem"></i> Main Auditorium</div></div>
+      </div>
+
+      <div class="gallery-item h-md reveal" data-cat="events" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-fire"></i><span class="img-label">Republic Day</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Republic Day Celebration</h4><span>Jan 2026 · School Ground</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Events</div>
+        </div>
+        <div class="gallery-caption"><h4>Republic Day Celebration</h4><div class="meta"><i class="fas fa-calendar"></i> Jan 2026 <i class="fas fa-circle" style="font-size:.3rem"></i> Ground</div></div>
+      </div>
+
+      <!-- CAMPUS (6) -->
+      <div class="gallery-item h-md reveal" data-cat="campus" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-building"></i><span class="img-label">Main Building</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>School Main Building</h4><span>Architecture · Front View</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Campus</div>
+        </div>
+        <div class="gallery-caption"><h4>School Main Building</h4><div class="meta"><i class="fas fa-map-marker-alt"></i> Sector 18, Noida</div></div>
+      </div>
+
+      <div class="gallery-item h-sm reveal" data-cat="campus" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-flask"></i><span class="img-label">Science Lab</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Physics & Chemistry Lab</h4><span>Facilities · Wing B</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Campus</div>
+        </div>
+        <div class="gallery-caption"><h4>Physics & Chemistry Lab</h4><div class="meta"><i class="fas fa-door-open"></i> Wing B, Floor 2</div></div>
+      </div>
+
+      <!-- SPORTS (6) -->
+      <div class="gallery-item h-lg reveal" data-cat="sports" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-futbol"></i><span class="img-label">Football Final</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Inter-School Football Final</h4><span>Feb 2026 · Sports Ground</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Sports</div>
+        </div>
+        <div class="gallery-caption"><h4>Inter-School Football Final</h4><div class="meta"><i class="fas fa-calendar"></i> Feb 2026</div></div>
+      </div>
+
+      <div class="gallery-item h-md reveal" data-cat="sports" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-swimming-pool"></i><span class="img-label">Swimming Gala</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Annual Swimming Gala</h4><span>Jan 2026 · Aquatic Centre</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Sports</div>
+        </div>
+        <div class="gallery-caption"><h4>Annual Swimming Gala</h4><div class="meta"><i class="fas fa-calendar"></i> Jan 2026</div></div>
+      </div>
+
+      <!-- CULTURAL (6) -->
+      <div class="gallery-item h-xl reveal" data-cat="cultural" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-theater-masks"></i><span class="img-label">Drama Festival</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Annual Drama Festival</h4><span>Dec 2025 · Auditorium</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Cultural</div>
+        </div>
+        <div class="gallery-caption"><h4>Annual Drama Festival</h4><div class="meta"><i class="fas fa-calendar"></i> Dec 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-sm reveal" data-cat="cultural" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-music"></i><span class="img-label">Music Concert</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Strings & Beats Concert</h4><span>Nov 2025 · Open Air Stage</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Cultural</div>
+        </div>
+        <div class="gallery-caption"><h4>Strings & Beats Concert</h4><div class="meta"><i class="fas fa-calendar"></i> Nov 2025</div></div>
+      </div>
+
+      <!-- ACADEMIC (5) -->
+      <div class="gallery-item h-md reveal" data-cat="academic" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-atom"></i><span class="img-label">Science Fair</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Annual Science Fair 2025</h4><span>Oct 2025 · Exhibition Hall</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Academic</div>
+        </div>
+        <div class="gallery-caption"><h4>Annual Science Fair 2025</h4><div class="meta"><i class="fas fa-calendar"></i> Oct 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-sm reveal" data-cat="academic" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-laptop-code"></i><span class="img-label">Tech Olympiad</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Tech Olympiad 2025</h4><span>Sep 2025 · Computer Lab</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Academic</div>
+        </div>
+        <div class="gallery-caption"><h4>Tech Olympiad 2025</h4><div class="meta"><i class="fas fa-calendar"></i> Sep 2025</div></div>
+      </div>
+
+      <!-- FIELD TRIPS (4) -->
+      <div class="gallery-item h-lg reveal" data-cat="trips" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-mountain"></i><span class="img-label">Mussoorie Trip</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Annual Excursion — Mussoorie</h4><span>Dec 2025 · Class X & XI</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Field Trips</div>
+        </div>
+        <div class="gallery-caption"><h4>Annual Excursion — Mussoorie</h4><div class="meta"><i class="fas fa-calendar"></i> Dec 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-md reveal" data-cat="trips" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-landmark"></i><span class="img-label">Delhi Tour</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Heritage Walk — Old Delhi</h4><span>Jan 2026 · Classes VI–VIII</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Field Trips</div>
+        </div>
+        <div class="gallery-caption"><h4>Heritage Walk — Old Delhi</h4><div class="meta"><i class="fas fa-calendar"></i> Jan 2026</div></div>
+      </div>
+
+      <!-- AWARDS (2) -->
+      <div class="gallery-item h-lg reveal" data-cat="awards" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-trophy"></i><span class="img-label">Best School Award</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Best School Award 2025</h4><span>Education Excellence Summit</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Awards</div>
+        </div>
+        <div class="gallery-caption"><h4>Best School Award 2025</h4><div class="meta"><i class="fas fa-award"></i> Education Excellence Summit, Delhi</div></div>
+      </div>
+
+      <!-- More EVENTS -->
+      <div class="gallery-item h-sm reveal" data-cat="events" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-om"></i><span class="img-label">Diwali Mela</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Diwali Mela 2025</h4><span>Oct 2025 · School Campus</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Events</div>
+        </div>
+        <div class="gallery-caption"><h4>Diwali Mela 2025</h4><div class="meta"><i class="fas fa-calendar"></i> Oct 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-md reveal" data-cat="events" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-snowflake"></i><span class="img-label">Winter Carnival</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Winter Carnival & Bazaar</h4><span>Dec 2025 · Outdoor</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Events</div>
+        </div>
+        <div class="gallery-caption"><h4>Winter Carnival & Bazaar</h4><div class="meta"><i class="fas fa-calendar"></i> Dec 2025</div></div>
+      </div>
+
+      <!-- More CAMPUS -->
+      <div class="gallery-item h-lg reveal" data-cat="campus" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-book-open"></i><span class="img-label">Library</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Knowledge Centre Library</h4><span>10,000+ Books</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Campus</div>
+        </div>
+        <div class="gallery-caption"><h4>Knowledge Centre Library</h4><div class="meta"><i class="fas fa-door-open"></i> Ground Floor</div></div>
+      </div>
+
+      <div class="gallery-item h-md reveal" data-cat="campus" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-paint-brush"></i><span class="img-label">Art Studio</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Creative Arts Studio</h4><span>Design & Fine Arts</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Campus</div>
+        </div>
+        <div class="gallery-caption"><h4>Creative Arts Studio</h4><div class="meta"><i class="fas fa-door-open"></i> Wing C</div></div>
+      </div>
+
+      <div class="gallery-item h-sm reveal" data-cat="campus" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-utensils"></i><span class="img-label">Cafeteria</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>School Cafeteria</h4><span>300-seat Dining Hall</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Campus</div>
+        </div>
+        <div class="gallery-caption"><h4>School Cafeteria</h4><div class="meta"><i class="fas fa-door-open"></i> Ground Floor, Block A</div></div>
+      </div>
+
+      <!-- More SPORTS -->
+      <div class="gallery-item h-md reveal" data-cat="sports" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-basketball-ball"></i><span class="img-label">Basketball</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Basketball Championship</h4><span>Feb 2026 · Indoor Court</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Sports</div>
+        </div>
+        <div class="gallery-caption"><h4>Basketball Championship</h4><div class="meta"><i class="fas fa-calendar"></i> Feb 2026</div></div>
+      </div>
+
+      <div class="gallery-item h-sm reveal" data-cat="sports" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-table-tennis"></i><span class="img-label">TT Tournament</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Table Tennis Tournament</h4><span>Jan 2026</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Sports</div>
+        </div>
+        <div class="gallery-caption"><h4>Table Tennis Tournament</h4><div class="meta"><i class="fas fa-calendar"></i> Jan 2026</div></div>
+      </div>
+
+      <div class="gallery-item h-lg reveal" data-cat="sports" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-running"></i><span class="img-label">Sports Day</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Annual Sports Day</h4><span>Nov 2025 · Athletics Track</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Sports</div>
+        </div>
+        <div class="gallery-caption"><h4>Annual Sports Day</h4><div class="meta"><i class="fas fa-calendar"></i> Nov 2025</div></div>
+      </div>
+
+      <!-- More CULTURAL -->
+      <div class="gallery-item h-md reveal" data-cat="cultural" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-paint-brush"></i><span class="img-label">Art Exhibition</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Student Art Exhibition</h4><span>Oct 2025 · Gallery Wing</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Cultural</div>
+        </div>
+        <div class="gallery-caption"><h4>Student Art Exhibition</h4><div class="meta"><i class="fas fa-calendar"></i> Oct 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-lg reveal" data-cat="cultural" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-drum"></i><span class="img-label">Navratri Dance</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Navratri Dance Performance</h4><span>Oct 2025</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Cultural</div>
+        </div>
+        <div class="gallery-caption"><h4>Navratri Dance Performance</h4><div class="meta"><i class="fas fa-calendar"></i> Oct 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-sm reveal" data-cat="cultural" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-palette"></i><span class="img-label">Rangoli</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Rangoli Competition</h4><span>Nov 2025</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Cultural</div>
+        </div>
+        <div class="gallery-caption"><h4>Rangoli Competition</h4><div class="meta"><i class="fas fa-calendar"></i> Nov 2025</div></div>
+      </div>
+
+      <!-- More ACADEMIC -->
+      <div class="gallery-item h-lg reveal" data-cat="academic" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-robot"></i><span class="img-label">Robotics Club</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Robotics Showcase</h4><span>Aug 2025 · Innovation Lab</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Academic</div>
+        </div>
+        <div class="gallery-caption"><h4>Robotics Showcase</h4><div class="meta"><i class="fas fa-calendar"></i> Aug 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-md reveal" data-cat="academic" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-debate"></i><span class="img-label">Debate Competition</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Inter-School Debate</h4><span>Sep 2025</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Academic</div>
+        </div>
+        <div class="gallery-caption"><h4>Inter-School Debate</h4><div class="meta"><i class="fas fa-calendar"></i> Sep 2025</div></div>
+      </div>
+
+      <!-- More TRIPS -->
+      <div class="gallery-item h-sm reveal" data-cat="trips" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-tree"></i><span class="img-label">Nature Camp</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Eco Nature Camp</h4><span>Nov 2025 · Corbett</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Field Trips</div>
+        </div>
+        <div class="gallery-caption"><h4>Eco Nature Camp</h4><div class="meta"><i class="fas fa-calendar"></i> Nov 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-md reveal" data-cat="trips" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-industry"></i><span class="img-label">Industry Visit</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Industry Visit — ISRO Exhibition</h4><span>Sep 2025</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Field Trips</div>
+        </div>
+        <div class="gallery-caption"><h4>Industry Visit — ISRO Exhibition</h4><div class="meta"><i class="fas fa-calendar"></i> Sep 2025</div></div>
+      </div>
+
+      <!-- More AWARDS -->
+      <div class="gallery-item h-md reveal" data-cat="awards" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-medal"></i><span class="img-label">Merit Awards</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Merit Scholarship Distribution</h4><span>Jan 2026 · Auditorium</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Awards</div>
+        </div>
+        <div class="gallery-caption"><h4>Merit Scholarship Distribution</h4><div class="meta"><i class="fas fa-calendar"></i> Jan 2026</div></div>
+      </div>
+
+      <!-- More EVENTS -->
+      <div class="gallery-item h-md reveal" data-cat="events" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-flag"></i><span class="img-label">Independence Day</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Independence Day 2025</h4><span>Aug 2025</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Events</div>
+        </div>
+        <div class="gallery-caption"><h4>Independence Day 2025</h4><div class="meta"><i class="fas fa-calendar"></i> Aug 2025</div></div>
+      </div>
+
+      <div class="gallery-item h-sm reveal" data-cat="events" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-leaf"></i><span class="img-label">Green Day</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Green Planet Day</h4><span>Jun 2025 · Campus</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Events</div>
+        </div>
+        <div class="gallery-caption"><h4>Green Planet Day</h4><div class="meta"><i class="fas fa-calendar"></i> Jun 2025</div></div>
+      </div>
+
+      <!-- More CAMPUS -->
+      <div class="gallery-item h-xl reveal" data-cat="campus" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-microphone-alt"></i><span class="img-label">Auditorium</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Main Auditorium</h4><span>800-seat Capacity</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Campus</div>
+        </div>
+        <div class="gallery-caption"><h4>Main Auditorium</h4><div class="meta"><i class="fas fa-door-open"></i> Block A</div></div>
+      </div>
+
+      <!-- sports one more -->
+      <div class="gallery-item h-sm reveal" data-cat="sports" onclick="openLightbox(this)">
+        <div class="gallery-img">
+          <div class="img-inner"><i class="fas fa-chess"></i><span class="img-label">Chess</span></div>
+          <div class="gallery-overlay">
+            <div class="overlay-content"><h4>Chess Olympiad</h4><span>Dec 2025</span></div>
+          </div>
+          <div class="zoom-icon"><i class="fas fa-expand-alt"></i></div>
+          <div class="cat-badge">Sports</div>
+        </div>
+        <div class="gallery-caption"><h4>Chess Olympiad</h4><div class="meta"><i class="fas fa-calendar"></i> Dec 2025</div></div>
+      </div>
+
+    </div><!-- /gallery-grid -->
+
+    <div class="empty-state" id="emptyState">
+      <i class="fas fa-images"></i>
+      <h3>No photos found</h3>
+      <p>Try selecting a different category.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-nav prev" id="lbPrev" onclick="lbNavigate(-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-nav next" id="lbNext" onclick="lbNavigate(1)"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-img">
+      <div class="lb-placeholder" id="lbPlaceholder">
+        <i class="fas fa-image" id="lbIcon"></i>
+        <p id="lbTitle">Title</p>
+        <span id="lbMeta">Meta</span>
+      </div>
+    </div>
+    <div class="lightbox-info">
+      <div>
+        <h3 id="lbInfoTitle">Title</h3>
+        <p id="lbInfoMeta">Meta info</p>
+      </div>
+      <div class="lightbox-counter" id="lbCounter">1 / 36</div>
+    </div>
+  </div>
+  <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+</div>
+
+<!-- ===== CTA ===== -->
+<section class="gallery-cta">
+  <div class="container">
+    <h2>Be Part of Our Story</h2>
+    <p>Every photo tells a moment of learning, growth, and joy. Join the Vidyalaya family and create your own memories.</p>
+    <div class="cta-btns">
+      <a href="admissions.html" class="btn-gold"><i class="fas fa-file-alt"></i> Apply for Admission</a>
+      <a href="events.html" class="btn-ghost"><i class="fas fa-calendar-alt"></i> View Upcoming Events</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo"><div class="logo-icon">🎓</div><div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div></div>
+        <p>A comprehensive school management platform empowering students, parents, and teachers with smart digital tools.</p>
+        <div class="footer-socials">
+          <div class="social-btn"><i class="fab fa-facebook-f"></i></div>
+          <div class="social-btn"><i class="fab fa-twitter"></i></div>
+          <div class="social-btn"><i class="fab fa-instagram"></i></div>
+          <div class="social-btn"><i class="fab fa-youtube"></i></div>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Quick Links</h5><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="admissions.html">Admissions</a><a href="contact.html">Contact</a></div></div>
+      <div class="footer-col"><h5>Portals</h5><div class="footer-links"><a href="login.html">Student Login</a><a href="login.html">Parent Login</a><a href="login.html">Teacher Login</a><a href="login.html">Admin Login</a><a href="help.html">Help &amp; Support</a></div></div>
+      <div class="footer-col"><h5>Contact</h5>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Plot 14, Sector 18, Noida, UP — 201301</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 11 2345 6789</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@vidyalayaerp.edu.in</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Vidyalaya ERP. All rights reserved.</span><span>Privacy Policy · Terms of Use</span></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  /* ===== GALLERY FILTER ===== */
+  let currentFilter = 'all';
+  let currentItems  = [];
+  let currentIndex  = 0;
+
+  function filterGallery(cat, btn) {
+    currentFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const items = document.querySelectorAll('.gallery-item');
+    let count = 0;
+    items.forEach(item => {
+      const matches = cat === 'all' || item.dataset.cat === cat;
+      item.classList.toggle('hidden', !matches);
+      if (matches) count++;
+    });
+
+    document.getElementById('visibleCount').textContent = count;
+
+    const empty = document.getElementById('emptyState');
+    empty.style.display = count === 0 ? 'block' : 'none';
+  }
+
+  /* ===== VIEW TOGGLE ===== */
+  function setView(view) {
+    const grid = document.getElementById('galleryGrid');
+    document.getElementById('gridViewBtn').classList.toggle('active', view === 'grid');
+    document.getElementById('listViewBtn').classList.toggle('active', view === 'list');
+    grid.classList.toggle('list-view', view === 'list');
+  }
+
+  /* ===== LIGHTBOX ===== */
+  function getVisibleItems() {
+    return Array.from(document.querySelectorAll('.gallery-item:not(.hidden)'));
+  }
+
+  function openLightbox(el) {
+    currentItems = getVisibleItems();
+    currentIndex = currentItems.indexOf(el);
+    showLightboxItem(currentIndex);
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLightboxItem(idx) {
+    const item = currentItems[idx];
+    if (!item) return;
+    const icon   = item.querySelector('.img-inner i')?.className || 'fas fa-image';
+    const title  = item.querySelector('.gallery-caption h4')?.textContent || '';
+    const meta   = item.querySelector('.gallery-caption .meta')?.textContent?.trim() || '';
+    const bg     = window.getComputedStyle(item.querySelector('.img-inner')).background;
+
+    const lbPlaceholder = document.getElementById('lbPlaceholder');
+    lbPlaceholder.style.background = bg;
+    document.getElementById('lbIcon').className   = icon + ' fa-5x';
+    document.getElementById('lbTitle').textContent = title;
+    document.getElementById('lbMeta').textContent  = meta;
+    document.getElementById('lbInfoTitle').textContent = title;
+    document.getElementById('lbInfoMeta').textContent  = meta;
+    document.getElementById('lbCounter').textContent   = (idx + 1) + ' / ' + currentItems.length;
+
+    document.getElementById('lbPrev').style.display = idx === 0 ? 'none' : 'flex';
+    document.getElementById('lbNext').style.display = idx === currentItems.length - 1 ? 'none' : 'flex';
+  }
+
+  function lbNavigate(dir) {
+    currentIndex = Math.max(0, Math.min(currentItems.length - 1, currentIndex + dir));
+    showLightboxItem(currentIndex);
+  }
+
+  function closeLightbox(e) {
+    if (e && e.target !== document.getElementById('lightbox') && !e.target.closest('.lightbox-close')) return;
+    if (!e) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+      return;
+    }
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  lbNavigate(-1);
+    if (e.key === 'ArrowRight') lbNavigate(1);
+    if (e.key === 'Escape')     closeLightbox();
+  });
+</script>
+</body>
+</html>

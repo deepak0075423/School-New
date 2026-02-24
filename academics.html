@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academics — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero { background:linear-gradient(135deg,#0f766e 0%,#059669 50%,#0d9488 100%);padding:7rem 0 4.5rem;text-align:center;position:relative;overflow:hidden; }
+    .page-hero .dots { position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:26px 26px; }
+    .page-hero .pshape { position:absolute;border-radius:50%;background:rgba(255,255,255,.05); }
+    .page-hero h1,.page-hero h2 { color:#fff; }
+    .page-hero p { color:rgba(255,255,255,.75);max-width:560px;margin:.75rem auto 0;font-size:1.05rem; }
+    .breadcrumb { display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:1rem; }
+    .breadcrumb a { color:rgba(255,255,255,.55);transition:color .2s; }
+    .breadcrumb a:hover { color:#F59E0B; }
+
+    /* Programs */
+    .prog-tabs { display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-bottom:2.5rem; }
+    .prog-tab { padding:.6rem 1.5rem;border-radius:50px;border:2px solid #E2E8F0;background:#fff;font-weight:600;font-size:.88rem;color:#64748B;cursor:pointer;transition:all .22s;font-family:'Inter',sans-serif; }
+    .prog-tab:hover { border-color:#059669;color:#059669; }
+    .prog-tab.active { background:#059669;border-color:#059669;color:#fff; }
+
+    .prog-panel { display:none; }
+    .prog-panel.active { display:block; }
+
+    .prog-layout { display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start; }
+    .prog-card {
+      background:linear-gradient(135deg,#0D1B4B,#1a2f7a);
+      border-radius:24px;padding:2.5rem;color:#fff;
+      box-shadow:0 12px 40px rgba(13,27,75,.25);
+    }
+    .prog-card.teal   { background:linear-gradient(135deg,#0f766e,#059669); }
+    .prog-card.purple { background:linear-gradient(135deg,#5B21B6,#7C3AED); }
+    .prog-card.blue   { background:linear-gradient(135deg,#1D4ED8,#2563EB); }
+    .prog-card.orange { background:linear-gradient(135deg,#B45309,#D97706); }
+
+    .prog-emoji { font-size:3rem;margin-bottom:1rem; }
+    .prog-card h3 { font-size:1.4rem;color:#fff;margin-bottom:.4rem; }
+    .prog-classes { font-size:.85rem;color:rgba(255,255,255,.65);margin-bottom:1.25rem; }
+    .prog-card p { color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:1.25rem; }
+    .prog-features { display:flex;flex-direction:column;gap:.5rem; }
+    .prog-feat { display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.85); }
+    .prog-feat i { color:#F59E0B;font-size:.8rem; }
+
+    .prog-subjects h4 { font-size:1rem;margin-bottom:1rem;color:#0F172A; }
+    .subj-grid { display:grid;grid-template-columns:1fr 1fr;gap:.75rem; }
+    .subj-chip {
+      display:flex;align-items:center;gap:.6rem;
+      padding:.75rem 1rem;border-radius:12px;
+      border:1.5px solid #E2E8F0;background:#F8FAFC;
+      font-size:.83rem;font-weight:600;color:#334155;
+      transition:all .2s;
+    }
+    .subj-chip:hover { border-color:#059669;background:#D1FAE5;color:#059669; }
+    .subj-chip i { font-size:.9rem; }
+
+    /* Assessment */
+    .assess-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem; }
+    .assess-card { background:#fff;border-radius:20px;padding:2rem;border:1px solid #E2E8F0;box-shadow:0 2px 12px rgba(0,0,0,.05);text-align:center;transition:all .25s; }
+    .assess-card:hover { transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.1); }
+    .assess-icon { width:60px;height:60px;border-radius:16px;display:grid;place-items:center;font-size:1.4rem;margin:0 auto 1rem; }
+    .assess-card h4 { font-size:1rem;margin-bottom:.5rem; }
+
+    /* Clubs */
+    .clubs-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem; }
+    .club-card { background:#fff;border-radius:16px;padding:1.5rem;text-align:center;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .25s; }
+    .club-card:hover { transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1); }
+    .club-emoji { font-size:2rem;margin-bottom:.6rem; }
+    .club-card h5 { font-size:.88rem;margin-bottom:.25rem;color:#334155; }
+    .club-card p  { font-size:.78rem; }
+
+    /* Calendar */
+    .cal-events { display:flex;flex-direction:column;gap:.75rem; }
+    .cal-event { display:flex;align-items:center;gap:1.25rem;padding:1rem 1.25rem;background:#fff;border-radius:14px;border:1px solid #E2E8F0;box-shadow:0 1px 6px rgba(0,0,0,.04); }
+    .cal-date-box { min-width:52px;text-align:center;background:#0D1B4B;border-radius:10px;padding:.4rem .5rem;color:#fff; }
+    .cal-date-box .day { font-size:1.4rem;font-weight:800;font-family:'Poppins',sans-serif;display:block;line-height:1; }
+    .cal-date-box .month { font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.7); }
+    .cal-event-info h5 { font-size:.88rem;font-weight:700;color:#0F172A;margin-bottom:.15rem; }
+    .cal-event-info p  { font-size:.78rem;color:#64748B; }
+
+    @media(max-width:900px) { .prog-layout { grid-template-columns:1fr; } .clubs-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:768px) { .assess-grid { grid-template-columns:1fr; } .subj-grid { grid-template-columns:1fr; } .clubs-grid { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" style="position:sticky;top:0;">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="academics.html" class="active">Academics</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="help.html">Help</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="dots"></div>
+  <div class="pshape" style="width:350px;height:350px;top:-120px;right:-80px;"></div>
+  <div class="pshape" style="width:220px;height:220px;bottom:-60px;left:-50px;"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><span>Academics</span></div>
+    <div class="section-label" style="color:#fff;background:rgba(255,255,255,.15);">CBSE Affiliated</div>
+    <h1>Academic Excellence</h1>
+    <p>A rigorous, future-ready curriculum that develops thinkers, innovators, and compassionate leaders.</p>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Programs</div>
+      <h2 class="section-title reveal">Our Academic Programs</h2>
+      <p class="section-sub reveal">From foundational learning in primary school to college-prep in senior secondary — we cover every stage of your child's growth.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="prog-tabs reveal">
+      <button class="prog-tab active" onclick="showProg('primary',this)">🌱 Primary (1–5)</button>
+      <button class="prog-tab" onclick="showProg('middle',this)">📘 Middle (6–8)</button>
+      <button class="prog-tab" onclick="showProg('secondary',this)">🎯 Secondary (9–10)</button>
+      <button class="prog-tab" onclick="showProg('senior',this)">🚀 Senior (11–12)</button>
+    </div>
+
+    <!-- Primary -->
+    <div class="prog-panel active" id="prog-primary">
+      <div class="prog-layout">
+        <div class="prog-card teal">
+          <div class="prog-emoji">🌱</div>
+          <h3>Primary School</h3>
+          <div class="prog-classes">Class 1 — 5 · Ages 6–10</div>
+          <p>A nurturing, play-based environment where foundational skills in reading, writing, numeracy, and creativity are built with joy and curiosity at the centre.</p>
+          <div class="prog-features">
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Activity-based learning</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> English & Hindi medium</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Art, Music & Dance</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Individual attention (20:1 ratio)</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> No exam pressure — continuous evaluation</div>
+          </div>
+        </div>
+        <div class="prog-subjects">
+          <h4>Subjects Offered</h4>
+          <div class="subj-grid">
+            <div class="subj-chip"><i class="fas fa-calculator" style="color:#059669"></i> Mathematics</div>
+            <div class="subj-chip"><i class="fas fa-language" style="color:#059669"></i> English</div>
+            <div class="subj-chip"><i class="fas fa-book" style="color:#059669"></i> Hindi</div>
+            <div class="subj-chip"><i class="fas fa-flask" style="color:#059669"></i> Environmental Science</div>
+            <div class="subj-chip"><i class="fas fa-palette" style="color:#059669"></i> Art & Craft</div>
+            <div class="subj-chip"><i class="fas fa-music" style="color:#059669"></i> Music</div>
+            <div class="subj-chip"><i class="fas fa-running" style="color:#059669"></i> Physical Education</div>
+            <div class="subj-chip"><i class="fas fa-laptop" style="color:#059669"></i> Computer Basics</div>
+          </div>
+          <div style="margin-top:2rem;background:#D1FAE5;border-radius:16px;padding:1.5rem;border-left:4px solid #059669;">
+            <h5 style="color:#059669;margin-bottom:.5rem;font-size:.88rem;">Assessment Pattern</h5>
+            <p style="font-size:.83rem;color:#047857;line-height:1.7;">Continuous and Comprehensive Evaluation (CCE). No annual board exams. Progress tracked through monthly activity-based assessments, portfolios, and teacher observations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle -->
+    <div class="prog-panel" id="prog-middle">
+      <div class="prog-layout">
+        <div class="prog-card purple">
+          <div class="prog-emoji">📘</div>
+          <h3>Middle School</h3>
+          <div class="prog-classes">Class 6 — 8 · Ages 11–13</div>
+          <p>The bridge phase where students deepen core subjects, develop critical thinking, and discover their interests through clubs, projects, and inter-school competitions.</p>
+          <div class="prog-features">
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Project-based learning</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Science & Math Olympiads</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Leadership & debate clubs</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> LMS access for all subjects</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Half-yearly and annual exams</div>
+          </div>
+        </div>
+        <div class="prog-subjects">
+          <h4>Subjects Offered</h4>
+          <div class="subj-grid">
+            <div class="subj-chip"><i class="fas fa-calculator" style="color:#7C3AED"></i> Mathematics</div>
+            <div class="subj-chip"><i class="fas fa-flask" style="color:#7C3AED"></i> Science</div>
+            <div class="subj-chip"><i class="fas fa-language" style="color:#7C3AED"></i> English</div>
+            <div class="subj-chip"><i class="fas fa-book" style="color:#7C3AED"></i> Hindi</div>
+            <div class="subj-chip"><i class="fas fa-globe" style="color:#7C3AED"></i> Social Studies</div>
+            <div class="subj-chip"><i class="fas fa-laptop" style="color:#7C3AED"></i> Computer Science</div>
+            <div class="subj-chip"><i class="fas fa-paint-brush" style="color:#7C3AED"></i> Art Education</div>
+            <div class="subj-chip"><i class="fas fa-running" style="color:#7C3AED"></i> Physical Education</div>
+          </div>
+          <div style="margin-top:2rem;background:#EDE9FE;border-radius:16px;padding:1.5rem;border-left:4px solid #7C3AED;">
+            <h5 style="color:#7C3AED;margin-bottom:.5rem;font-size:.88rem;">Assessment Pattern</h5>
+            <p style="font-size:.83rem;color:#5B21B6;line-height:1.7;">FA (Formative Assessment) — 4 per year (40%). SA (Summative Assessment) — 2 per year (60%). Plus club projects, science fairs, and debate competitions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary -->
+    <div class="prog-panel" id="prog-secondary">
+      <div class="prog-layout">
+        <div class="prog-card blue">
+          <div class="prog-emoji">🎯</div>
+          <h3>Secondary School</h3>
+          <div class="prog-classes">Class 9 — 10 · Ages 14–15</div>
+          <p>Rigorous CBSE board preparation with a focus on conceptual understanding, exam strategy, and holistic development. Regular doubt sessions and performance analytics.</p>
+          <div class="prog-features">
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> CBSE Board (Class 10)</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Regular mock tests & analysis</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> One-on-one doubt sessions</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Career counselling begins</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> AI-powered performance tracking</div>
+          </div>
+        </div>
+        <div class="prog-subjects">
+          <h4>Subjects Offered</h4>
+          <div class="subj-grid">
+            <div class="subj-chip"><i class="fas fa-calculator" style="color:#2563EB"></i> Mathematics</div>
+            <div class="subj-chip"><i class="fas fa-flask" style="color:#2563EB"></i> Science</div>
+            <div class="subj-chip"><i class="fas fa-language" style="color:#2563EB"></i> English</div>
+            <div class="subj-chip"><i class="fas fa-book" style="color:#2563EB"></i> Hindi</div>
+            <div class="subj-chip"><i class="fas fa-globe" style="color:#2563EB"></i> Social Science</div>
+            <div class="subj-chip"><i class="fas fa-laptop" style="color:#2563EB"></i> Computer Applications</div>
+            <div class="subj-chip"><i class="fas fa-language" style="color:#2563EB"></i> Sanskrit / French</div>
+            <div class="subj-chip"><i class="fas fa-running" style="color:#2563EB"></i> Physical Education</div>
+          </div>
+          <div style="margin-top:2rem;background:#DBEAFE;border-radius:16px;padding:1.5rem;border-left:4px solid #2563EB;">
+            <h5 style="color:#2563EB;margin-bottom:.5rem;font-size:.88rem;">Assessment Pattern</h5>
+            <p style="font-size:.83rem;color:#1D4ED8;line-height:1.7;">Internal Assessment (20%) + Board Exam (80%). Unit tests every 4 weeks. Pre-board mock exams in Jan & Feb. CBSE boards in March.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Senior -->
+    <div class="prog-panel" id="prog-senior">
+      <div class="prog-layout">
+        <div class="prog-card orange">
+          <div class="prog-emoji">🚀</div>
+          <h3>Senior Secondary</h3>
+          <div class="prog-classes">Class 11 — 12 · Ages 16–17</div>
+          <p>Two streams — Science and Commerce — designed to prepare students for competitive exams (JEE, NEET, CA Foundation) and top universities worldwide.</p>
+          <div class="prog-features">
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Science & Commerce streams</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> JEE / NEET crash courses</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> University application guidance</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Industry exposure & internships</div>
+            <div class="prog-feat"><i class="fas fa-check-circle"></i> Guest lectures from IIT/IIM alumni</div>
+          </div>
+        </div>
+        <div class="prog-subjects">
+          <h4>Subjects — Science Stream</h4>
+          <div class="subj-grid" style="margin-bottom:1.5rem;">
+            <div class="subj-chip"><i class="fas fa-atom" style="color:#D97706"></i> Physics</div>
+            <div class="subj-chip"><i class="fas fa-flask" style="color:#D97706"></i> Chemistry</div>
+            <div class="subj-chip"><i class="fas fa-calculator" style="color:#D97706"></i> Mathematics</div>
+            <div class="subj-chip"><i class="fas fa-dna" style="color:#D97706"></i> Biology (optional)</div>
+            <div class="subj-chip"><i class="fas fa-language" style="color:#D97706"></i> English Core</div>
+            <div class="subj-chip"><i class="fas fa-laptop" style="color:#D97706"></i> Computer Science</div>
+          </div>
+          <h4>Subjects — Commerce Stream</h4>
+          <div class="subj-grid">
+            <div class="subj-chip"><i class="fas fa-chart-bar" style="color:#D97706"></i> Accountancy</div>
+            <div class="subj-chip"><i class="fas fa-briefcase" style="color:#D97706"></i> Business Studies</div>
+            <div class="subj-chip"><i class="fas fa-coins" style="color:#D97706"></i> Economics</div>
+            <div class="subj-chip"><i class="fas fa-calculator" style="color:#D97706"></i> Mathematics</div>
+            <div class="subj-chip"><i class="fas fa-language" style="color:#D97706"></i> English Core</div>
+            <div class="subj-chip"><i class="fas fa-laptop" style="color:#D97706"></i> Informatics Practices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ASSESSMENT -->
+<section class="section" style="background:#F1F5F9;">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Evaluation</div>
+      <h2 class="section-title reveal">Assessment & Examination System</h2>
+      <p class="section-sub reveal">Fair, comprehensive, and stress-free evaluation that focuses on understanding, not just marks.</p>
+    </div>
+    <div class="assess-grid">
+      <div class="assess-card reveal">
+        <div class="assess-icon" style="background:#EDE9FE;color:#7C3AED"><i class="fas fa-clipboard-list"></i></div>
+        <h4>Formative Assessment</h4>
+        <p>Conducted 4 times a year through class tests, assignments, oral exams, and projects. Accounts for 40% of final grade.</p>
+      </div>
+      <div class="assess-card reveal">
+        <div class="assess-icon" style="background:#DBEAFE;color:#2563EB"><i class="fas fa-file-alt"></i></div>
+        <h4>Summative Assessment</h4>
+        <p>Half-yearly and annual examinations covering the complete syllabus. Accounts for 60% of the grade. Strict CBSE pattern.</p>
+      </div>
+      <div class="assess-card reveal">
+        <div class="assess-icon" style="background:#D1FAE5;color:#059669"><i class="fas fa-chart-line"></i></div>
+        <h4>Continuous Tracking</h4>
+        <p>AI-powered performance dashboard tracks every student. Parents get weekly reports. Teachers get actionable insights.</p>
+      </div>
+    </div>
+    <!-- Result Stats -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2rem;">
+      <div class="reveal" style="background:#fff;border-radius:16px;padding:1.5rem;text-align:center;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+        <div style="font-size:2rem;font-weight:800;color:#059669;font-family:'Poppins',sans-serif;">98%</div>
+        <div style="font-size:.82rem;color:#64748B;margin-top:.25rem;">Pass Rate 2025</div>
+      </div>
+      <div class="reveal" style="background:#fff;border-radius:16px;padding:1.5rem;text-align:center;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+        <div style="font-size:2rem;font-weight:800;color:#7C3AED;font-family:'Poppins',sans-serif;">42</div>
+        <div style="font-size:.82rem;color:#64748B;margin-top:.25rem;">Students scored 95%+</div>
+      </div>
+      <div class="reveal" style="background:#fff;border-radius:16px;padding:1.5rem;text-align:center;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+        <div style="font-size:2rem;font-weight:800;color:#2563EB;font-family:'Poppins',sans-serif;">12</div>
+        <div style="font-size:.82rem;color:#64748B;margin-top:.25rem;">IIT / NEET Qualifiers</div>
+      </div>
+      <div class="reveal" style="background:#fff;border-radius:16px;padding:1.5rem;text-align:center;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+        <div style="font-size:2rem;font-weight:800;color:#D97706;font-family:'Poppins',sans-serif;">8</div>
+        <div style="font-size:.82rem;color:#64748B;margin-top:.25rem;">National Toppers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLUBS & ACTIVITIES -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Beyond Classroom</div>
+      <h2 class="section-title reveal">Clubs & Co-Curricular Activities</h2>
+      <p class="section-sub reveal">Every student has a talent. Our 20+ clubs help them discover and nurture it.</p>
+    </div>
+    <div class="clubs-grid">
+      <div class="club-card reveal"><div class="club-emoji">🔬</div><h5>Science Club</h5><p style="font-size:.78rem;">Experiments, fairs & Olympiads</p></div>
+      <div class="club-card reveal"><div class="club-emoji">💻</div><h5>Coding Club</h5><p style="font-size:.78rem;">Python, Web Dev & Robotics</p></div>
+      <div class="club-card reveal"><div class="club-emoji">🎭</div><h5>Drama Club</h5><p style="font-size:.78rem;">Theatre, expression & storytelling</p></div>
+      <div class="club-card reveal"><div class="club-emoji">🎵</div><h5>Music Club</h5><p style="font-size:.78rem;">Vocal, guitar, tabla & fusion</p></div>
+      <div class="club-card reveal"><div class="club-emoji">⚽</div><h5>Sports Academy</h5><p style="font-size:.78rem;">Cricket, football, basketball</p></div>
+      <div class="club-card reveal"><div class="club-emoji">🗣️</div><h5>Debate Society</h5><p style="font-size:.78rem;">MUN, debates & public speaking</p></div>
+      <div class="club-card reveal"><div class="club-emoji">🎨</div><h5>Art Studio</h5><p style="font-size:.78rem;">Painting, sculpture & digital art</p></div>
+      <div class="club-card reveal"><div class="club-emoji">📰</div><h5>School Magazine</h5><p style="font-size:.78rem;">Writing, journalism & design</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIC CALENDAR -->
+<section class="section" style="background:#F1F5F9;">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Planning Ahead</div>
+      <h2 class="section-title reveal">Academic Calendar 2025–26</h2>
+      <p class="section-sub reveal">Key dates every student and parent should know.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:860px;margin:0 auto;">
+      <div>
+        <h4 style="font-size:.9rem;font-weight:700;color:#334155;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.06em;">Term 2 · Jan–Apr 2026</h4>
+        <div class="cal-events">
+          <div class="cal-event reveal"><div class="cal-date-box"><span class="day">26</span><span class="month">Jan</span></div><div class="cal-event-info"><h5>Republic Day Celebration</h5><p>School holiday + flag hoisting ceremony</p></div></div>
+          <div class="cal-event reveal"><div class="cal-date-box" style="background:#059669"><span class="day">15</span><span class="month">Feb</span></div><div class="cal-event-info"><h5>Parent–Teacher Meeting</h5><p>Progress report discussion for all classes</p></div></div>
+          <div class="cal-event reveal"><div class="cal-date-box" style="background:#7C3AED"><span class="day">15</span><span class="month">Mar</span></div><div class="cal-event-info"><h5>Science Exhibition</h5><p>Annual science fair open to public</p></div></div>
+          <div class="cal-event reveal"><div class="cal-date-box" style="background:#D97706"><span class="day">22</span><span class="month">Mar</span></div><div class="cal-event-info"><h5>Annual Day Celebration</h5><p>Cultural performances & prize distribution</p></div></div>
+          <div class="cal-event reveal"><div class="cal-date-box" style="background:#DC2626"><span class="day">01</span><span class="month">Apr</span></div><div class="cal-event-info"><h5>Term 2 Final Exams Begin</h5><p>Class 10 & 12 board-style exams</p></div></div>
+          <div class="cal-event reveal"><div class="cal-date-box"><span class="day">30</span><span class="month">Apr</span></div><div class="cal-event-info"><h5>Academic Year End</h5><p>Result declaration & summer holidays start</p></div></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:.9rem;font-weight:700;color:#334155;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.06em;">Term 1 · Jun–Dec 2025 (Past)</h4>
+        <div class="cal-events">
+          <div class="cal-event reveal" style="opacity:.65;"><div class="cal-date-box"><span class="day">02</span><span class="month">Jun</span></div><div class="cal-event-info"><h5>New Academic Year Begins</h5><p>Class 1–12 classes commence</p></div></div>
+          <div class="cal-event reveal" style="opacity:.65;"><div class="cal-date-box" style="background:#059669"><span class="day">15</span><span class="month">Aug</span></div><div class="cal-event-info"><h5>Independence Day</h5><p>National holiday + school function</p></div></div>
+          <div class="cal-event reveal" style="opacity:.65;"><div class="cal-date-box" style="background:#7C3AED"><span class="day">15</span><span class="month">Sep</span></div><div class="cal-event-info"><h5>Half-Yearly Exams</h5><p>Term 1 summative assessment</p></div></div>
+          <div class="cal-event reveal" style="opacity:.65;"><div class="cal-date-box" style="background:#D97706"><span class="day">30</span><span class="month">Oct</span></div><div class="cal-event-info"><h5>Diwali Holidays</h5><p>5-day festive break</p></div></div>
+          <div class="cal-event reveal" style="opacity:.65;"><div class="cal-date-box" style="background:#2563EB"><span class="day">20</span><span class="month">Dec</span></div><div class="cal-event-info"><h5>Winter Sports Day</h5><p>Inter-class athletics competition</p></div></div>
+          <div class="cal-event reveal" style="opacity:.65;"><div class="cal-date-box"><span class="day">31</span><span class="month">Dec</span></div><div class="cal-event-info"><h5>Winter Holidays End</h5><p>Term 2 classes resume Jan 2</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label">Enrol Now</div>
+    <h2>Give Your Child the Academic Edge</h2>
+    <p>Admissions for 2026–27 are open. Limited seats available per class.</p>
+    <a href="admissions.html" class="btn-cta"><i class="fas fa-paper-plane"></i> Apply for Admission</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="navbar-logo"><div class="logo-icon">🎓</div><div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div></div><p>A comprehensive school management platform empowering students, parents, and teachers.</p><div class="footer-socials"><div class="social-btn"><i class="fab fa-facebook-f"></i></div><div class="social-btn"><i class="fab fa-twitter"></i></div><div class="social-btn"><i class="fab fa-instagram"></i></div><div class="social-btn"><i class="fab fa-youtube"></i></div></div></div>
+      <div class="footer-col"><h5>Quick Links</h5><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="admissions.html">Admissions</a><a href="contact.html">Contact</a></div></div>
+      <div class="footer-col"><h5>Portals</h5><div class="footer-links"><a href="login.html">Student Login</a><a href="login.html">Parent Login</a><a href="login.html">Teacher Login</a><a href="login.html">Admin Login</a><a href="help.html">Help &amp; Support</a></div></div>
+      <div class="footer-col"><h5>Contact</h5><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>123 Education Lane, Knowledge Park, New Delhi - 110001</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 98765 43210</span></div><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@vidyalayaerp.edu</span></div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Vidyalaya ERP. All rights reserved.</span><span>Privacy Policy · Terms of Use</span></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  function showProg(id, btn) {
+    document.querySelectorAll('.prog-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.prog-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('prog-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

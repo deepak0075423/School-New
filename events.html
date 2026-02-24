@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .page-hero { background:linear-gradient(135deg,#1E1B4B 0%,#4338CA 55%,#312E81 100%);padding:7rem 0 4.5rem;text-align:center;position:relative;overflow:hidden; }
+    .page-hero .dots { position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:26px 26px; }
+    .page-hero .pshape { position:absolute;border-radius:50%;background:rgba(255,255,255,.05); }
+    .page-hero h1 { color:#fff; }
+    .page-hero p  { color:rgba(255,255,255,.75);max-width:560px;margin:.75rem auto 0;font-size:1.05rem; }
+    .breadcrumb { display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:1rem; }
+    .breadcrumb a { color:rgba(255,255,255,.55);transition:color .2s; }
+    .breadcrumb a:hover { color:#F59E0B; }
+
+    /* Filter bar */
+    .event-filters { display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem; }
+    .ef-btn { padding:.5rem 1.25rem;border-radius:50px;border:2px solid #E2E8F0;background:#fff;font-weight:600;font-size:.82rem;color:#64748B;cursor:pointer;transition:all .22s;font-family:'Inter',sans-serif; }
+    .ef-btn:hover { border-color:#4338CA;color:#4338CA; }
+    .ef-btn.active { background:#4338CA;border-color:#4338CA;color:#fff; }
+
+    /* Upcoming Events — large cards */
+    .upcoming-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem; }
+    .event-big-card { background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);border:1px solid #E2E8F0;transition:all .25s;display:flex;flex-direction:column; }
+    .event-big-card:hover { transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.13);border-color:transparent; }
+    .event-big-card.hidden { display:none; }
+    .ebc-banner { height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden; }
+    .ebc-banner::after { content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(0,0,0,.15),transparent); }
+    .ebc-date-badge { position:absolute;top:1rem;left:1rem;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-radius:12px;padding:.5rem .9rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.1);z-index:2; }
+    .ebc-date-badge .day  { font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:#0D1B4B;display:block;line-height:1; }
+    .ebc-date-badge .mon  { font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748B; }
+    .ebc-body { padding:1.5rem;flex:1;display:flex;flex-direction:column; }
+    .ebc-tags { display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.85rem; }
+    .ebc-body h3 { font-size:1.1rem;margin-bottom:.5rem; }
+    .ebc-body p  { font-size:.87rem;line-height:1.6;flex:1; }
+    .ebc-footer { display:flex;align-items:center;justify-content:space-between;margin-top:1.1rem;padding-top:1rem;border-top:1px solid #F1F5F9; }
+    .ebc-meta  { font-size:.78rem;color:#94A3B8;display:flex;align-items:center;gap:.4rem; }
+    .ebc-rsvp  { font-size:.8rem;font-weight:700;color:#4338CA;cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:color .2s; }
+    .ebc-rsvp:hover { color:#312E81; }
+
+    /* Featured (wide) event */
+    .event-featured { background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,.1);border:1px solid #E2E8F0;display:grid;grid-template-columns:1fr 1.5fr;margin-bottom:2.5rem; }
+    .ef-visual { background:linear-gradient(135deg,#1E1B4B,#4338CA);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;position:relative;overflow:hidden; }
+    .ef-visual::before { content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:20px 20px; }
+    .ef-visual .big-emoji { font-size:4.5rem;position:relative;z-index:2; }
+    .ef-visual .ev-date-big { background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:1rem 1.5rem;margin-top:1.25rem;position:relative;z-index:2;color:#fff; }
+    .ef-visual .ev-date-big .d { font-size:2.5rem;font-weight:800;font-family:'Poppins',sans-serif;display:block;line-height:1; }
+    .ef-visual .ev-date-big .m { font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;opacity:.75; }
+    .ef-content { padding:2.5rem; }
+    .ef-content .feat-tag { display:inline-flex;align-items:center;gap:.35rem;background:#FEF3C7;color:#D97706;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:50px;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.07em; }
+    .ef-content h2 { font-size:1.6rem;margin-bottom:.75rem; }
+    .ef-content p  { font-size:.92rem;line-height:1.75;color:#64748B;margin-bottom:1.25rem; }
+    .ef-details { display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem; }
+    .ef-detail { display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:#334155; }
+    .ef-detail i { color:#4338CA;font-size:.9rem;width:16px; }
+
+    /* Past Events */
+    .past-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem; }
+    .past-card { background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid #E2E8F0;transition:all .22s;opacity:.85; }
+    .past-card:hover { opacity:1;transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1); }
+    .past-card.hidden { display:none; }
+    .pc-banner { height:80px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;position:relative; }
+    .pc-ribbon { position:absolute;top:.5rem;right:.5rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:rgba(0,0,0,.25);color:#fff;padding:.2rem .5rem;border-radius:4px; }
+    .pc-body { padding:1rem; }
+    .pc-body h5 { font-size:.88rem;margin-bottom:.25rem; }
+    .pc-body p  { font-size:.78rem; }
+    .pc-date { font-size:.72rem;color:#94A3B8;margin-top:.4rem;display:flex;align-items:center;gap:.3rem; }
+
+    /* Countdown */
+    .countdown-bar {
+      background:linear-gradient(135deg,#1E1B4B,#4338CA);
+      border-radius:20px;padding:2rem 2.5rem;
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem;
+    }
+    .cd-text h3 { color:#fff;font-size:1.15rem;margin-bottom:.2rem; }
+    .cd-text p  { color:rgba(255,255,255,.65);font-size:.85rem; }
+    .cd-units { display:flex;gap:1rem; }
+    .cd-unit { text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:.65rem 1rem;min-width:60px; }
+    .cd-num  { font-family:'Poppins',sans-serif;font-size:1.75rem;font-weight:800;color:#fff;display:block;line-height:1; }
+    .cd-lbl  { font-size:.65rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em; }
+
+    @media(max-width:900px) { .upcoming-grid { grid-template-columns:1fr 1fr; } .event-featured { grid-template-columns:1fr; } .ef-visual { padding:2rem; } .past-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:600px) { .upcoming-grid,.past-grid { grid-template-columns:1fr; } .cd-units { flex-wrap:wrap; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" style="position:sticky;top:0;">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="help.html">Help</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="dots"></div>
+  <div class="pshape" style="width:350px;height:350px;top:-100px;right:-80px;"></div>
+  <div class="pshape" style="width:220px;height:220px;bottom:-50px;left:-40px;"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><span>Events</span></div>
+    <div class="section-label" style="color:#fff;background:rgba(255,255,255,.15);">2026 Calendar</div>
+    <h1>School Events & Activities</h1>
+    <p>From science fairs to sports meets — a vibrant calendar of events that make school life truly unforgettable.</p>
+  </div>
+</section>
+
+<!-- Upcoming Section -->
+<section class="section">
+  <div class="container">
+
+    <!-- Featured Event -->
+    <div class="section-center" style="margin-bottom:2rem;">
+      <div class="section-label reveal">Don't Miss It</div>
+      <h2 class="section-title reveal">Featured Event</h2>
+    </div>
+
+    <div class="event-featured reveal">
+      <div class="ef-visual">
+        <div class="big-emoji">🎭</div>
+        <div class="ev-date-big">
+          <span class="d">22</span>
+          <span class="m">March 2026</span>
+        </div>
+      </div>
+      <div class="ef-content">
+        <div class="feat-tag"><i class="fas fa-star"></i> Featured Event</div>
+        <h2>Annual Day Celebration 2026</h2>
+        <p>The most awaited event of the year! Join us for an extraordinary evening of cultural performances, award ceremonies, student showcases, and proud moments for the entire Vidyalaya family. Students from all classes will perform on stage. Parents are cordially invited.</p>
+        <div class="ef-details">
+          <div class="ef-detail"><i class="fas fa-calendar-alt"></i> March 22, 2026 (Saturday)</div>
+          <div class="ef-detail"><i class="fas fa-clock"></i> 5:00 PM – 9:00 PM</div>
+          <div class="ef-detail"><i class="fas fa-map-marker-alt"></i> Main Auditorium (1,200 seats)</div>
+          <div class="ef-detail"><i class="fas fa-users"></i> Open to all students & parents</div>
+          <div class="ef-detail"><i class="fas fa-ticket-alt"></i> Free entry with student ID card</div>
+          <div class="ef-detail"><i class="fas fa-star"></i> Cultural + Academic Awards</div>
+        </div>
+        <a href="admissions.html" style="background:linear-gradient(135deg,#4338CA,#312E81);color:#fff;padding:.85rem 2rem;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 4px 15px rgba(67,56,202,.3);">
+          <i class="fas fa-calendar-check"></i> Register Attendance
+        </a>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-bar reveal">
+      <div class="cd-text">
+        <h3>Annual Day Countdown 🎉</h3>
+        <p>March 22, 2026 · Main Auditorium · 5:00 PM</p>
+      </div>
+      <div class="cd-units">
+        <div class="cd-unit"><span class="cd-num" id="cd-days">26</span><span class="cd-lbl">Days</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-hours">14</span><span class="cd-lbl">Hours</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-mins">32</span><span class="cd-lbl">Mins</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-secs">08</span><span class="cd-lbl">Secs</span></div>
+      </div>
+    </div>
+
+    <!-- Upcoming Events -->
+    <div class="section-center" style="margin-bottom:2rem;">
+      <div class="section-label reveal">What's Coming</div>
+      <h2 class="section-title reveal">Upcoming Events</h2>
+    </div>
+
+    <!-- Filters -->
+    <div class="event-filters reveal">
+      <button class="ef-btn active" onclick="filterEvents('all',this)">All Events</button>
+      <button class="ef-btn" onclick="filterEvents('academic',this)">Academic</button>
+      <button class="ef-btn" onclick="filterEvents('cultural',this)">Cultural</button>
+      <button class="ef-btn" onclick="filterEvents('sports',this)">Sports</button>
+      <button class="ef-btn" onclick="filterEvents('exam',this)">Exams</button>
+      <button class="ef-btn" onclick="filterEvents('parents',this)">For Parents</button>
+    </div>
+
+    <div class="upcoming-grid" id="upcomingGrid">
+
+      <div class="event-big-card reveal" data-cat="academic">
+        <div class="ebc-banner" style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);">🔬
+          <div class="ebc-date-badge"><span class="day">15</span><span class="mon">Mar</span></div>
+        </div>
+        <div class="ebc-body">
+          <div class="ebc-tags"><span class="badge badge-student">Academic</span><span class="badge badge-accent">Open to Public</span></div>
+          <h3>Annual Science Exhibition 2026</h3>
+          <p>Students from Class 6–12 showcase their science projects. Expert judges from IIT and industry will evaluate. Best projects win cash prizes and certificates.</p>
+          <div class="ebc-footer">
+            <span class="ebc-meta"><i class="fas fa-clock"></i> 10:00 AM – 4:00 PM</span>
+            <span class="ebc-rsvp"><i class="fas fa-arrow-right"></i> Learn More</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-big-card reveal" data-cat="cultural">
+        <div class="ebc-banner" style="background:linear-gradient(135deg,#FCE7F3,#FBCFE8);">🎭
+          <div class="ebc-date-badge"><span class="day">22</span><span class="mon">Mar</span></div>
+        </div>
+        <div class="ebc-body">
+          <div class="ebc-tags"><span class="badge badge-parent">Cultural</span><span class="badge badge-success">Parents Invited</span></div>
+          <h3>Annual Day Celebration</h3>
+          <p>Cultural performances, dance, drama, music. Academic excellence awards and prize distribution. The biggest event of the school year!</p>
+          <div class="ebc-footer">
+            <span class="ebc-meta"><i class="fas fa-clock"></i> 5:00 PM – 9:00 PM</span>
+            <span class="ebc-rsvp"><i class="fas fa-arrow-right"></i> Register</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-big-card reveal" data-cat="sports">
+        <div class="ebc-banner" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0);">⚽
+          <div class="ebc-date-badge"><span class="day">28</span><span class="mon">Mar</span></div>
+        </div>
+        <div class="ebc-body">
+          <div class="ebc-tags"><span class="badge badge-teacher">Sports</span><span class="badge badge-accent">Inter-School</span></div>
+          <h3>Inter-School Sports Meet</h3>
+          <p>8 schools compete in Cricket, Football, Badminton, and Athletics. State-ranked athletes from our school lead the charge.</p>
+          <div class="ebc-footer">
+            <span class="ebc-meta"><i class="fas fa-clock"></i> 8:00 AM – 5:00 PM</span>
+            <span class="ebc-rsvp"><i class="fas fa-arrow-right"></i> Register</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-big-card reveal" data-cat="exam">
+        <div class="ebc-banner" style="background:linear-gradient(135deg,#FEE2E2,#FECACA);">📝
+          <div class="ebc-date-badge" style="background:#DC2626;color:#fff;"><span class="day" style="color:#fff;">01</span><span class="mon" style="color:rgba(255,255,255,.8);">Apr</span></div>
+        </div>
+        <div class="ebc-body">
+          <div class="ebc-tags"><span class="badge badge-error">Exam</span><span class="badge badge-warning">Important</span></div>
+          <h3>Term 2 Final Examinations</h3>
+          <p>Annual final exams begin for all classes. Board-pattern paper for Class 10 & 12. Timetable published on the portal. Carry hall tickets.</p>
+          <div class="ebc-footer">
+            <span class="ebc-meta"><i class="fas fa-calendar"></i> Apr 1–10, 2026</span>
+            <span class="ebc-rsvp"><i class="fas fa-arrow-right"></i> View Timetable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-big-card reveal" data-cat="parents">
+        <div class="ebc-banner" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE);">👨‍👩‍👧
+          <div class="ebc-date-badge"><span class="day">28</span><span class="mon">Feb</span></div>
+        </div>
+        <div class="ebc-body">
+          <div class="ebc-tags"><span class="badge badge-parent">For Parents</span><span class="badge badge-success">Mandatory</span></div>
+          <h3>Parent–Teacher Meeting</h3>
+          <p>Progress report discussion for all students. Meet your child's class teacher, subject teachers, and the principal in scheduled slots.</p>
+          <div class="ebc-footer">
+            <span class="ebc-meta"><i class="fas fa-clock"></i> 9:00 AM – 1:00 PM</span>
+            <span class="ebc-rsvp"><i class="fas fa-arrow-right"></i> Book Slot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-big-card reveal" data-cat="academic">
+        <div class="ebc-banner" style="background:linear-gradient(135deg,#CCFBF1,#99F6E4);">🌍
+          <div class="ebc-date-badge"><span class="day">05</span><span class="mon">Apr</span></div>
+        </div>
+        <div class="ebc-body">
+          <div class="ebc-tags"><span class="badge badge-student">Academic</span><span class="badge badge-teacher">Model UN</span></div>
+          <h3>Model United Nations 2026</h3>
+          <p>2-day MUN conference for Class 8–12. Students represent countries, debate global issues, and practice diplomacy. Open registration.</p>
+          <div class="ebc-footer">
+            <span class="ebc-meta"><i class="fas fa-calendar"></i> Apr 5–6, 2026</span>
+            <span class="ebc-rsvp"><i class="fas fa-arrow-right"></i> Register</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /upcoming-grid -->
+  </div>
+</section>
+
+<!-- PAST EVENTS -->
+<section class="section" style="background:#F1F5F9;">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Looking Back</div>
+      <h2 class="section-title reveal">Past Events — 2025</h2>
+      <p class="section-sub reveal">Memories that shaped the year. Proud moments we'll always cherish.</p>
+    </div>
+    <div class="past-grid" id="pastGrid">
+
+      <div class="past-card reveal" data-cat="cultural">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);">🎊<div class="pc-ribbon">Cultural</div></div>
+        <div class="pc-body"><h5>School Cultural Fest</h5><p style="font-size:.78rem;">Music, dance, art & drama showcase</p><div class="pc-date"><i class="fas fa-calendar"></i> December 15, 2025</div></div>
+      </div>
+
+      <div class="past-card reveal" data-cat="sports">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0);">🏆<div class="pc-ribbon">Sports</div></div>
+        <div class="pc-body"><h5>Winter Sports Day</h5><p style="font-size:.78rem;">Athletics & team sports championship</p><div class="pc-date"><i class="fas fa-calendar"></i> December 20, 2025</div></div>
+      </div>
+
+      <div class="past-card reveal" data-cat="academic">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE);">🏅<div class="pc-ribbon">Academic</div></div>
+        <div class="pc-body"><h5>Prize Distribution</h5><p style="font-size:.78rem;">Academic & co-curricular awards</p><div class="pc-date"><i class="fas fa-calendar"></i> November 30, 2025</div></div>
+      </div>
+
+      <div class="past-card reveal" data-cat="exam">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);">📋<div class="pc-ribbon">Exam</div></div>
+        <div class="pc-body"><h5>Half-Yearly Exams</h5><p style="font-size:.78rem;">Term 1 summative assessment</p><div class="pc-date"><i class="fas fa-calendar"></i> September 15–25, 2025</div></div>
+      </div>
+
+      <div class="past-card reveal" data-cat="cultural">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#FCE7F3,#FBCFE8);">🎭<div class="pc-ribbon">Cultural</div></div>
+        <div class="pc-body"><h5>Independence Day</h5><p style="font-size:.78rem;">Flag hoisting & cultural performances</p><div class="pc-date"><i class="fas fa-calendar"></i> August 15, 2025</div></div>
+      </div>
+
+      <div class="past-card reveal" data-cat="academic">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#CCFBF1,#99F6E4);">🔬<div class="pc-ribbon">Academic</div></div>
+        <div class="pc-body"><h5>Science Olympiad</h5><p style="font-size:.78rem;">18 students qualified nationals</p><div class="pc-date"><i class="fas fa-calendar"></i> July 28, 2025</div></div>
+      </div>
+
+      <div class="past-card reveal" data-cat="sports">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#DCFCE7,#BBF7D0);">🏏<div class="pc-ribbon">Sports</div></div>
+        <div class="pc-body"><h5>Cricket Tournament</h5><p style="font-size:.78rem;">Inter-school championship, 1st place!</p><div class="pc-date"><i class="fas fa-calendar"></i> July 10, 2025</div></div>
+      </div>
+
+      <div class="past-card reveal" data-cat="parents">
+        <div class="pc-banner" style="background:linear-gradient(135deg,#FEE2E2,#FECACA);">👨‍👩‍👧<div class="pc-ribbon">Parents</div></div>
+        <div class="pc-body"><h5>Parent Orientation Day</h5><p style="font-size:.78rem;">New academic year kickoff for parents</p><div class="pc-date"><i class="fas fa-calendar"></i> June 5, 2025</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label">Stay Updated</div>
+    <h2>Never Miss an Event Again</h2>
+    <p>Subscribe to our school newsletter and get event reminders directly in your inbox.</p>
+    <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+      <input type="email" placeholder="Enter your email address" style="padding:.9rem 1.5rem;border:none;border-radius:50px;font-family:'Inter',sans-serif;font-size:.95rem;width:320px;max-width:100%;outline:none;box-shadow:0 4px 12px rgba(0,0,0,.1);" />
+      <button class="btn-cta" style="margin-top:0;"><i class="fas fa-paper-plane"></i> Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="navbar-logo"><div class="logo-icon">🎓</div><div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div></div><p>A comprehensive school management platform empowering students, parents, and teachers.</p><div class="footer-socials"><div class="social-btn"><i class="fab fa-facebook-f"></i></div><div class="social-btn"><i class="fab fa-twitter"></i></div><div class="social-btn"><i class="fab fa-instagram"></i></div><div class="social-btn"><i class="fab fa-youtube"></i></div></div></div>
+      <div class="footer-col"><h5>Quick Links</h5><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="admissions.html">Admissions</a><a href="contact.html">Contact</a></div></div>
+      <div class="footer-col"><h5>Portals</h5><div class="footer-links"><a href="login.html">Student Login</a><a href="login.html">Parent Login</a><a href="login.html">Teacher Login</a><a href="login.html">Admin Login</a><a href="help.html">Help &amp; Support</a></div></div>
+      <div class="footer-col"><h5>Contact</h5><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>123 Education Lane, Knowledge Park, New Delhi - 110001</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 98765 43210</span></div><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@vidyalayaerp.edu</span></div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Vidyalaya ERP. All rights reserved.</span><span>Privacy Policy · Terms of Use</span></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  /* Filter events */
+  function filterEvents(cat, btn) {
+    document.querySelectorAll('.ef-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#upcomingGrid .event-big-card, #pastGrid .past-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) card.classList.remove('hidden');
+      else card.classList.add('hidden');
+    });
+  }
+
+  /* Countdown timer */
+  function updateCountdown() {
+    const target = new Date('2026-03-22T17:00:00').getTime();
+    const now = new Date().getTime();
+    const diff = target - now;
+    if (diff < 0) return;
+    document.getElementById('cd-days').textContent  = String(Math.floor(diff / 86400000)).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>

@@ -5,9 +5,13 @@
 /* ---- Navbar scroll effect ---- */
 const navbar = document.getElementById('navbar');
 if (navbar) {
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  });
+  // Inner pages start with 'scrolled' — keep it always; only toggle on the home page
+  const alwaysScrolled = navbar.classList.contains('scrolled');
+  if (!alwaysScrolled) {
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  }
 }
 
 /* ---- Mobile menu toggle ---- */
@@ -72,9 +76,46 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   });
 });
 
-/* ---- Smooth page init ---- */
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.style.opacity = '0';
-  document.body.style.transition = 'opacity .4s ease';
-  requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+/* ---- Page transitions (overlay — no white flash) ---- */
+// Inject a full-screen dark overlay that covers between pages
+const overlay = document.createElement('div');
+overlay.id = 'page-overlay';
+Object.assign(overlay.style, {
+  position:   'fixed',
+  inset:      '0',
+  background: '#0D1B4B',
+  zIndex:     '99999',
+  opacity:    '1',
+  transition: 'opacity .35s ease',
+  pointerEvents: 'none',
+});
+document.body.appendChild(overlay);
+
+// Also keep html background dark so no white ever shows
+document.documentElement.style.background = '#0D1B4B';
+
+// Fade the overlay OUT on load (reveal page)
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => {
+    overlay.style.opacity = '0';
+  });
+});
+
+// Fade overlay IN before navigating away
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (
+    !href ||
+    href.startsWith('#') ||
+    href.startsWith('mailto:') ||
+    href.startsWith('tel:') ||
+    href.startsWith('javascript:') ||
+    link.target === '_blank'
+  ) return;
+
+  e.preventDefault();
+  overlay.style.opacity = '1';
+  setTimeout(() => { window.location.href = href; }, 320);
 });

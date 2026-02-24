@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Vidyalaya ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* --- Page hero --- */
+    .page-hero {
+      background: linear-gradient(135deg, #0D1B4B 0%, #1a2f7a 55%, #0d3b70 100%);
+      padding: 7rem 0 4.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero .dots { position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:26px 26px; }
+    .page-hero .shape { position:absolute;border-radius:50%;background:rgba(255,255,255,.05); }
+    .page-hero h1 { color:#fff; }
+    .page-hero p  { color:rgba(255,255,255,.72);max-width:560px;margin:.75rem auto 0;font-size:1.05rem; }
+    .breadcrumb { display:flex;align-items:center;justify-content:center;gap:.5rem;font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:1rem; }
+    .breadcrumb a { color:rgba(255,255,255,.55);transition:color .2s; }
+    .breadcrumb a:hover { color:#F59E0B; }
+    .breadcrumb i  { font-size:.65rem; }
+
+    /* --- Story section --- */
+    .story-grid { display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center; }
+    .story-visual { position:relative; }
+    .story-image-box {
+      background: linear-gradient(135deg, #0D1B4B, #1a2f7a);
+      border-radius: 28px;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(13,27,75,.3);
+    }
+    .story-image-box::before { content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:20px 20px; }
+    .story-badge {
+      position: absolute;
+      bottom: -16px; right: -16px;
+      background: linear-gradient(135deg,#F59E0B,#D97706);
+      color: #0D1B4B;
+      font-family: 'Poppins',sans-serif;
+      font-weight: 800;
+      border-radius: 20px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 8px 24px rgba(245,158,11,.4);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .story-badge .big { font-size: 2rem; display:block; }
+    .story-badge .small { font-size: .75rem; }
+    .story-content h2 { margin-bottom: 1rem; }
+    .story-content p  { margin-bottom: 1rem; line-height: 1.8; }
+    .story-highlights { display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap; }
+    .sh-item { display:flex;align-items:center;gap:.6rem;font-size:.88rem;font-weight:600;color:#334155; }
+    .sh-item i { color:#F59E0B;font-size:1rem; }
+
+    /* --- Mission Vision --- */
+    .mv-grid { display:grid;grid-template-columns:1fr 1fr;gap:2rem; }
+    .mv-card {
+      border-radius: 24px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .mv-card.mission { background: linear-gradient(135deg,#0D1B4B,#1a2f7a); }
+    .mv-card.vision  { background: linear-gradient(135deg,#047857,#059669); }
+    .mv-card::before { content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05); }
+    .mv-card::after  { content:'';position:absolute;bottom:-60px;left:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04); }
+    .mv-icon { width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-size:1.6rem;margin-bottom:1.25rem;position:relative;z-index:2; }
+    .mv-card h3 { color:#fff;font-size:1.3rem;margin-bottom:.75rem;position:relative;z-index:2; }
+    .mv-card p  { color:rgba(255,255,255,.78);line-height:1.7;position:relative;z-index:2; }
+
+    /* --- Core Values --- */
+    .values-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem; }
+    .value-card {
+      background:#fff;border-radius:20px;padding:2rem;border:1px solid #E2E8F0;
+      box-shadow:0 2px 12px rgba(0,0,0,.05);text-align:center;transition:all .25s;
+    }
+    .value-card:hover { transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,.1);border-color:transparent; }
+    .value-icon { width:64px;height:64px;border-radius:18px;display:grid;place-items:center;font-size:1.6rem;margin:0 auto 1.1rem; }
+    .value-card h4 { font-size:1rem;margin-bottom:.5rem; }
+    .value-card p  { font-size:.87rem;line-height:1.6; }
+
+    /* --- Timeline --- */
+    .timeline-wrap { position:relative;padding:1rem 0; }
+    .timeline-line { position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#E2E8F0,#0D1B4B 30%,#0D1B4B 70%,#E2E8F0);transform:translateX(-50%); }
+    .tl-item { display:grid;grid-template-columns:1fr 60px 1fr;gap:1.5rem;align-items:center;margin-bottom:2.5rem; }
+    .tl-item:last-child { margin-bottom:0; }
+    .tl-dot { width:52px;height:52px;border-radius:50%;background:#0D1B4B;display:grid;place-items:center;color:#F59E0B;font-weight:800;font-size:.85rem;margin:0 auto;box-shadow:0 0 0 6px rgba(13,27,75,.12);position:relative;z-index:2;font-family:'Poppins',sans-serif; }
+    .tl-card { background:#fff;border-radius:16px;padding:1.25rem 1.5rem;box-shadow:0 2px 12px rgba(0,0,0,.07);border:1px solid #E2E8F0;transition:all .25s; }
+    .tl-card:hover { box-shadow:0 8px 24px rgba(0,0,0,.12); }
+    .tl-year { font-size:.75rem;font-weight:700;color:#F59E0B;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem; }
+    .tl-card h4 { font-size:.95rem;margin-bottom:.35rem; }
+    .tl-card p  { font-size:.82rem;color:#64748B; }
+    .tl-right { text-align:right; }
+    .tl-empty { /* spacer */ }
+
+    /* --- Infrastructure --- */
+    .infra-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem; }
+    .infra-card {
+      border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);
+      border:1px solid #E2E8F0;transition:all .25s;background:#fff;
+    }
+    .infra-card:hover { transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.12); }
+    .infra-banner { height:90px;display:flex;align-items:center;justify-content:center;font-size:2.2rem; }
+    .infra-body { padding:1.25rem; }
+    .infra-body h4 { font-size:.95rem;margin-bottom:.35rem; }
+    .infra-body p  { font-size:.83rem; }
+
+    /* --- Leadership --- */
+    .lead-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem; }
+    .lead-card { background:#fff;border-radius:20px;padding:2rem 1.5rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #E2E8F0;transition:all .25s; }
+    .lead-card:hover { transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,.12); }
+    .lead-avatar { width:80px;height:80px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:1.3rem;color:#fff;margin:0 auto 1rem;font-family:'Poppins',sans-serif; }
+    .lead-card h4 { font-size:.95rem;margin-bottom:.2rem; }
+    .lead-role { font-size:.78rem;font-weight:600;color:#64748B;margin-bottom:.5rem; }
+    .lead-qual { font-size:.78rem;color:#94A3B8; }
+
+    /* --- Awards --- */
+    .awards-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem; }
+    .award-card { background:#fff;border-radius:16px;padding:1.5rem;text-align:center;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,.05); }
+    .award-icon { font-size:2rem;margin-bottom:.75rem; }
+    .award-card h5 { font-size:.88rem;margin-bottom:.3rem;color:#334155; }
+    .award-card p  { font-size:.78rem; }
+
+    @media(max-width:1024px) { .lead-grid { grid-template-columns:repeat(2,1fr); } .awards-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:768px)  {
+      .story-grid,.mv-grid { grid-template-columns:1fr; }
+      .values-grid,.infra-grid { grid-template-columns:1fr 1fr; }
+      .lead-grid { grid-template-columns:1fr 1fr; }
+      .tl-item { grid-template-columns:1fr; }
+      .tl-right { text-align:left; }
+      .timeline-line { left:26px; }
+      .tl-dot { width:36px;height:36px;font-size:.72rem; }
+      .awards-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:480px) { .values-grid,.lead-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" style="position:sticky;top:0;">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="help.html">Help</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="dots"></div>
+  <div class="shape" style="width:400px;height:400px;top:-150px;right:-100px;"></div>
+  <div class="shape" style="width:250px;height:250px;bottom:-80px;left:-60px;"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i><span>About Us</span></div>
+    <div class="section-label">Our Story</div>
+    <h1>About Vidyalaya ERP</h1>
+    <p>Fifteen years of nurturing young minds with a perfect blend of tradition, innovation, and excellence in education.</p>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><span class="stat-num" data-count="2500">0</span><div class="stat-label"><i class="fas fa-user-graduate"></i> Students Enrolled</div></div>
+      <div class="stat-item reveal"><span class="stat-num" data-count="150">0</span><div class="stat-label"><i class="fas fa-chalkboard-teacher"></i> Expert Faculty</div></div>
+      <div class="stat-item reveal"><span class="stat-num" data-count="15">0</span><div class="stat-label"><i class="fas fa-calendar"></i> Years of Excellence</div></div>
+      <div class="stat-item reveal"><span class="stat-num">98%</span><div class="stat-label"><i class="fas fa-trophy"></i> Annual Pass Rate</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- OUR STORY -->
+<section class="section">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual reveal">
+        <div class="story-image-box">🏫
+          <div class="story-badge"><span class="big">2010</span><span class="small">Est. Year</span></div>
+        </div>
+      </div>
+      <div class="story-content reveal">
+        <div class="section-label">Our Legacy</div>
+        <h2>A Journey of Excellence Since 2010</h2>
+        <p>Vidyalaya was founded in 2010 with a simple yet powerful vision — to create a school where every child thrives. Starting with just 200 students and 18 teachers in a single building, we have grown into one of the region's most respected educational institutions.</p>
+        <p>Today, we serve over 2,500 students across Classes 1 to 12, with a dedicated faculty of 150+ educators. Our CBSE-affiliated curriculum combines academic rigour with holistic development, preparing students for life beyond the classroom.</p>
+        <p>In 2015, we launched our digital learning platform — one of the first schools in the region to fully integrate LMS technology. In 2022, we received the National Award for Digital Education Excellence.</p>
+        <div class="story-highlights">
+          <div class="sh-item"><i class="fas fa-check-circle"></i> CBSE Affiliated</div>
+          <div class="sh-item"><i class="fas fa-check-circle"></i> ISO Certified</div>
+          <div class="sh-item"><i class="fas fa-check-circle"></i> Nationally Awarded</div>
+          <div class="sh-item"><i class="fas fa-check-circle"></i> Smart Campus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION & VISION -->
+<section class="section" style="background:#F1F5F9;padding-top:0;">
+  <div class="container">
+    <div class="section-center" style="margin-bottom:2.5rem;">
+      <div class="section-label reveal">Purpose</div>
+      <h2 class="section-title reveal">Mission & Vision</h2>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card mission reveal">
+        <div class="mv-icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>To provide quality, inclusive education that nurtures intellectual curiosity, strong character, and a passion for lifelong learning. We empower every student to discover their unique potential and prepare them to thrive in a rapidly changing world.</p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:rgba(255,255,255,.75);font-size:.88rem;line-height:2;position:relative;z-index:2;">
+          <li>Foster critical thinking and creativity</li>
+          <li>Build character alongside academic excellence</li>
+          <li>Embrace technology for better learning outcomes</li>
+          <li>Create an inclusive and safe learning environment</li>
+        </ul>
+      </div>
+      <div class="mv-card vision reveal">
+        <div class="mv-icon">🌟</div>
+        <h3>Our Vision</h3>
+        <p>To be a beacon of educational excellence — a school that produces well-rounded, globally competitive citizens who think independently, lead with empathy, and contribute meaningfully to society and the world at large.</p>
+        <ul style="margin-top:1rem;padding-left:1.2rem;color:rgba(255,255,255,.75);font-size:.88rem;line-height:2;position:relative;z-index:2;">
+          <li>Rank among India's top 100 schools by 2030</li>
+          <li>100% digital-integrated curriculum</li>
+          <li>Expand international collaborations</li>
+          <li>Every student job or college-ready</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORE VALUES -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">What We Stand For</div>
+      <h2 class="section-title reveal">Our Core Values</h2>
+      <p class="section-sub reveal">These principles guide every decision we make and every interaction we have.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon" style="background:#EDE9FE;color:#7C3AED;"><i class="fas fa-book-open"></i></div>
+        <h4>Academic Excellence</h4>
+        <p>We hold ourselves to the highest academic standards, continuously pushing the boundaries of what's possible in education.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon" style="background:#D1FAE5;color:#059669;"><i class="fas fa-heart"></i></div>
+        <h4>Compassion & Inclusion</h4>
+        <p>Every student, regardless of background or ability, is valued and supported in our warm and inclusive community.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon" style="background:#DBEAFE;color:#2563EB;"><i class="fas fa-lightbulb"></i></div>
+        <h4>Innovation</h4>
+        <p>We embrace new ideas, technologies, and methods to make learning more engaging, effective, and relevant.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon" style="background:rgba(245,158,11,.12);color:#D97706;"><i class="fas fa-handshake"></i></div>
+        <h4>Integrity</h4>
+        <p>Honesty, transparency, and ethical behaviour are at the core of how we operate as a school community.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon" style="background:#CCFBF1;color:#0f766e;"><i class="fas fa-leaf"></i></div>
+        <h4>Sustainability</h4>
+        <p>We instil environmental awareness and responsibility, building the next generation of eco-conscious leaders.</p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon" style="background:#FEE2E2;color:#DC2626;"><i class="fas fa-star"></i></div>
+        <h4>Holistic Development</h4>
+        <p>Academics, sports, arts, and life skills — we believe every dimension of a child deserves nurturing and attention.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" style="background:#F1F5F9;">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Milestones</div>
+      <h2 class="section-title reveal">Our Journey Through the Years</h2>
+      <p class="section-sub reveal">From a single building to a full-fledged smart campus — here's how we've grown.</p>
+    </div>
+    <div class="timeline-wrap" style="max-width:860px;margin:0 auto;">
+      <div class="timeline-line"></div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card tl-right">
+          <div class="tl-year">2010</div>
+          <h4>School Founded</h4>
+          <p>Vidyalaya opens its doors with 200 students, 18 teachers, and a dream to redefine education.</p>
+        </div>
+        <div class="tl-dot">2010</div>
+        <div class="tl-empty"></div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-empty"></div>
+        <div class="tl-dot">2012</div>
+        <div class="tl-card">
+          <div class="tl-year">2012</div>
+          <h4>First Board Results</h4>
+          <p>Class 10 achieves 96% pass rate in first CBSE board exams. 3 students score 95%+.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card tl-right">
+          <div class="tl-year">2015</div>
+          <h4>Digital LMS Launch</h4>
+          <p>Become one of the first schools in the region to launch a full Learning Management System.</p>
+        </div>
+        <div class="tl-dot">2015</div>
+        <div class="tl-empty"></div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-empty"></div>
+        <div class="tl-dot">2018</div>
+        <div class="tl-card">
+          <div class="tl-year">2018</div>
+          <h4>New Sports Complex</h4>
+          <p>Inaugurated a state-of-the-art sports complex with cricket ground, basketball court, and swimming pool.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card tl-right">
+          <div class="tl-year">2020</div>
+          <h4>Online Learning Pivot</h4>
+          <p>Transitioned to 100% online learning within 72 hours — zero disruption for 1,800+ students.</p>
+        </div>
+        <div class="tl-dot">2020</div>
+        <div class="tl-empty"></div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-empty"></div>
+        <div class="tl-dot">2022</div>
+        <div class="tl-card">
+          <div class="tl-year">2022</div>
+          <h4>National Award</h4>
+          <p>Received the Ministry of Education's National Award for Digital Education Excellence.</p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-card tl-right">
+          <div class="tl-year">2024</div>
+          <h4>New Science Labs</h4>
+          <p>Opened 4 advanced science labs equipped with modern instruments and AI-assisted experiments.</p>
+        </div>
+        <div class="tl-dot">2024</div>
+        <div class="tl-empty"></div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-empty"></div>
+        <div class="tl-dot" style="background:#F59E0B;color:#0D1B4B;">2026</div>
+        <div class="tl-card" style="border-color:#F59E0B;">
+          <div class="tl-year">2026</div>
+          <h4>2,500+ Students & Full ERP</h4>
+          <p>Launched comprehensive ERP platform. 2,547 students enrolled. The journey continues.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUCTURE -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Our Campus</div>
+      <h2 class="section-title reveal">World-Class Infrastructure</h2>
+      <p class="section-sub reveal">Every facility is designed to inspire learning, creativity, and excellence.</p>
+    </div>
+    <div class="infra-grid">
+      <div class="infra-card reveal">
+        <div class="infra-banner" style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);">🔬</div>
+        <div class="infra-body"><h4>Science Laboratories</h4><p>4 state-of-the-art labs — Physics, Chemistry, Biology, and Environmental Science. AI-assisted experiments.</p></div>
+      </div>
+      <div class="infra-card reveal">
+        <div class="infra-banner" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE);">💻</div>
+        <div class="infra-body"><h4>Computer & Coding Labs</h4><p>2 fully equipped computer labs with 60 systems each. High-speed internet, coding platforms, and robotics kits.</p></div>
+      </div>
+      <div class="infra-card reveal">
+        <div class="infra-banner" style="background:linear-gradient(135deg,#D1FAE5,#A7F3D0);">📚</div>
+        <div class="infra-body"><h4>Central Library</h4><p>20,000+ books, digital resources, e-journals, and a quiet reading zone. Open to students and teachers.</p></div>
+      </div>
+      <div class="infra-card reveal">
+        <div class="infra-banner" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);">⚽</div>
+        <div class="infra-body"><h4>Sports Complex</h4><p>Cricket ground, basketball court, badminton hall, swimming pool, and a full athletics track.</p></div>
+      </div>
+      <div class="infra-card reveal">
+        <div class="infra-banner" style="background:linear-gradient(135deg,#FCE7F3,#FBCFE8);">🎭</div>
+        <div class="infra-body"><h4>Auditorium</h4><p>1,200-seat auditorium with professional sound and lighting. Hosts annual day, debates, and cultural events.</p></div>
+      </div>
+      <div class="infra-card reveal">
+        <div class="infra-banner" style="background:linear-gradient(135deg,#CCFBF1,#99F6E4);">🍽️</div>
+        <div class="infra-body"><h4>Cafeteria</h4><p>Hygienic, nutritious meals served daily. Separate dining areas for primary and secondary students.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="section" style="background:#F1F5F9;">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">The Team</div>
+      <h2 class="section-title reveal">Our Leadership</h2>
+      <p class="section-sub reveal">Experienced educators who guide our school with vision, dedication, and passion.</p>
+    </div>
+    <div class="lead-grid">
+      <div class="lead-card reveal">
+        <div class="lead-avatar" style="background:linear-gradient(135deg,#0D1B4B,#1a2f7a);">DR</div>
+        <h4>Dr. Anand Rao</h4>
+        <div class="lead-role">Principal</div>
+        <div class="lead-qual">Ph.D. Education · 28 yrs exp.</div>
+      </div>
+      <div class="lead-card reveal">
+        <div class="lead-avatar" style="background:linear-gradient(135deg,#059669,#047857);">SM</div>
+        <h4>Mrs. Sudha Menon</h4>
+        <div class="lead-role">Vice Principal</div>
+        <div class="lead-qual">M.Ed · 22 yrs exp.</div>
+      </div>
+      <div class="lead-card reveal">
+        <div class="lead-avatar" style="background:linear-gradient(135deg,#7C3AED,#5B21B6);">PK</div>
+        <h4>Mr. Pradeep Kumar</h4>
+        <div class="lead-role">Academic Director</div>
+        <div class="lead-qual">M.Sc., B.Ed · 18 yrs exp.</div>
+      </div>
+      <div class="lead-card reveal">
+        <div class="lead-avatar" style="background:linear-gradient(135deg,#2563EB,#1D4ED8);">RD</div>
+        <h4>Ms. Rekha Desai</h4>
+        <div class="lead-role">HR Director</div>
+        <div class="lead-qual">MBA HR · 15 yrs exp.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label reveal">Recognition</div>
+      <h2 class="section-title reveal">Awards & Achievements</h2>
+      <p class="section-sub reveal">Our commitment to excellence has been recognised nationally and internationally.</p>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card reveal">
+        <div class="award-icon">🏆</div>
+        <h5>National Digital Education Award</h5>
+        <p style="font-size:.78rem;">Ministry of Education · 2022</p>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">🌟</div>
+        <h5>Best CBSE School — North India</h5>
+        <p style="font-size:.78rem;">Education World · 2023</p>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">🎖️</div>
+        <h5>Green School Initiative Award</h5>
+        <p style="font-size:.78rem;">Ministry of Environment · 2021</p>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">🥇</div>
+        <h5>Top 50 Innovative Schools</h5>
+        <p style="font-size:.78rem;">India School Rankings · 2024</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label">Join Us</div>
+    <h2>Become Part of the Vidyalaya Family</h2>
+    <p>Give your child the best start in life. Admissions for 2026–27 are now open.</p>
+    <a href="admissions.html" class="btn-cta"><i class="fas fa-paper-plane"></i> Apply for Admission</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo"><div class="logo-icon">🎓</div><div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div></div>
+        <p>A comprehensive school management platform empowering students, parents, and teachers with smart digital tools.</p>
+        <div class="footer-socials">
+          <div class="social-btn"><i class="fab fa-facebook-f"></i></div>
+          <div class="social-btn"><i class="fab fa-twitter"></i></div>
+          <div class="social-btn"><i class="fab fa-instagram"></i></div>
+          <div class="social-btn"><i class="fab fa-youtube"></i></div>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Quick Links</h5><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="admissions.html">Admissions</a><a href="contact.html">Contact</a></div></div>
+      <div class="footer-col"><h5>Portals</h5><div class="footer-links"><a href="login.html">Student Login</a><a href="login.html">Parent Login</a><a href="login.html">Teacher Login</a><a href="login.html">Admin Login</a><a href="help.html">Help &amp; Support</a></div></div>
+      <div class="footer-col"><h5>Contact</h5>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>123 Education Lane, Knowledge Park, New Delhi - 110001</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 98765 43210</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@vidyalayaerp.edu</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Vidyalaya ERP. All rights reserved.</span><span>Privacy Policy · Terms of Use</span></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

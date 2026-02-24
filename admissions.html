@@ -53,26 +53,69 @@
 
     .adm-layout { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start; }
     @media(max-width:900px){ .adm-layout { grid-template-columns: 1fr; } .step-line { width: 20px; } }
+
+    /* ---- Validation styles ---- */
+    .form-control.error {
+      border-color: #ef4444 !important;
+      background: #fff5f5;
+      box-shadow: 0 0 0 3px rgba(239,68,68,.1);
+    }
+    .field-error {
+      display: none;
+      color: #ef4444;
+      font-size: .75rem;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .field-error.show { display: flex; align-items: center; gap: 4px; }
+    .form-control.valid {
+      border-color: #10b981 !important;
+    }
+    .step-circle.done {
+      background: #10b981 !important;
+      border-color: #10b981 !important;
+      color: #fff !important;
+    }
+    .file-upload-area.error {
+      border-color: #ef4444 !important;
+      background: #fff5f5 !important;
+    }
+    .shake {
+      animation: shake .4s ease;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px); }
+      40%      { transform: translateX(6px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
   </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar scrolled" style="position:relative;padding:1rem 0;">
+<nav class="navbar scrolled" id="navbar">
   <div class="container">
     <div class="navbar-inner">
       <a href="index.html" class="navbar-logo">
         <div class="logo-icon">🎓</div>
         <div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div>
       </a>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="faculty.html">Faculty</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
         <li><a href="admissions.html" class="active">Admissions</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="help.html">Help</a></li>
       </ul>
       <div class="nav-actions">
         <a href="login.html" class="btn btn-primary nav-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
@@ -126,43 +169,52 @@
           <div class="form-section-title"><i class="fas fa-user"></i> Student & Parent Information</div>
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-group label" style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Student First Name *</label>
-              <input class="form-control" type="text" placeholder="Enter first name" />
+              <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Student First Name *</label>
+              <input class="form-control" id="s1-fname" type="text" placeholder="Enter first name" />
+              <span class="field-error" id="err-fname"><i class="fas fa-exclamation-circle"></i> First name is required</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Student Last Name *</label>
-              <input class="form-control" type="text" placeholder="Enter last name" />
+              <input class="form-control" id="s1-lname" type="text" placeholder="Enter last name" />
+              <span class="field-error" id="err-lname"><i class="fas fa-exclamation-circle"></i> Last name is required</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Date of Birth *</label>
-              <input class="form-control" type="date" />
+              <input class="form-control" id="s1-dob" type="date" />
+              <span class="field-error" id="err-dob"><i class="fas fa-exclamation-circle"></i> Please select a valid date of birth</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Gender *</label>
-              <select class="form-control">
+              <select class="form-control" id="s1-gender">
                 <option value="">Select gender</option>
                 <option>Male</option><option>Female</option><option>Other</option>
               </select>
+              <span class="field-error" id="err-gender"><i class="fas fa-exclamation-circle"></i> Please select gender</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Father's Name *</label>
-              <input class="form-control" type="text" placeholder="Father's full name" />
+              <input class="form-control" id="s1-father" type="text" placeholder="Father's full name" />
+              <span class="field-error" id="err-father"><i class="fas fa-exclamation-circle"></i> Father's name is required</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Mother's Name *</label>
-              <input class="form-control" type="text" placeholder="Mother's full name" />
+              <input class="form-control" id="s1-mother" type="text" placeholder="Mother's full name" />
+              <span class="field-error" id="err-mother"><i class="fas fa-exclamation-circle"></i> Mother's name is required</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Parent Email *</label>
-              <input class="form-control" type="email" placeholder="parent@email.com" />
+              <input class="form-control" id="s1-email" type="email" placeholder="parent@email.com" />
+              <span class="field-error" id="err-email"><i class="fas fa-exclamation-circle"></i> Enter a valid email address</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Contact Number *</label>
-              <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" />
+              <input class="form-control" id="s1-phone" type="tel" placeholder="+91 XXXXX XXXXX" />
+              <span class="field-error" id="err-phone"><i class="fas fa-exclamation-circle"></i> Enter a valid 10-digit mobile number</span>
             </div>
             <div class="form-group" style="grid-column:1/-1;">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Residential Address *</label>
-              <textarea class="form-control" rows="2" placeholder="Full address with pincode..."></textarea>
+              <textarea class="form-control" id="s1-addr" rows="2" placeholder="Full address with pincode..."></textarea>
+              <span class="field-error" id="err-addr"><i class="fas fa-exclamation-circle"></i> Address is required</span>
             </div>
           </div>
           <div class="step-nav">
@@ -177,7 +229,7 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Class Applying For *</label>
-              <select class="form-control">
+              <select class="form-control" id="s2-class">
                 <option value="">Select class</option>
                 <option>Class 1</option><option>Class 2</option><option>Class 3</option>
                 <option>Class 4</option><option>Class 5</option><option>Class 6</option>
@@ -186,6 +238,7 @@
                 <option>Class 11 (Commerce)</option><option>Class 12 (Science)</option>
                 <option>Class 12 (Commerce)</option>
               </select>
+              <span class="field-error" id="err-class"><i class="fas fa-exclamation-circle"></i> Please select the class applying for</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Academic Year *</label>
@@ -234,39 +287,42 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Birth Certificate *</label>
-              <div class="file-upload-area" onclick="document.getElementById('f1').click()">
+              <div class="file-upload-area" id="fa-f1" onclick="document.getElementById('f1').click()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Click to upload or drag & drop</p>
-                <input type="file" id="f1" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f1lbl')" />
+                <input type="file" id="f1" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f1lbl','fa-f1')" />
                 <span id="f1lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
               </div>
+              <span class="field-error" id="err-f1"><i class="fas fa-exclamation-circle"></i> Birth Certificate is required</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Previous School Report Card</label>
               <div class="file-upload-area" onclick="document.getElementById('f2').click()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Click to upload or drag & drop</p>
-                <input type="file" id="f2" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f2lbl')" />
+                <input type="file" id="f2" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f2lbl',null)" />
                 <span id="f2lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
               </div>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Aadhar Card (Student) *</label>
-              <div class="file-upload-area" onclick="document.getElementById('f3').click()">
+              <div class="file-upload-area" id="fa-f3" onclick="document.getElementById('f3').click()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Click to upload or drag & drop</p>
-                <input type="file" id="f3" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f3lbl')" />
+                <input type="file" id="f3" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="showFile(this,'f3lbl','fa-f3')" />
                 <span id="f3lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
               </div>
+              <span class="field-error" id="err-f3"><i class="fas fa-exclamation-circle"></i> Aadhar Card is required</span>
             </div>
             <div class="form-group">
               <label style="display:block;font-size:.83rem;font-weight:700;color:#334155;margin-bottom:.4rem;">Passport Size Photograph *</label>
-              <div class="file-upload-area" onclick="document.getElementById('f4').click()">
+              <div class="file-upload-area" id="fa-f4" onclick="document.getElementById('f4').click()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Click to upload or drag & drop</p>
-                <input type="file" id="f4" hidden accept=".jpg,.jpeg,.png" onchange="showFile(this,'f4lbl')" />
+                <input type="file" id="f4" hidden accept=".jpg,.jpeg,.png" onchange="showFile(this,'f4lbl','fa-f4')" />
                 <span id="f4lbl" style="font-size:.78rem;color:#059669;font-weight:600;"></span>
               </div>
+              <span class="field-error" id="err-f4"><i class="fas fa-exclamation-circle"></i> Passport photograph is required</span>
             </div>
           </div>
           <div class="form-group" style="margin-top:1rem;">
@@ -347,7 +403,115 @@
 
 <script>
   let currentStep = 1;
+
+  /* ---- Helpers ---- */
+  function setError(inputId, errId, msg, isFileArea) {
+    const el  = document.getElementById(inputId);
+    const err = document.getElementById(errId);
+    if (el)  el.classList.add('error');
+    if (err) { if (msg) err.querySelector('i').nextSibling.textContent = ' ' + msg; err.classList.add('show'); }
+    if (isFileArea) { const fa = document.getElementById(inputId); if (fa) fa.classList.add('error'); }
+  }
+  function clearError(inputId, errId) {
+    const el  = document.getElementById(inputId);
+    const err = document.getElementById(errId);
+    if (el)  { el.classList.remove('error'); el.classList.add('valid'); }
+    if (err) err.classList.remove('show');
+  }
+  function clearFileError(areaId, errId) {
+    const area = document.getElementById(areaId);
+    const err  = document.getElementById(errId);
+    if (area) area.classList.remove('error');
+    if (err)  err.classList.remove('show');
+  }
+
+  /* ---- Step 1 Validation ---- */
+  function validateStep1() {
+    let ok = true;
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRe = /^[6-9]\d{9}$/;
+
+    const fname = document.getElementById('s1-fname').value.trim();
+    if (!fname || fname.length < 2) { setError('s1-fname','err-fname','First name must be at least 2 characters'); ok=false; }
+    else clearError('s1-fname','err-fname');
+
+    const lname = document.getElementById('s1-lname').value.trim();
+    if (!lname || lname.length < 2) { setError('s1-lname','err-lname','Last name must be at least 2 characters'); ok=false; }
+    else clearError('s1-lname','err-lname');
+
+    const dob = document.getElementById('s1-dob').value;
+    const today = new Date(); const dobDate = new Date(dob);
+    if (!dob || dobDate >= today) { setError('s1-dob','err-dob','Please enter a valid past date of birth'); ok=false; }
+    else clearError('s1-dob','err-dob');
+
+    const gender = document.getElementById('s1-gender').value;
+    if (!gender) { setError('s1-gender','err-gender','Please select gender'); ok=false; }
+    else clearError('s1-gender','err-gender');
+
+    const father = document.getElementById('s1-father').value.trim();
+    if (!father) { setError('s1-father','err-father','Father\'s name is required'); ok=false; }
+    else clearError('s1-father','err-father');
+
+    const mother = document.getElementById('s1-mother').value.trim();
+    if (!mother) { setError('s1-mother','err-mother','Mother\'s name is required'); ok=false; }
+    else clearError('s1-mother','err-mother');
+
+    const email = document.getElementById('s1-email').value.trim();
+    if (!email || !emailRe.test(email)) { setError('s1-email','err-email','Enter a valid email address'); ok=false; }
+    else clearError('s1-email','err-email');
+
+    const phone = document.getElementById('s1-phone').value.replace(/\s|-|\+91/g,'');
+    if (!phone || !phoneRe.test(phone)) { setError('s1-phone','err-phone','Enter a valid 10-digit Indian mobile number'); ok=false; }
+    else clearError('s1-phone','err-phone');
+
+    const addr = document.getElementById('s1-addr').value.trim();
+    if (!addr || addr.length < 10) { setError('s1-addr','err-addr','Please enter a complete address'); ok=false; }
+    else clearError('s1-addr','err-addr');
+
+    return ok;
+  }
+
+  /* ---- Step 2 Validation ---- */
+  function validateStep2() {
+    let ok = true;
+    const cls = document.getElementById('s2-class').value;
+    if (!cls) { setError('s2-class','err-class','Please select the class you are applying for'); ok=false; }
+    else clearError('s2-class','err-class');
+    return ok;
+  }
+
+  /* ---- Step 3 Validation ---- */
+  function validateStep3() {
+    let ok = true;
+    if (!document.getElementById('f1').files.length) {
+      document.getElementById('fa-f1').classList.add('error');
+      document.getElementById('err-f1').classList.add('show'); ok=false;
+    } else clearFileError('fa-f1','err-f1');
+
+    if (!document.getElementById('f3').files.length) {
+      document.getElementById('fa-f3').classList.add('error');
+      document.getElementById('err-f3').classList.add('show'); ok=false;
+    } else clearFileError('fa-f3','err-f3');
+
+    if (!document.getElementById('f4').files.length) {
+      document.getElementById('fa-f4').classList.add('error');
+      document.getElementById('err-f4').classList.add('show'); ok=false;
+    } else clearFileError('fa-f4','err-f4');
+
+    return ok;
+  }
+
+  /* ---- Step navigation ---- */
   function goStep(n) {
+    // Validate current step before advancing
+    if (n > currentStep) {
+      if (currentStep === 1 && !validateStep1()) { shakeForm(); return; }
+      if (currentStep === 2 && !validateStep2()) { shakeForm(); return; }
+      if (currentStep === 3 && !validateStep3()) { shakeForm(); return; }
+      // Mark completed step circle
+      document.getElementById('sc'+currentStep).classList.add('done');
+      document.getElementById('sc'+currentStep).innerHTML = '<i class="fas fa-check" style="font-size:.75rem"></i>';
+    }
     document.getElementById('step'+currentStep).classList.remove('active');
     document.getElementById('sc'+currentStep).classList.remove('active');
     currentStep = n;
@@ -355,11 +519,80 @@
     document.getElementById('sc'+n)?.classList.add('active');
     window.scrollTo({top:0,behavior:'smooth'});
   }
-  function showFile(inp, lblId) {
+
+  function shakeForm() {
+    const form = document.querySelector('#step'+currentStep);
+    form.classList.add('shake');
+    setTimeout(() => form.classList.remove('shake'), 500);
+    // Scroll to first error
+    const firstErr = form.querySelector('.form-control.error, .file-upload-area.error');
+    if (firstErr) firstErr.scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+
+  /* ---- File upload display ---- */
+  function showFile(inp, lblId, areaId) {
     if (inp.files && inp.files[0]) {
-      document.getElementById(lblId).textContent = '✓ ' + inp.files[0].name;
+      const file = inp.files[0];
+      const maxMB = 5;
+      if (file.size > maxMB * 1024 * 1024) {
+        alert('File "' + file.name + '" exceeds ' + maxMB + 'MB. Please choose a smaller file.');
+        inp.value = '';
+        return;
+      }
+      document.getElementById(lblId).textContent = '✓ ' + file.name;
+      if (areaId) {
+        document.getElementById(areaId).classList.remove('error');
+        document.getElementById('err-'+areaId.replace('fa-','')).classList.remove('show');
+      }
     }
   }
+
+  /* ---- Live validation on blur ---- */
+  document.addEventListener('DOMContentLoaded', () => {
+    const liveFields = ['s1-fname','s1-lname','s1-dob','s1-gender','s1-father','s1-mother','s1-email','s1-phone','s1-addr','s2-class'];
+    liveFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur', () => {
+        if (currentStep === 1) validateStep1();
+        if (currentStep === 2) validateStep2();
+      });
+      el.addEventListener('input', () => {
+        el.classList.remove('error');
+        const errId = 'err-' + id.replace('s1-','').replace('s2-','');
+        const err = document.getElementById(errId);
+        if (err) err.classList.remove('show');
+      });
+    });
+  });
 </script>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo"><div class="logo-icon">🎓</div><div class="logo-text">Vidyalaya ERP<span>Excellence in Education</span></div></div>
+        <p>A comprehensive school management platform empowering students, parents, and teachers with smart digital tools.</p>
+        <div class="footer-socials">
+          <div class="social-btn"><i class="fab fa-facebook-f"></i></div>
+          <div class="social-btn"><i class="fab fa-twitter"></i></div>
+          <div class="social-btn"><i class="fab fa-instagram"></i></div>
+          <div class="social-btn"><i class="fab fa-youtube"></i></div>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Quick Links</h5><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="admissions.html">Admissions</a><a href="contact.html">Contact</a></div></div>
+      <div class="footer-col"><h5>Portals</h5><div class="footer-links"><a href="login.html">Student Login</a><a href="login.html">Parent Login</a><a href="login.html">Teacher Login</a><a href="login.html">Admin Login</a><a href="help.html">Help &amp; Support</a></div></div>
+      <div class="footer-col"><h5>Contact</h5>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Plot 14, Sector 18, Noida, UP — 201301</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>+91 11 2345 6789</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@vidyalayaerp.edu.in</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Vidyalaya ERP. All rights reserved.</span><span>Privacy Policy · Terms of Use</span></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>
